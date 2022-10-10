@@ -12,7 +12,7 @@ public class Conexion{
 	public boolean guardar(Usuario usuario){
 		boolean exito;
 		if(BuscarUsuario(usuario.getEmail())==false) {
-			File file=new File("C:\\Users\\danii\\Documents\\GitHub\\practica-g2-e6\\bin\\baseDatos\\temp\\Usuarios.txt");
+			File file=new File("bin\\baseDatos\\temp\\Usuarios.txt");
 			if(!file.exists()){
 				try{
 					file.createNewFile();
@@ -45,7 +45,7 @@ public class Conexion{
 	
 	public boolean leerUsuario(){
 		try {
-			BufferedReader bf = new BufferedReader(new FileReader("C:\\Users\\danii\\Documents\\GitHub\\practica-g2-e6\\bin\\baseDatos\\temp\\Usuarios.txt"));
+			BufferedReader bf = new BufferedReader(new FileReader("bin\\baseDatos\\temp\\Usuarios.txt"));
 			String bfRead;
 			while((bfRead = bf.readLine()) != null) {
 				String[] parts = bfRead.split("\\|");
