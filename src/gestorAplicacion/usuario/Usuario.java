@@ -1,18 +1,22 @@
 package gestorAplicacion.usuario;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Usuario {
+public class Usuario{
+	
 	private String Nombre;
 	private String Email;
-	private Date fechaNacimiento;
-	private Date fechaIngreso;
+	private String fechaNacimiento;
+	private String fechaIngreso;
 	private String Clave;
-	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	
-	public Usuario(String Nombre, String Email, Date fechaNacimiento, Date fechaIngreso, String Clave) {
-		
+	public Usuario(String Nombre, String Email, String fechaNacimiento, String fechaIngreso, String Clave){
+		this.setNombre(Nombre);
+		this.setEmail(Email);
+		this.setFechaNacimiento(fechaNacimiento);
+		this.setFechaIngreso(fechaIngreso);
+		this.setClave(Clave);
 	}
 	
 	public String getNombre() {
@@ -27,16 +31,16 @@ public class Usuario {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public Date getFechaIngreso() {
+	public String getFechaIngreso() {
 		return fechaIngreso;
 	}
-	public void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(String fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 	public String getClave() {
@@ -45,8 +49,10 @@ public class Usuario {
 	public void setClave(String clave) {
 		Clave = clave;
 	}
-	public static ArrayList<Usuario> getUsuarios() {
-		return usuarios;
+	
+	public String toString() {
+		return this.getNombre()+" "+this.getClave();
+		
 	}
 	
 }

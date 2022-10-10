@@ -3,27 +3,37 @@ package baseDatos;
 import java.io.*;
 import gestorAplicacion.usuario.Usuario;
 
-public class Conexion {
+public class Conexion{
 	
-	public boolean guardar(Usuario usuario) {
+	public Conexion() {
+		leerUsuario();
+	}
+	
+	public boolean guardar(Usuario usuario){
 		boolean exito;
 		if(BuscarUsuario(usuario.getEmail())==false) {
-			File file=new File("\\temp\\Usuarios.txt");
+			File file=new File("C:\\Users\\danii\\Documents\\GitHub\\practica-g2-e6\\bin\\baseDatos\\temp\\Usuarios.txt");
 			if(!file.exists()){
 				try{
 					file.createNewFile();
-					ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(file));
-					obj.writeObject(usuario);
+					FileWriter writer = new FileWriter(file);
+					writer.write(usuario.getNombre()+"|"+usuario.getEmail()+"|"+usuario.getFechaNacimiento()+"|"+usuario.getFechaIngreso()+"|"+usuario.getClave()+"\n");
+					writer.close();
+					Usuario.usuarios.add(usuario);
 					exito=true;
             	 	}catch(IOException a){
+            	 		System.out.print(a);
             	 		exito=false;
             	 	}
              	}else{
              		try{
-             			ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(file));
-             			obj.writeObject(usuario);
+             			FileWriter writer = new FileWriter(file,true);
+    					writer.write(usuario.getNombre()+"|"+usuario.getEmail()+"|"+usuario.getFechaNacimiento()+"|"+usuario.getFechaIngreso()+"|"+usuario.getClave()+"\n");
+    					writer.close();
+    					Usuario.usuarios.add(usuario);
              			exito=true;
                 	 	}catch(IOException a){
+                	 		System.out.print(a);
                 	 		exito=false;
                 	 	}             
              		}
@@ -32,13 +42,28 @@ public class Conexion {
 			}
 		return exito;
 	}
+	
+	public boolean leerUsuario(){
+		try {
+			BufferedReader bf = new BufferedReader(new FileReader("C:\\Users\\danii\\Documents\\GitHub\\practica-g2-e6\\bin\\baseDatos\\temp\\Usuarios.txt"));
+			String bfRead;
+			while((bfRead = bf.readLine()) != null) {
+				String[] parts = bfRead.split("\\|");
+				Usuario.usuarios.add(new Usuario(parts[0], parts[1], parts[2], parts[3], parts[4]));
+			}
+			bf.close();
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
+	}
 		
 	
-	public boolean BuscarUsuario(String email){
-		for(Usuario i:Usuario.getUsuarios() ){
-             if(i.getEmail().equals(email)){
-                 return true;
-             }
+	private boolean BuscarUsuario(String email){
+		for(Usuario i:Usuario.usuarios){
+			if(i.getEmail().equals(email)){
+				return true;
+				}
          }
          return false;
      }
