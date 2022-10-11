@@ -4,19 +4,24 @@ import java.util.ArrayList;
 
 public class Usuario{
 	
+	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	
 	private String Nombre;
 	private String Email;
 	private String fechaNacimiento;
 	private String fechaIngreso;
 	private String Clave;
-	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private ArrayList<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+	private double Total;
+	public static int numeroUsuarios;
 	
 	public Usuario(String Nombre, String Email, String fechaNacimiento, String fechaIngreso, String Clave){
-		this.setNombre(Nombre);
-		this.setEmail(Email);
-		this.setFechaNacimiento(fechaNacimiento);
-		this.setFechaIngreso(fechaIngreso);
-		this.setClave(Clave);
+		setNombre(Nombre);
+		setEmail(Email);
+		setFechaNacimiento(fechaNacimiento);
+		setFechaIngreso(fechaIngreso);
+		setClave(Clave);
+		numeroUsuarios++;
 	}
 	
 	public String getNombre() {
@@ -52,6 +57,29 @@ public class Usuario{
 	
 	public String toString() {
 		return this.getNombre()+" "+this.getClave();
+		
+	}
+
+	public ArrayList<Bolsillo> getBolsillos() {
+		return bolsillos;
+	}
+
+	public double getTotal() {
+		return Total;
+	}
+
+	public void setTotal(double total) {
+		Total = total;
+	}
+
+	public boolean agregarBolsillo(String Nombre, double Total) {
+		if(Total<getTotal()) {
+			bolsillos.add(new Bolsillo(Nombre,Total,this));
+			setTotal(getTotal()-Total);
+			return true;
+		}else {
+			return false;
+		}
 		
 	}
 	
