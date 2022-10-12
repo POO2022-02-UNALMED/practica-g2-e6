@@ -6,35 +6,35 @@ public class Usuario{
 	
 	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	
-	private String Nombre;
-	private String Email;
+	private String nombre;
+	private String email;
 	private String fechaNacimiento;
 	private String fechaIngreso;
-	private String Clave;
+	private String clave;
 	private ArrayList<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
-	private double Total;
+	private double total;
 	public static int numeroUsuarios;
 	
-	public Usuario(String Nombre, String Email, String fechaNacimiento, String fechaIngreso, String Clave){
-		setNombre(Nombre);
-		setEmail(Email);
+	public Usuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave){
+		setNombre(nombre);
+		setEmail(email);
 		setFechaNacimiento(fechaNacimiento);
 		setFechaIngreso(fechaIngreso);
-		setClave(Clave);
+		setClave(clave);
 		numeroUsuarios++;
 	}
 	
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
@@ -49,10 +49,10 @@ public class Usuario{
 		this.fechaIngreso = fechaIngreso;
 	}
 	public String getClave() {
-		return Clave;
+		return clave;
 	}
 	public void setClave(String clave) {
-		Clave = clave;
+		this.clave = clave;
 	}
 	
 	public String toString() {
@@ -65,26 +65,25 @@ public class Usuario{
 	}
 
 	public double getTotal() {
-		return Total;
+		return total;
 	}
 
 	public void setTotal(double total) {
-		Total = total;
+		this.total = total;
 	}
 	
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public boolean agregarBolsillo(String Nombre, double Total) {
-		if(Total<getTotal()) {
-			bolsillos.add(new Bolsillo(Nombre,Total,this));
-			setTotal(getTotal()-Total);
+	public boolean agregarBolsillo(String nombre, double total) {
+		if(total<getTotal()) {
+			bolsillos.add(new Bolsillo(nombre,total,this));
+			setTotal(getTotal()-total);
 			return true;
 		}else {
 			return false;
 		}
 		
 	}
-	
 }
