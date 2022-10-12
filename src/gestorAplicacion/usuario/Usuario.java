@@ -1,10 +1,11 @@
 package gestorAplicacion.usuario;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario{
 	
-	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	private String nombre;
 	private String email;
@@ -72,8 +73,12 @@ public class Usuario{
 		this.total = total;
 	}
 	
-	public ArrayList<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
+	}
+	
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public boolean agregarBolsillo(String nombre, double total) {
