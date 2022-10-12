@@ -71,6 +71,10 @@ public class Usuario{
 	public void setTotal(double total) {
 		Total = total;
 	}
+	
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
 
 	public boolean agregarBolsillo(String Nombre, double Total) {
 		if(Total<getTotal()) {
