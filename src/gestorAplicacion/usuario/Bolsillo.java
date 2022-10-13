@@ -1,9 +1,14 @@
 package gestorAplicacion.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bolsillo {
+public class Bolsillo implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2479140568742305806L;
 	private String Nombre;
 	private double Total;
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();

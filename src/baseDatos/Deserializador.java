@@ -7,14 +7,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
-import gestorAplicacion.administrador.Departamento;
-import gestorAplicacion.usuario.Bolsillo;
-import gestorAplicacion.usuario.Usuario;
+import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.usuario.*;
 
 public class Deserializador {
-	private static File rutaTemp = new File("src\\baseDatos\\temp".replaceAll("\\",System.getProperty("file.separator"));
 	
-	public static void deserializar(Departamento depto) {
+	static {
+		System.out.println(System.getProperty("file.separator"));
+	}
+	private static File rutaTemp = new File("src\\baseDatos\\temp");
+	
+	public static void deserializar(DataBank databank) {
+		System.out.println(rutaTemp.getAbsolutePath());
 		File[] docs = rutaTemp.listFiles();
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -25,7 +29,7 @@ public class Deserializador {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					depto.setUsuarios((List<Usuario>) ois.readObject());
+					databank.setUsuarios((List<Usuario>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
 				} catch(IOException e) {
@@ -40,7 +44,7 @@ public class Deserializador {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					depto.setBolsillos((List<Bolsillo>) ois.readObject());
+					databank.setBolsillos((List<Bolsillo>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
 				} catch(IOException e) {

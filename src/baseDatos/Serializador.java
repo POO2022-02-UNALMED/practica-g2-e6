@@ -1,18 +1,15 @@
 package baseDatos;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import gestorAplicacion.usuario.Usuario;
+import gestorAplicacion.administrador.DataBank;
 
 public class Serializador {
-	private static String rutaTemp = new File(
-			"src\\baseDatos\\temp".replaceAll("\\", System.getProperty("file.separator"))).getAbsolutePath();
+	private static String rutaTemp = new File("src\\baseDatos\\temp").getAbsolutePath();
 	private static final ArrayList<String> data = new ArrayList<String>();
 	static {
 		new File(rutaTemp).getParentFile().mkdirs();
@@ -22,20 +19,20 @@ public class Serializador {
 		Serializador.data.add(data);
 	}
 
-	public static void serializar(Object administator) {
+	public static void serializar(DataBank databank) {
 		FileOutputStream fos;
 		ObjectOutputStream oss;
 		PrintWriter pw;
 
 		for (String name : data) {
-			File file = new File((rutaTemp + "\\" + name + ".txt").replaceAll("\\", System.getProperty("file.separator")));
+			File file = new File((rutaTemp + "\\" + name + ".txt"));
 			try {
 				if (!file.exists()) {
 					pw = new PrintWriter(file);
 				}
 				fos = new FileOutputStream(file);
 				oss = new ObjectOutputStream(fos);
-				oss.writeObject(administator.getClass().getMethod("get" + name).invoke(administator));
+				oss.writeObject(databank.getClass().getMethod("get" + name).invoke(databank));
 				fos.close();
 				oss.close();				
 			} catch (Exception e) {
