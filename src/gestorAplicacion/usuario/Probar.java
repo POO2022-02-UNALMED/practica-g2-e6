@@ -1,7 +1,5 @@
 package gestorAplicacion.usuario;
 
-import baseDatos.Conexion;
-
 public class Probar {
 
 	/*

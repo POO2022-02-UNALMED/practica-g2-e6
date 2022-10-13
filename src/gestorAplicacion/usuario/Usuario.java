@@ -1,12 +1,18 @@
 package gestorAplicacion.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario{
+import baseDatos.Serializador;
+
+public class Usuario implements Serializable{
 	
-	private static List<Usuario> usuarios = new ArrayList<Usuario>();
-	
+	private static final long serialVersionUID = -64431385135968757L;
+
+	static {
+		Serializador.addClassToData("Usuarios");
+	}
 	private String nombre;
 	private String email;
 	private String fechaNacimiento;
@@ -71,14 +77,6 @@ public class Usuario{
 
 	public void setTotal(double total) {
 		this.total = total;
-	}
-	
-	public static List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	
-	public static void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public boolean agregarBolsillo(String nombre, double total) {
