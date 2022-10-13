@@ -1,4 +1,4 @@
-package gestorAplicacion.movimiento;
+package gestorAplicacion.economia;
 
 import java.io.Serializable;
 
