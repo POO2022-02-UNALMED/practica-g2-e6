@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import gestorAplicacion.administrador.Departamento;
+import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Usuario;
 
 public class Deserializador {
 	private static File rutaTemp = new File("src\\baseDatos\\temp");
 	
-	public static void deserializar(Usuario usu) {
+	public static void deserializar(Departamento depto) {
 		File[] docs = rutaTemp.listFiles();
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -23,7 +25,7 @@ public class Deserializador {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					usu.setUsuarios((List<Usuario>) ois.readObject());
+					depto.setUsuarios((List<Usuario>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
 				} catch(IOException e) {
@@ -38,7 +40,7 @@ public class Deserializador {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					usu.setUsuarios((List<Usuario>) ois.readObject());
+					depto.setBolsillos((List<Bolsillo>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
 				} catch(IOException e) {
