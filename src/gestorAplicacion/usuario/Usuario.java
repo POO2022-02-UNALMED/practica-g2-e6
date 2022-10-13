@@ -10,9 +10,6 @@ public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = -64431385135968757L;
 
-	static {
-		Serializador.addClassToData("Usuarios");
-	}
 	private String nombre;
 	private String email;
 	private String fechaNacimiento;

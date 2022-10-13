@@ -25,13 +25,13 @@ public class Probar {
 		// "123manu2@unal.edu.co", "enero", "hoy", "vinilostopia")));
 		
 		DataBank databank = new DataBank();
-		databank.nuevoUsuario("Juan", "juan@unal.edu.co", "hace dias", "hoy", "clave");
-		databank.nuevoUsuario("Andres", "andres@unal.edu.co", "hace ddias", "hoy y ", "clave2");
+		//databank.nuevoUsuario("Juan", "juan@unal.edu.co", "hace dias", "hoy", "clave");
+		//databank.nuevoUsuario("Milton", "andres@unal.edu.co", "hace ddias", "hoy y ", "clave2");
 		
+		Serializador.serializar(databank);
 		for(Usuario usu : databank.getUsuarios()) {
 			System.out.println(usu.getNombre());
 		}
-		Serializador.serializar(databank);
 	}
 
 }

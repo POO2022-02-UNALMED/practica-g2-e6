@@ -12,23 +12,18 @@ import gestorAplicacion.usuario.*;
 
 public class Deserializador {
 	
-	static {
-		System.out.println(System.getProperty("file.separator"));
-	}
 	private static File rutaTemp = new File("src\\baseDatos\\temp");
 	
 	public static void deserializar(DataBank databank) {
-		System.out.println(rutaTemp.getAbsolutePath());
 		File[] docs = rutaTemp.listFiles();
 		FileInputStream fis;
 		ObjectInputStream ois;
 		
 		for(File file : docs) {
-			if(file.getAbsolutePath().contains("usuarios")) {
+			if(file.getAbsolutePath().contains("usuarios.txt")) {
 				try{
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
-					
 					databank.setUsuarios((List<Usuario>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
@@ -39,7 +34,7 @@ public class Deserializador {
 				}
 			
 			
-			}else if(file.getAbsolutePath().contains("bolsillos")) {
+			}else if(file.getAbsolutePath().contains("bolsillos.txt")) {
 				try {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);

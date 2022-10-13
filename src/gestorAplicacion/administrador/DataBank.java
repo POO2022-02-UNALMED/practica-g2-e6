@@ -16,8 +16,8 @@ public class DataBank implements Serializable{
 	 */
 	private static final long serialVersionUID = 2979265545810011076L;
 	
-	private static List<Usuario> usuarios = new ArrayList<Usuario>();
-	private static List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 	
 	public DataBank() {
 		Deserializador.deserializar(this);
@@ -28,7 +28,7 @@ public class DataBank implements Serializable{
 	}
 	
 	public void setUsuarios(List<Usuario> usuarios) {
-		DataBank.usuarios=usuarios;
+		this.usuarios=usuarios;
 	}
 	
 	public List<Bolsillo> getBolsillos(){
@@ -36,7 +36,7 @@ public class DataBank implements Serializable{
 	}
 	
 	public void setBolsillos(List<Bolsillo> bolsillos) {
-		DataBank.bolsillos=bolsillos;
+		this.bolsillos=bolsillos;
 	}
 	
 	public Usuario nuevoUsuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave) {
