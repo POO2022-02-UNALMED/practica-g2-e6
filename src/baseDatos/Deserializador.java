@@ -12,8 +12,10 @@ import gestorAplicacion.usuario.*;
 
 public class Deserializador {
 	
-	private static File rutaTemp = new File("src\\baseDatos\\temp");
-	
+	private static File rutaTemp = new File("src/baseDatos/temp".replaceAll("/", System.getProperty("file.separator")));
+	static {
+		Deserializador.rutaTemp.mkdirs();
+	}
 	public static void deserializar(DataBank databank) {
 		File[] docs = rutaTemp.listFiles();
 		FileInputStream fis;

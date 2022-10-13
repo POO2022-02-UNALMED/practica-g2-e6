@@ -12,7 +12,9 @@ import gestorAplicacion.administrador.DataBank;
 public class Serializador {
 	
 	private static File rutaTemp = new File("src\\baseDatos\\temp");
-
+	static {
+		Serializador.rutaTemp.mkdirs();
+	}
 	public static void serializar(DataBank databank) {
 		crearArchivos();
 		FileOutputStream fos;
