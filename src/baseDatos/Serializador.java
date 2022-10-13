@@ -10,21 +10,19 @@ import java.io.PrintWriter;
 import gestorAplicacion.usuario.Usuario;
 
 public class Serializador {
-	private static File rutaTemp = new File("src\\baseDatos\\temp");
+	private static File rutaTemp = new File("src\\baseDatos\\temp".replaceAll("\\",System.getProperty("file.separator"));
 	
 	
-	public static void serializar(Usuario usu) {
+	public static void serializar() {
 		FileOutputStream fos;
 		ObjectOutputStream oss;
 		File[] docs = rutaTemp.listFiles();
 		PrintWriter pw;
 		
 		for (File file : docs) {
-			try {
+			if(!file.exists()) {
 				pw = new PrintWriter(file);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				}
+			}
 		}
 		
 		for (File file : docs) {
@@ -33,7 +31,7 @@ public class Serializador {
 				try {
 					fos = new FileOutputStream(file);
 					oss = new ObjectOutputStream(fos);
-					oss.writeObject(usu.getUsuarios());
+					oss.writeObject(Usuario.getUsuarios());
 				}catch(FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Usuario{
 	
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private static List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	private String nombre;
 	private String email;
@@ -73,11 +73,11 @@ public class Usuario{
 		this.total = total;
 	}
 	
-	public List<Usuario> getUsuarios() {
+	public static List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 	
-	public void setUsuarios(List<Usuario> usuarios) {
+	public static void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

@@ -10,7 +10,7 @@ import java.util.List;
 import gestorAplicacion.usuario.Usuario;
 
 public class Deserializador {
-	private static File rutaTemp = new File("src\\baseDatos\\temp");
+	private static File rutaTemp = new File("src\\baseDatos\\temp".replaceAll("\\",System.getProperty("file.separator"));
 	
 	public static void deserializar(Usuario usu) {
 		File[] docs = rutaTemp.listFiles();
