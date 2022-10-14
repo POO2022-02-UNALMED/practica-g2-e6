@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Meta implements Serializable{
-
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 659116063038663746L;
 	
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-	private int Plazo;
-	private boolean Automatico;
-	private String Nombre;
-	private boolean Cumplida;
+	private int plazo;
+	private boolean automatico;
+	private String nombre;
+	private boolean cumplida;
 	private String fechaCumplimiento;
 	private String fechaInicio;
 	
@@ -27,35 +27,35 @@ public class Meta implements Serializable{
 	}
 	
 	public int getPlazo() {
-		return Plazo;
+		return plazo;
 	}
 	
 	public void setPlazo(int plazo) {
-		Plazo = plazo;
+		this.plazo = plazo;
 	}
 	
 	public boolean isAutomatico() {
-		return Automatico;
+		return automatico;
 	}
 	
 	public void setAutomatico(boolean automatico) {
-		Automatico = automatico;
+		this.automatico = automatico;
 	}
 	
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 	
 	public boolean isCumplida() {
-		return Cumplida;
+		return cumplida;
 	}
 	
 	public void setCumplida(boolean cumplida) {
-		Cumplida = cumplida;
+		this.cumplida = cumplida;
 	}
 	
 	public String getFechaCumplimiento() {
