@@ -123,8 +123,7 @@ public class Usuario implements Serializable{
 		}
 		
 	}
-
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
        
         double totalCuenta;
