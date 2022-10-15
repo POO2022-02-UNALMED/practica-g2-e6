@@ -6,12 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 
 import gestorAplicacion.administrador.DataBank;
 
 public class Serializador {
 	
-	private static File rutaTemp = new File("src\\baseDatos\\temp");
+	private static File rutaTemp = Paths.get("src\\baseDatos\\temp").toFile();
 	static {
 		Serializador.rutaTemp.mkdirs();
 	}

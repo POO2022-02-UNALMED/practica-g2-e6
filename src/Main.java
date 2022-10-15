@@ -5,6 +5,9 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner entrada=new Scanner(System.in);
 		int opcion;
+		
+		
+		
 		do {
 			System.out.println("---- SISTEMA GESTOR DE DINERO ----");
 			System.out.println("¿Que operación desea realizar?");
