@@ -2,46 +2,7 @@ package gestorAplicacion.usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-import baseDatos.Serializador;
-
-public class Cuenta implements Serializable{
-    
-    private int numeroCuenta;
-    private double saldo;
-    private String nombre;
-    
-    public String getNombre(){
-        return nombre;
-    }
-    
-    public Cuenta(int cuenta, double inicial) {
-        numeroCuenta = cuenta;
-        saldo = inicial;
-    } 
-
-    public void depositar(double cantidad) {
-        saldo = saldo + cantidad;
-    }
-
-    public void retirar(double cantidad) {
-        saldo = saldo - cantidad;
-    }
-
-    public double saldo() {
-        return saldo;
-    }  
-    
-}
-
-package gestorAplicacion.usuario;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import baseDatos.Serializador;
 
 public class Usuario implements Serializable{
 	
@@ -123,24 +84,6 @@ public class Usuario implements Serializable{
 		}
 		
 	}
-	public static void main(String[] args) {
-
-       
-        double totalCuenta;
-
-        Cuenta Cuenta1;
-        Cuenta1 = new Cuenta(1, 300000);
-
-        totalCuenta = Cuenta1.saldo();
-        System.out.println("Saldo actual: " + totalCuenta + " pesos");
-
-        double ingreso = 65700;
-        System.out.println("Se ingresó a la cuenta: " + ingreso + " pesos");
-        Cuenta1.depositar(ingreso);
-        
-        totalCuenta = Cuenta1.saldo();
-        System.out.println("Saldo total: " + totalCuenta + " pesos");        
-        
-	}
-    
+ 
+	
 }

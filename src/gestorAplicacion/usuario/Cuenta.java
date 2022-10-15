@@ -8,7 +8,13 @@ import baseDatos.Serializador;
 
 public class Cuenta implements Serializable{
     
-    private int numeroCuenta;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5757213716524384183L;
+	
+	
+	private int numeroCuenta;
     private double saldo;
     private String nombre;
     
@@ -17,7 +23,7 @@ public class Cuenta implements Serializable{
     }
     
     public Cuenta(int cuenta, double inicial) {
-        numeroCuenta = cuenta;
+        setNumeroCuenta(cuenta);
         saldo = inicial;
     } 
 
@@ -31,6 +37,14 @@ public class Cuenta implements Serializable{
 
     public double saldo() {
         return saldo;
-    }  
+    }
+
+	public int getNumeroCuenta() {
+		return numeroCuenta;
+	}
+
+	public void setNumeroCuenta(int numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}  
     
 }
