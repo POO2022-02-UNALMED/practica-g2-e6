@@ -22,8 +22,10 @@ public class Main {
 			//o se desea agregar dinero, si escoje agregar dinero, se ejecuta la funcion 1 y se pregunta de donde quiere agregar el dinero
 			//y se descuenta de ese bolsillo o divisa y se agrega a el nuevo bolsillo(si el dinero es inferior a la cantidad que tiene)
 			//se crea el bolsillo y se debe actualizar el dinero total del usuario
+			//bolsillo compartido: donde dos o más usuarios tengan acceso a éste y se compartan tanto adición de dinero como retiro
 			System.out.println("4. Modificar bolsillo");
 			System.out.println("5. Solicitar credito");
+			//Se tomarán en cuenta varios parametros (cantidad de ingresos, edad, contrato de empleo fijo y experiencia crediticia.
 			System.out.println("6. Terminar ");
 			System.out.println("Por favor escoja una opción: ");
 			opcion = entrada.nextInt();
