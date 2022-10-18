@@ -64,11 +64,11 @@ public class DataBank implements Serializable{
 		List<Divisa> divisas = new ArrayList<Divisa>();
 		
 		for(int i = 0; i < this.divisas.size(); i++) {
-			if(bolsillos.get(i).getUsuario().equals(usu)) {
-				bolsillos.add(bolsillos.get(i));
+			if(divisas.get(i).getUsuario().equals(usu)) {
+				divisas.add(divisas.get(i));
 			}
 		}
-		return bolsillos;
+		return divisas;
 		
 	}
 	
@@ -79,6 +79,24 @@ public class DataBank implements Serializable{
 			}
 		}
 		return null;
+	}
+	
+	public double dineroTotalUsu(Usuario usu) {
+		
+		double total=0;
+		
+		for(int i = 0; i < this.bolsillos.size(); i++) {
+			if(bolsillos.get(i).getUsuario().equals(usu)) {
+				total+=bolsillos.get(i).getSaldo();
+			}
+		}
+		
+		for(int i = 0; i < this.divisas.size(); i++) {
+			if(divisas.get(i).getUsuario().equals(usu)) {
+				total+=divisas.get(i).getSaldo();
+			}
+		}
+		return total;
 	}
 	
 }

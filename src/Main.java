@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.usuario.Bolsillo;
+import gestorAplicacion.usuario.Divisa;
 import gestorAplicacion.usuario.Usuario;
 
 public class Main {
@@ -23,7 +24,7 @@ public class Main {
 			opcUsuario = entrada.nextInt();
 			
 		while(opcUsuario != 1 & opcUsuario !=2 & opcUsuario !=3) {
-			System.out.println("Por favor ingresa una opcion valida");
+			System.out.println("Por favor ingresa una opcion valida: ");
 			opcUsuario = entrada.nextInt();
 		}
 		
@@ -70,6 +71,11 @@ public class Main {
 		System.out.println("Por favor escoja una opción: ");
 		opcion = entrada.nextInt();
 		
+		while(opcion != 1 & opcion !=2 & opcion !=3) {
+			System.out.println("Por favor ingresa una opcion valida: ");
+			opcion = entrada.nextInt();
+		}
+		
 		switch(opcion) {
 			case 1:
 				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
@@ -78,16 +84,16 @@ public class Main {
 				}
 				break;
 			case 2:
-				List<Divisa> divisas = databank.getBolsillosUsuario(usu);
+				List<Divisa> divisas = databank.getDivisasUsuario(usu);
 				for(int i = 0; i < divisas.size(); i++) {
-					System.out.println(i+". "+bolsillos.get(i).getNombre()+"		Disponible: "+bolsillos.get(i).getSaldo());
+					System.out.println(i+". "+divisas.get(i).getNombre()+"		Disponible: "+divisas.get(i).getSaldo());
 		
+				}
+				break;
+			case 3:
+				double total = databank.dineroTotalUsu(usu);
+				break;
+		}
 	}
-		
-		
-		
-		
-	}
-
 }
 
