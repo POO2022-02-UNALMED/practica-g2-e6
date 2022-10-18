@@ -145,7 +145,8 @@ public class Main {
 	}
 	
 	static void eleccionBancoMonto(Bolsillo bolsillo) {
-		int opcion,monto;
+		int opcion,cantidad;
+		double monto;
 		Scanner entrada=new Scanner(System.in);
 		
 		System.out.println("Elija el banco por medio del cual quiere hacer el ingreso");
@@ -161,9 +162,10 @@ public class Main {
 		System.out.println("Elija la cantidad que desea ingresar");
 		System.out.println(montoDivisa(bolsillo.getDivisa()));
 		
-		monto = entrada.nextInt();
+		cantidad = entrada.nextInt();
+		monto =  montoIngreso(bolsillo.getDivisa(),cantidad);
 		
-		Ingreso ingreso = new Ingreso(bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
+		Ingreso ingreso = new Ingreso(monto,bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
 		usuario.nuevoIngreso(ingreso);
 	}
 	
@@ -177,6 +179,32 @@ public class Main {
 			divisas = "1. 10 Dolares\n2.100 Dolares\n3.200 Dolares\n4.500 Dolares\nPor favor escoja una opción:\n";
 		}
 		return divisas;
+	}
+	
+	static double montoIngreso(Divisa divisa, int cantidad) {
+		double monto = 0;
+		
+		switch(divisa.getNombre()) {
+		case "EURO":
+			if(cantidad == 1) {monto=10;}
+			else if(cantidad == 2) {monto=100;}
+			else if(cantidad == 3) {monto=200;}
+			else {monto=500;}
+			break;
+		case "PESO":
+			if(cantidad == 1) {monto=10000;}
+			else if(cantidad == 2) {monto=100000;}
+			else if(cantidad == 3) {monto=200000;}
+			else {monto=500000;}
+			break;
+		case "DOLAR":
+			if(cantidad == 1) {monto=10;}
+			else if(cantidad == 2) {monto=100;}
+			else if(cantidad == 3) {monto=200;}
+			else {monto=500;}
+			break;
+		}
+		return monto;
 	}
 }
 
