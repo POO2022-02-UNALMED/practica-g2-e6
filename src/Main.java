@@ -248,8 +248,7 @@ public class Main {
 			nombre = entrada.next();
 			
 			Bolsillo bolsillo = new Bolsillo(usuario,divisas.get(opcion),nombre);
-			
-			
+			databank.nuevoBolsillo(bolsillo, usuario);
 			
 		}else{System.out.println("No hay divisas existentes para la creacion del bolsillo");}
 	}

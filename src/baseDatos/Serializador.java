@@ -53,6 +53,16 @@ public class Serializador {
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
+			}else if(file.getAbsolutePath().contains("divisas.txt")) {
+				try {
+					fos = new FileOutputStream(file);
+					oos = new ObjectOutputStream(fos);
+					oos.writeObject(databank.getDivisas());
+				} catch(FileNotFoundException e) {
+					e.printStackTrace();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -60,6 +70,7 @@ public class Serializador {
 	private static void crearArchivos() {
 		File f=new File("src\\baseDatos\\temp\\usuarios.txt");
         File f2=new File("src\\baseDatos\\temp\\bolsillos.txt");
+        File f3=new File("src\\baseDatos\\temp\\divisas.txt");
         if(!f.exists()){
             try{
               f.createNewFile();
@@ -68,6 +79,13 @@ public class Serializador {
             }
         }
         if(!f2.exists()){
+            try{
+              f2.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        if(!f3.exists()){
             try{
               f2.createNewFile();
             }catch(IOException e){

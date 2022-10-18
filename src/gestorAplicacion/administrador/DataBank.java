@@ -128,8 +128,9 @@ public class DataBank implements Serializable{
 		return total;
 	}
 	
-	public void nuevoBolsillo(Bolsillo bolsillo) {
+	public void nuevoBolsillo(Bolsillo bolsillo, Usuario usuario) {
 		this.bolsillos.add(bolsillo);
+		usuario.nuevoBolsillo(bolsillo);
 	}
 	
 }
