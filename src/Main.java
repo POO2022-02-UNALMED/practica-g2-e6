@@ -164,7 +164,7 @@ public class Main {
 		monto = entrada.nextInt();
 		
 		Ingreso ingreso = new Ingreso(bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
-		
+		usuario.nuevoIngreso(ingreso);
 	}
 	
 	static String montoDivisa(Divisa divisa) {

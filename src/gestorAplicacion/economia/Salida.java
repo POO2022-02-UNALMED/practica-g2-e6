@@ -15,14 +15,16 @@ public class Salida extends Movimiento{
 	private Divisa divisaDestino;
 	private Banco bancoDestino;
 	
-	public Salida(Usuario usuarioOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Salida(double valor, String fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, banco);
 		setUsuarioOrigen(usuarioOrigen);
 		setUsuarioDestino(usuarioDestino);
 		setDivisaOrigen(divisaOrigen);
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Salida(Usuario usuarioOrigen, Banco bancoDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Salida(double valor, String fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Banco bancoDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, banco);
 		setBancoDestino(bancoDestino);
 		setUsuarioDestino(usuarioOrigen);
 		setDivisaOrigen(divisaOrigen);

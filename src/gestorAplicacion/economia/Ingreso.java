@@ -15,14 +15,16 @@ public class Ingreso extends Movimiento{
 	private Divisa divisaDestino;
 	private Banco bancoOrigen;
 	
-	public Ingreso(Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, String fechaCreacion, boolean interno, Banco banco ,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, banco);
 		setCuentaOrigen(cuentaOrigen);
 		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Ingreso(Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, String fechaCreacion, boolean interno, Banco banco ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, banco);
 		setBancoOrigen(bancoOrigen);
 		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);
@@ -59,7 +61,5 @@ public class Ingreso extends Movimiento{
 	public void setBancoOrigen(Banco bancoOrigen) {
 		this.bancoOrigen = bancoOrigen;
 	}
-	
-	
-	
+		
 }

@@ -15,6 +15,13 @@ public abstract class Movimiento implements Serializable{
 	private boolean interno;
 	private Banco banco;
 	
+	public Movimiento(double valor, String fechaCreacion, boolean interno, Banco banco) {
+		setValor(valor);
+		setFechaCreacion(fechaCreacion);
+		setInterno(interno);
+		setBanco(banco);
+	}
+	
 	public double getValor() {
 		return valor;
 	}

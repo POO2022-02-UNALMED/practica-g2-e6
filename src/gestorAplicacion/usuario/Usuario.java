@@ -114,4 +114,8 @@ public class Usuario implements Serializable{
 		this.salidas = salidas;
 	}
 	
+	public void nuevoIngreso(Ingreso ingreso) {
+		ingresos.add(ingreso);
+	}
+	
 }
