@@ -92,19 +92,23 @@ public class Main {
 		switch(opcion) {
 			case 1:
 				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
-				int j=0;
-				for(Bolsillo i:bolsillos) {
-					System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Divisa: "+i.getDivisa().getNombre());
-					j++;
-				}
+				if(!bolsillos.isEmpty()) {
+					int j=0;
+					for(Bolsillo i:bolsillos) {
+						System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Divisa: "+i.getDivisa().getNombre());
+						j++;
+					}
+				}else{System.out.println("El usuario no posee bolsillos...");}
 				break;
 			case 2:
 				List<Colchon> colchones = databank.getColchonesUsuario(usuario);
-				int z=0;
-				for(Colchon i:colchones) {
-					System.out.println(z+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
-					z++;
-				}
+				if(!colchones.isEmpty()) {
+					int z=0;
+					for(Colchon i:colchones) {
+						System.out.println(z+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
+						z++;
+					}
+				}else {System.out.println("El usuario no posee colchones...");}
 				break;
 			case 3:
 				double total = databank.dineroTotalUsu(usuario);
