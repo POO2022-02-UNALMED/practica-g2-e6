@@ -2,6 +2,8 @@ package gestorAplicacion.usuario;
 
 import java.io.Serializable;
 
+import gestorAplicacion.economia.Divisa;
+
 
 public class Cuenta implements Serializable{
     

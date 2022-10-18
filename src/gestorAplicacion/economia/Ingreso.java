@@ -1,7 +1,8 @@
 package gestorAplicacion.economia;
 
-import gestorAplicacion.usuario.Divisa;
-import gestorAplicacion.usuario.Usuario;
+import java.time.LocalDate;
+
+import gestorAplicacion.usuario.Cuenta;
 
 public class Ingreso extends Movimiento{
 
@@ -10,37 +11,39 @@ public class Ingreso extends Movimiento{
 	 */
 	private static final long serialVersionUID = -3919824199311137700L;
 	
-	private Usuario usuarioOrigen;
-	private Usuario usuarioDestino;
+	private Cuenta cuentaOrigen;
+	private Cuenta cuentaDestino;
 	private Divisa divisaOrigen;
 	private Divisa divisaDestino;
 	private Banco bancoOrigen;
 	
-	public Ingreso(Usuario usuarioOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		setUsuarioOrigen(usuarioOrigen);
-		setUsuarioDestino(usuarioDestino);
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, null);
+		setCuentaOrigen(cuentaOrigen);
+		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Ingreso(Banco bancoOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, bancoOrigen);
 		setBancoOrigen(bancoOrigen);
-		setUsuarioDestino(usuarioDestino);
+		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Usuario getUsuarioOrigen() {
-		return usuarioOrigen;
+	public Cuenta getCuentaOrigen() {
+		return cuentaOrigen;
 	}
-	public void setUsuarioOrigen(Usuario usuarioOrigen) {
-		this.usuarioOrigen = usuarioOrigen;
+	public void setCuentaOrigen(Cuenta cuentaOrigen) {
+		this.cuentaOrigen = cuentaOrigen;
 	}
-	public Usuario getUsuarioDestino() {
-		return usuarioDestino;
+	public Cuenta getCuentaDestino() {
+		return cuentaDestino;
 	}
-	public void setUsuarioDestino(Usuario usuarioDestino) {
-		this.usuarioDestino = usuarioDestino;
+	public void setCuentaDestino(Cuenta cuentaDestino) {
+		this.cuentaDestino = cuentaDestino;
 	}
 	public Divisa getDivisaOrigen() {
 		return divisaOrigen;
@@ -60,7 +63,5 @@ public class Ingreso extends Movimiento{
 	public void setBancoOrigen(Banco bancoOrigen) {
 		this.bancoOrigen = bancoOrigen;
 	}
-	
-	
-	
+		
 }

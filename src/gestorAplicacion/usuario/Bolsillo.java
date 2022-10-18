@@ -1,5 +1,6 @@
 package gestorAplicacion.usuario;
 
+import gestorAplicacion.economia.Divisa;
 
 public class Bolsillo extends Cuenta{
 

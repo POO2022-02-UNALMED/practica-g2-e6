@@ -1,6 +1,7 @@
 package gestorAplicacion.economia;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public abstract class Movimiento implements Serializable{
 
@@ -11,9 +12,16 @@ public abstract class Movimiento implements Serializable{
 	
 	
 	private double valor;
-	private String fechaCreacion;
+	private LocalDate fechaCreacion;
 	private boolean interno;
 	private Banco banco;
+	
+	public Movimiento(double valor, LocalDate fechaCreacion, boolean interno, Banco banco) {
+		setValor(valor);
+		setFechaCreacion(fechaCreacion);
+		setInterno(interno);
+		setBanco(banco);
+	}
 	
 	public double getValor() {
 		return valor;
@@ -21,10 +29,10 @@ public abstract class Movimiento implements Serializable{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	public String getFechaCreacion() {
+	public LocalDate getFechaCreacion() {
 		return fechaCreacion;
 	}
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(LocalDate fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 	public boolean isInterno() {

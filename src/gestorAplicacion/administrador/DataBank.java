@@ -6,6 +6,7 @@ import java.util.List;
 
 import baseDatos.Deserializador;
 import gestorAplicacion.economia.Banco;
+import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.usuario.*;
 
 
