@@ -12,12 +12,12 @@ import gestorAplicacion.usuario.Usuario;
 public class Main {
 	
 	static DataBank databank = new DataBank();
+	static Usuario usuario;
 
 	public static void main(String[] args) {
 		
 		Scanner entrada=new Scanner(System.in);
 		int opcion, opcUsuario;
-		Usuario usuario;
 		
 			System.out.println("---- LOGIN ----");
 			System.out.println("¿Que usuario eres?");
@@ -63,7 +63,7 @@ public class Main {
 		}while(opcion != 6);
 	}
 	
-	static void saldosDisponibles(Usuario usu) {
+	static void saldosDisponibles() {
 		int opcion;
 		Scanner entrada=new Scanner(System.in);
 		
@@ -81,7 +81,7 @@ public class Main {
 		
 		switch(opcion) {
 			case 1:
-				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
+				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
 				int j=0;
 				for(Bolsillo i:bolsillos) {
 					System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Divisa: "+i.getDivisa().getNombre());
@@ -89,7 +89,7 @@ public class Main {
 				}
 				break;
 			case 2:
-				List<Colchon> colchones = databank.getColchonesUsuario(usu);
+				List<Colchon> colchones = databank.getColchonesUsuario(usuario);
 				int z=0;
 				for(Colchon i:colchones) {
 					System.out.println(z+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
@@ -97,13 +97,13 @@ public class Main {
 				}
 				break;
 			case 3:
-				double total = databank.dineroTotalUsu(usu);
+				double total = databank.dineroTotalUsu(usuario);
 				System.out.println("Dinero total: "+total);
 				break;
 		}
 	}
 	
-	static void ingresaDinero(Usuario usu) {
+	static void ingresaDinero() {
 		int opcion;
 		Scanner entrada=new Scanner(System.in);
 		
@@ -121,7 +121,7 @@ public class Main {
 		switch(opcion) {
 		case 1:
 			System.out.println("Elija el bolsillo destino");
-			List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
+			List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
 			int j=0;
 			for(Bolsillo i:bolsillos) {
 				System.out.println(j+". "+i.getNombre());
@@ -132,7 +132,7 @@ public class Main {
 			break;
 		case 2:
 			System.out.println("Elija el colchon destino");
-			List<Colchon> colchones = databank.getColchonesUsuario(usu);
+			List<Colchon> colchones = databank.getColchonesUsuario(usuario);
 			int z=0;
 			for(Colchon i:colchones) {
 				System.out.println(z+". "+i.getNombre());	
@@ -159,25 +159,24 @@ public class Main {
 		opcion = entrada.nextInt();
 		
 		System.out.println("Elija la cantidad que desea ingresar");
-		System.out.println("1. 10.000");
-		System.out.println("2. 100.000");
-		System.out.println("3. 200.000");
-		System.out.println("4. 500.000");
-		System.out.println("Por favor escoja una opción: ");
+		System.out.println(montoDivisa(bolsillo.getDivisa()));
+		
 		monto = entrada.nextInt();
 		
 		Ingreso ingreso = new Ingreso(bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
+		
 	}
 	
 	static String montoDivisa(Divisa divisa) {
 		String divisas="";
 		if(divisa.getNombre().equals("EURO")) {
-			divisas = 
+			divisas = "1. 10 Euros\n2.100 Euros\n3.200 Euros\n4.500 Euros\nPor favor escoja una opción:\n";
 		}else if(divisa.getNombre().equals("PESO")) {
-			
+			divisas = "1. 10.000 Pesos\n2.100.000 Pesos\n3.200.000 Pesos\n4.500.000 Pesos\nPor favor escoja una opción:\n";
 		}else if(divisa.getNombre().equals("DOLAR")){
-			
+			divisas = "1. 10 Dolares\n2.100 Dolares\n3.200 Dolares\n4.500 Dolares\nPor favor escoja una opción:\n";
 		}
+		return divisas;
 	}
 }
 
