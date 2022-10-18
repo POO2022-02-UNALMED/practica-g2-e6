@@ -1,5 +1,7 @@
 package gestorAplicacion.economia;
 
+import java.time.LocalDate;
+
 import gestorAplicacion.usuario.Usuario;
 
 public class Salida extends Movimiento{
@@ -15,7 +17,7 @@ public class Salida extends Movimiento{
 	private Divisa divisaDestino;
 	private Banco bancoDestino;
 	
-	public Salida(double valor, String fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Salida(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Usuario usuarioDestino, Divisa divisaOrigen, Divisa divisaDestino) {
 		super(valor, fechaCreacion, interno, banco);
 		setUsuarioOrigen(usuarioOrigen);
 		setUsuarioDestino(usuarioDestino);
@@ -23,7 +25,7 @@ public class Salida extends Movimiento{
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Salida(double valor, String fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Banco bancoDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Salida(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Usuario usuarioOrigen, Banco bancoDestino, Divisa divisaOrigen, Divisa divisaDestino) {
 		super(valor, fechaCreacion, interno, banco);
 		setBancoDestino(bancoDestino);
 		setUsuarioDestino(usuarioOrigen);
