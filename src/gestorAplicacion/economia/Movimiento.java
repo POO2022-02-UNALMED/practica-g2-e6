@@ -9,62 +9,35 @@ public abstract class Movimiento implements Serializable{
 	 */
 	private static final long serialVersionUID = 3102227367414792060L;
 	
-	private int tipo;
-	private boolean recurrente;
-	private int recurrencia;
-	private double valor;
-	private String fecha;
-	private boolean automatico;
-	private double trm;
-	private boolean interno;
 	
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-	public boolean isRecurrente() {
-		return recurrente;
-	}
-	public void setRecurrente(boolean recurrente) {
-		this.recurrente = recurrente;
-	}
-	public int getRecurrencia() {
-		return recurrencia;
-	}
-	public void setRecurrencia(int recurrencia) {
-		this.recurrencia = recurrencia;
-	}
+	private double valor;
+	private String fechaCreacion;
+	private boolean interno;
+	private Banco banco;
+	
 	public double getValor() {
 		return valor;
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	public String getFecha() {
-		return fecha;
+	public String getFechaCreacion() {
+		return fechaCreacion;
 	}
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-	public boolean isAutomatico() {
-		return automatico;
-	}
-	public void setAutomatico(boolean automatico) {
-		this.automatico = automatico;
-	}
-	public double getTrm() {
-		return trm;
-	}
-	public void setTrm(double trm) {
-		this.trm = trm;
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 	public boolean isInterno() {
 		return interno;
 	}
 	public void setInterno(boolean interno) {
 		this.interno = interno;
+	}
+	public Banco getBanco() {
+		return banco;
+	}
+	public void setBanco(Banco banco) {
+		this.banco = banco;
 	}
 	
 	
