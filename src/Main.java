@@ -17,6 +17,8 @@ public class Main {
 	static Usuario usuario;
 
 	public static void main(String[] args) {
+		//Divisa divisa = new Divisa("EURO",4500);
+		//databank.nuevaDivisa(divisa);
 		
 		Scanner entrada=new Scanner(System.in);
 		int opcion, opcUsuario;
@@ -66,6 +68,7 @@ public class Main {
 					break;
 				case 2:ingresaDinero();
 					break;
+				case 3:agregarBolsillo();
 				case 6:Serializador.serializar(databank);
 				break;
 			}

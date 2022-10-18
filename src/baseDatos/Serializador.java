@@ -87,7 +87,7 @@ public class Serializador {
         }
         if(!f3.exists()){
             try{
-              f2.createNewFile();
+              f3.createNewFile();
             }catch(IOException e){
                 e.printStackTrace();
             }

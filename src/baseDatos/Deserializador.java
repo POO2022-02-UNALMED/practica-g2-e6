@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.usuario.*;
 
 public class Deserializador {
@@ -43,6 +44,19 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					
 					databank.setBolsillos((List<Bolsillo>) ois.readObject());
+				} catch(FileNotFoundException e){
+					e.printStackTrace();
+				} catch(IOException e) {
+					e.printStackTrace();
+				} catch(ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			}else if(file.getAbsolutePath().contains("divisas.txt")) {
+				try {
+					fis = new FileInputStream(file);
+					ois = new ObjectInputStream(fis);
+					
+					databank.setDivisas((List<Divisa>) ois.readObject());
 				} catch(FileNotFoundException e){
 					e.printStackTrace();
 				} catch(IOException e) {
