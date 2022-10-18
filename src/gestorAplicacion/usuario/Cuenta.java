@@ -16,15 +16,12 @@ public class Cuenta implements Serializable{
 	
 	private int numeroCuenta;
     private double saldo;
-    private String nombre;
+    public static int numeroCuentas;
     
-    public String getNombre(){
-        return nombre;
-    }
     
-    public Cuenta(int cuenta, double inicial) {
-        setNumeroCuenta(cuenta);
+    public Cuenta(double inicial) {
         saldo = inicial;
+        setNumeroCuenta(numeroCuentas++);
     } 
 
     public void depositar(double cantidad) {
@@ -35,7 +32,7 @@ public class Cuenta implements Serializable{
         saldo = saldo - cantidad;
     }
 
-    public double saldo() {
+    public double getSaldo() {
         return saldo;
     }
 
@@ -45,6 +42,6 @@ public class Cuenta implements Serializable{
 
 	public void setNumeroCuenta(int numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
-	}  
+	}
     
 }

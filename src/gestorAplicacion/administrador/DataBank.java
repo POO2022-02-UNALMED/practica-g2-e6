@@ -18,6 +18,7 @@ public class DataBank implements Serializable{
 	
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+	private List<Divisa> divisas = new ArrayList<Divisa>();
 	
 	public DataBank() {
 		Deserializador.deserializar(this);
@@ -50,6 +51,19 @@ public class DataBank implements Serializable{
 		List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 		
 		for(int i = 0; i < this.bolsillos.size(); i++) {
+			if(bolsillos.get(i).getUsuario().equals(usu)) {
+				bolsillos.add(bolsillos.get(i));
+			}
+		}
+		return bolsillos;
+		
+	}
+	
+	public List<Divisa> getDivisasUsuario(Usuario usu){
+		
+		List<Divisa> divisas = new ArrayList<Divisa>();
+		
+		for(int i = 0; i < this.divisas.size(); i++) {
 			if(bolsillos.get(i).getUsuario().equals(usu)) {
 				bolsillos.add(bolsillos.get(i));
 			}

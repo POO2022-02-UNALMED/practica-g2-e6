@@ -74,11 +74,13 @@ public class Main {
 			case 1:
 				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
 				for(int i = 0; i < bolsillos.size(); i++) {
-					System.out.println(i+". "+bolsillos.get(i).getNombre()+"		Disponible: "+bolsillos.get(i).getTotal());
+					System.out.println(i+". "+bolsillos.get(i).getNombre()+"		Disponible: "+bolsillos.get(i).getSaldo());
 				}
 				break;
 			case 2:
-				
+				List<Divisa> divisas = databank.getBolsillosUsuario(usu);
+				for(int i = 0; i < divisas.size(); i++) {
+					System.out.println(i+". "+bolsillos.get(i).getNombre()+"		Disponible: "+bolsillos.get(i).getSaldo());
 		
 	}
 		
