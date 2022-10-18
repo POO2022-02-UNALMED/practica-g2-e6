@@ -25,7 +25,8 @@ public class Usuario implements Serializable{
 	
 	public static int numeroUsuarios;
 	
-	public Usuario(String nombre, String email, LocalDate fechaIngreso, String clave){
+	public Usuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave){
+		setCedula(cedula);
 		setNombre(nombre);
 		setEmail(email);
 		setFechaIngreso(fechaIngreso);
