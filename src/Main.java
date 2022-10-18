@@ -100,5 +100,9 @@ public class Main {
 				break;
 		}
 	}
+	
+	static void ingresaDinero(Usuario usu) {
+		
+	}
 }
 

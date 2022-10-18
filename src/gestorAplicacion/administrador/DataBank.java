@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baseDatos.Deserializador;
+import gestorAplicacion.economia.Banco;
 import gestorAplicacion.usuario.*;
 
 
@@ -20,6 +21,7 @@ public class DataBank implements Serializable{
 	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Divisa> divisas = new ArrayList<Divisa>();
+	private List<Banco> bancos = new ArrayList<Banco>();
 	
 	public DataBank() {
 		Deserializador.deserializar(this);
@@ -55,6 +57,14 @@ public class DataBank implements Serializable{
 	
 	public void setDivisas(List<Divisa> divisas) {
 		this.divisas=divisas;
+	}
+
+	public List<Banco> getBancos() {
+		return bancos;
+	}
+
+	public void setBancos(List<Banco> bancos) {
+		this.bancos = bancos;
 	}
 
 	public Usuario nuevoUsuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave) {
