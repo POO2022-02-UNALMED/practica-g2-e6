@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import gestorAplicacion.economia.Ingreso;
+import gestorAplicacion.economia.Salida;
+
 
 public class Usuario implements Serializable{
 	
@@ -93,6 +96,22 @@ public class Usuario implements Serializable{
 
 	public void setColchones(List<Colchon> colchones) {
 		this.colchones = colchones;
+	}
+
+	public List<Ingreso> getIngresos() {
+		return ingresos;
+	}
+
+	public void setIngresos(List<Ingreso> ingresos) {
+		this.ingresos = ingresos;
+	}
+
+	public List<Salida> getSalidas() {
+		return salidas;
+	}
+
+	public void setSalidas(List<Salida> salidas) {
+		this.salidas = salidas;
 	}
 	
 }
