@@ -108,7 +108,7 @@ public class Main {
 				}else{System.out.println("El usuario no posee bolsillos...");}
 				break;
 			case 2:
-				List<Colchon> colchones = databank.getColchonesUsuario(usuario);
+				List<Colchon> colchones = usuario.getColchones();
 				if(!colchones.isEmpty()) {
 					int z=0;
 					for(Colchon i:colchones) {
@@ -155,7 +155,7 @@ public class Main {
 			}else{System.out.println("El usuario no posee bolsillos...");}
 			break;
 		case 2:
-			List<Colchon> colchones = databank.getColchonesUsuario(usuario);
+			List<Colchon> colchones = usuario.getColchones();
 			if(!colchones.isEmpty()) {
 				System.out.println("Elija el colchon destino");
 				int z=0;
@@ -255,7 +255,7 @@ public class Main {
 			nombre = entrada.next();
 			
 			Bolsillo bolsillo = new Bolsillo(usuario,divisas.get(opcion),nombre);
-			databank.nuevoBolsillo(bolsillo, usuario);
+			usuario.nuevoBolsillo(bolsillo);
 			
 		}else{System.out.println("No hay divisas existentes para la creacion del bolsillo");}
 	}
