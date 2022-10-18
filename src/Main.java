@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.economia.Banco;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Divisa;
@@ -102,6 +103,67 @@ public class Main {
 	}
 	
 	static void ingresaDinero(Usuario usu) {
+		int opcion;
+		Scanner entrada=new Scanner(System.in);
+		
+		System.out.println("¿Para donde va su dinero?");
+		System.out.println("1. Bolsillos");
+		System.out.println("2. Colchones");
+		System.out.println("Por favor escoja una opción: ");
+		opcion = entrada.nextInt();
+		
+		while(opcion != 1 & opcion !=2) {
+			System.out.println("Por favor ingresa una opcion valida: ");
+			opcion = entrada.nextInt();
+		}
+		
+		switch(opcion) {
+		case 1:
+			System.out.println("Elija el bolsillo destino");
+			List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
+			int j=0;
+			for(Bolsillo i:bolsillos) {
+				System.out.println(j+". "+i.getNombre());
+				j++;
+			}
+			System.out.println("Por favor escoja una opción: ");
+			opcion = entrada.nextInt();
+			break;
+		case 2:
+			System.out.println("Elija el colchon destino");
+			List<Colchon> colchones = databank.getColchonesUsuario(usu);
+			int z=0;
+			for(Colchon i:colchones) {
+				System.out.println(z+". "+i.getNombre());	
+				z++;
+			}
+			System.out.println("Por favor escoja una opción: ");
+			opcion = entrada.nextInt();
+			break;
+		}
+	}
+	
+	static void eleccionBancoMonto(Bolsillo bolsillo) {
+		int opcion,monto;
+		Scanner entrada=new Scanner(System.in);
+		
+		System.out.println("Elija el banco por medio del cual quiere hacer el ingreso");
+		List<Banco> bancos = databank.getBancos();
+		int j=0;
+		for(Banco i:bancos) {
+			System.out.println(j+". "+i.getNombre());
+			j++;
+		}
+		System.out.println("Por favor escoja una opción: ");
+		opcion = entrada.nextInt();
+		
+		System.out.println("Elija la cantidad que desea ingresar");
+		System.out.println("1. 10.000");
+		System.out.println("2. 100.000");
+		System.out.println("3. 200.000");
+		System.out.println("4. 500.000");
+		System.out.println("Por favor escoja una opción: ");
+		monto = entrada.nextInt();
 		
 	}
 }
