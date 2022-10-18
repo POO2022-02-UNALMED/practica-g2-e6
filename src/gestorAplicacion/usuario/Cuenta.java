@@ -12,18 +12,36 @@ public class Cuenta implements Serializable{
 	
 	
 	private int numeroCuenta;
+	private Usuario usuario;
     private double saldo;
     private Divisa divisa;
     public static int numeroCuentas;
     
     
-    public Cuenta(Divisa divisa) {
+    public Cuenta(Usuario usuario, Divisa divisa) {
         saldo = 0;
+        setUsuario(usuario);
         setDivisa(divisa);
         setNumeroCuenta(numeroCuentas++);
     } 
+    
+    public int getNumeroCuenta() {
+		return numeroCuenta;
+	}
 
-    public void depositar(double cantidad) {
+	public void setNumeroCuenta(int numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}
+	
+    public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void depositar(double cantidad) {
         saldo = saldo + cantidad;
     }
 
@@ -46,14 +64,6 @@ public class Cuenta implements Serializable{
 
 	public void setDivisa(Divisa divisa) {
 		this.divisa = divisa;
-	}
-
-	public int getNumeroCuenta() {
-		return numeroCuenta;
-	}
-
-	public void setNumeroCuenta(int numeroCuenta) {
-		this.numeroCuenta = numeroCuenta;
 	}
     
 }
