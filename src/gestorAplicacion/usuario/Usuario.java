@@ -18,7 +18,6 @@ public class Usuario implements Serializable{
 	private String email;
 	private LocalDate fechaIngreso;
 	private String clave;
-	private double total;
 	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
@@ -65,14 +64,6 @@ public class Usuario implements Serializable{
 	}
 	public void setClave(String clave) {
 		this.clave = clave;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
 	}
 
 	public List<Bolsillo> getBolsillos() {

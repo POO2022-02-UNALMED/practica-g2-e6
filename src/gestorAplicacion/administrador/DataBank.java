@@ -1,6 +1,7 @@
 package gestorAplicacion.administrador;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +69,8 @@ public class DataBank implements Serializable{
 		this.bancos = bancos;
 	}
 
-	public Usuario nuevoUsuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave) {
-		Usuario usuario = new Usuario(nombre, email, fechaNacimiento, fechaIngreso, clave);
+	public Usuario nuevoUsuario(String nombre, String email, LocalDate fechaIngreso, String clave) {
+		Usuario usuario = new Usuario(nombre, email, fechaIngreso, clave);
 		usuarios.add(usuario);
 		return usuario;
 	}
