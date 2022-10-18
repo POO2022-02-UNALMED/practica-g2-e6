@@ -2,6 +2,7 @@ package gestorAplicacion.usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Usuario implements Serializable{
@@ -15,6 +16,11 @@ public class Usuario implements Serializable{
 	private String fechaIngreso;
 	private String clave;
 	private double total;
+	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+	private List<Colchon> colchones = new ArrayList<Colchon>();
+	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
+	private List<Salida> salidas = new ArrayList<Salida>();
+	
 	public static int numeroUsuarios;
 	
 	public Usuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave){
@@ -64,11 +70,6 @@ public class Usuario implements Serializable{
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-	
-	public String toString() {
-		return this.getNombre()+" "+this.getClave();
-		
-	}
 
 	public double getTotal() {
 		return total;
@@ -76,6 +77,22 @@ public class Usuario implements Serializable{
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public List<Bolsillo> getBolsillos() {
+		return bolsillos;
+	}
+
+	public void setBolsillos(List<Bolsillo> bolsillos) {
+		this.bolsillos = bolsillos;
+	}
+
+	public List<Colchon> getColchones() {
+		return colchones;
+	}
+
+	public void setColchones(List<Colchon> colchones) {
+		this.colchones = colchones;
 	}
 	
 }
