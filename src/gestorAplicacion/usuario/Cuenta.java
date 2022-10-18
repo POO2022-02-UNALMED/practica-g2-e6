@@ -13,6 +13,7 @@ public class Cuenta implements Serializable{
 	
 	private int numeroCuenta;
     private double saldo;
+    private Divisa divisa;
     public static int numeroCuentas;
     
     
@@ -32,6 +33,14 @@ public class Cuenta implements Serializable{
     public double getSaldo() {
         return saldo;
     }
+
+	public Divisa getDivisa() {
+		return divisa;
+	}
+
+	public void setDivisa(Divisa divisa) {
+		this.divisa = divisa;
+	}
 
 	public int getNumeroCuenta() {
 		return numeroCuenta;
