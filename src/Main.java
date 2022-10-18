@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import baseDatos.Serializador;
 import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
@@ -61,9 +62,12 @@ public class Main {
 			opcion = entrada.nextInt();
 
 			switch(opcion) {
-				case 1:
-					
-				
+				case 1:saldosDisponibles();
+					break;
+				case 2:ingresaDinero();
+					break;
+				case 6:Serializador.serializar(databank);
+				break;
 			}
 
 		}while(opcion != 6);
