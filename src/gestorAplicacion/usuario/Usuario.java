@@ -102,4 +102,8 @@ public class Usuario implements Serializable{
 		ingresos.add(ingreso);
 	}
 	
+	public void nuevoBolsillo(Bolsillo bolsillo) {
+		bolsillos.add(bolsillo);
+	}
+	
 }
