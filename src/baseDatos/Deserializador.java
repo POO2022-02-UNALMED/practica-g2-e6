@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
 import gestorAplicacion.administrador.DataBank;
@@ -12,7 +13,7 @@ import gestorAplicacion.usuario.*;
 
 public class Deserializador {
 	
-	private static File rutaTemp = new File("src/baseDatos/temp".replaceAll("/", System.getProperty("file.separator")));
+	private static File rutaTemp = Paths.get("src\\baseDatos\\temp").toFile();
 	static {
 		Deserializador.rutaTemp.mkdirs();
 	}
