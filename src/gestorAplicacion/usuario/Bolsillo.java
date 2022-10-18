@@ -8,11 +8,9 @@ public class Bolsillo extends Cuenta{
 	 */
 	private static final long serialVersionUID = -2479140568742305806L;
 	private String nombre;
-	private Usuario usuario;
 
-
-	public Bolsillo(double saldo,Divisa divisa, String Nombre, Usuario usuario) {
-		super(divisa);
+	public Bolsillo(Usuario usuario, double saldo,Divisa divisa, String Nombre) {
+		super(usuario,divisa);
 		this.depositar(saldo);
 		setNombre(nombre);
 		setUsuario(usuario);
@@ -24,14 +22,6 @@ public class Bolsillo extends Cuenta{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }
