@@ -40,6 +40,11 @@ public class Main {
 			//si existen bolsillos asociados al usuario, los guardamos en una array x de tipo cuenta, luego revisamos las divisas, si hay divisas
 			//asociadas al cliente,de igual manera se añaden a el array x de tipo cuenta y se listan por pantalla
 			System.out.println("2. Ingresar dinero a su cuenta");
+			//En este apartado el usuario tiene la opción de ingresar dinero a uno de sus bolsillos desde una cuenta externa, para lo cual solo debe indicar
+			//el bolsillo existente y la cantidad de dinero a ingresar.
+			//Tambien crearemos la funcion de realizar un avance a uno de sus bolsillo, para lo cual se verifica la cantidad de bolsillos existentes,
+			//fecha de ingreso a la plataforma, cantidad de movimientos realizados, y de acuerdo a un puntaje que vamos a establecer, se le asignara una cantidad
+			//maxima a desembolsar.
 			System.out.println("3. Agregar bolsillo a su cuenta");
 			//Se listan las divisas existentes y se pregunta con cual desea crear el bolsillo, se pregunta si desea crear el bolsillo vacio
 			//o se desea agregar dinero, si escoje agregar dinero, se ejecuta la funcion 1 y se pregunta de donde quiere agregar el dinero
