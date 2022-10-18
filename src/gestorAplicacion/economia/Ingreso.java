@@ -1,5 +1,7 @@
 package gestorAplicacion.economia;
 
+import java.time.LocalDate;
+
 import gestorAplicacion.usuario.Cuenta;
 
 public class Ingreso extends Movimiento{
@@ -15,7 +17,7 @@ public class Ingreso extends Movimiento{
 	private Divisa divisaDestino;
 	private Banco bancoOrigen;
 	
-	public Ingreso(double valor, String fechaCreacion, boolean interno, Banco banco ,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
 		super(valor, fechaCreacion, interno, banco);
 		setCuentaOrigen(cuentaOrigen);
 		setCuentaDestino(cuentaDestino);
@@ -23,7 +25,7 @@ public class Ingreso extends Movimiento{
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Ingreso(double valor, String fechaCreacion, boolean interno, Banco banco ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
 		super(valor, fechaCreacion, interno, banco);
 		setBancoOrigen(bancoOrigen);
 		setCuentaDestino(cuentaDestino);
