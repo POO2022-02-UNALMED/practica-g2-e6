@@ -227,5 +227,31 @@ public class Main {
 		}
 		return monto;
 	}
+	
+	static void agregarBolsillo() {
+		int opcion;
+		String nombre;
+		Scanner entrada=new Scanner(System.in);
+		
+		List<Divisa> divisas = databank.getDivisas();
+		if(!divisas.isEmpty()) {
+			System.out.println("Elija la divisa");
+			int j=0;
+			for(Divisa i:divisas) {
+				System.out.println(j+". "+i.getNombre());
+				j++;
+			}
+			System.out.println("Por favor escoja una opción: ");
+			opcion = entrada.nextInt();
+			
+			System.out.println("Escriba el nombre del bolsillo por favor: ");
+			nombre = entrada.next();
+			
+			Bolsillo bolsillo = new Bolsillo(usuario,divisas.get(opcion),nombre);
+			
+			
+			
+		}else{System.out.println("No hay divisas existentes para la creacion del bolsillo");}
+	}
 }
 
