@@ -3,9 +3,10 @@ import java.util.Scanner;
 
 import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
+import gestorAplicacion.economia.Divisa;
+import gestorAplicacion.economia.Ingreso;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
-import gestorAplicacion.usuario.Divisa;
 import gestorAplicacion.usuario.Usuario;
 
 public class Main {
@@ -165,6 +166,18 @@ public class Main {
 		System.out.println("Por favor escoja una opción: ");
 		monto = entrada.nextInt();
 		
+		Ingreso ingreso = new Ingreso(bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
+	}
+	
+	static String montoDivisa(Divisa divisa) {
+		String divisas="";
+		if(divisa.getNombre().equals("EURO")) {
+			divisas = 
+		}else if(divisa.getNombre().equals("PESO")) {
+			
+		}else if(divisa.getNombre().equals("DOLAR")){
+			
+		}
 	}
 }
 

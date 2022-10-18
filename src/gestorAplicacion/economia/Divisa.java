@@ -1,4 +1,4 @@
-package gestorAplicacion.usuario;
+package gestorAplicacion.economia;
 
 import java.io.Serializable;
 

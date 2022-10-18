@@ -1,5 +1,7 @@
 package gestorAplicacion.usuario;
 
+import gestorAplicacion.economia.Divisa;
+
 public class Colchon extends Cuenta{
 	
 	/**

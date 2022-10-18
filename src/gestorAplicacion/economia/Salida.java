@@ -1,6 +1,5 @@
 package gestorAplicacion.economia;
 
-import gestorAplicacion.usuario.Divisa;
 import gestorAplicacion.usuario.Usuario;
 
 public class Salida extends Movimiento{
