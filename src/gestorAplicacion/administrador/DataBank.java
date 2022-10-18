@@ -69,8 +69,8 @@ public class DataBank implements Serializable{
 		this.bancos = bancos;
 	}
 
-	public Usuario nuevoUsuario(String nombre, String email, LocalDate fechaIngreso, String clave) {
-		Usuario usuario = new Usuario(nombre, email, fechaIngreso, clave);
+	public Usuario nuevoUsuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave) {
+		Usuario usuario = new Usuario(cedula,nombre, email, fechaIngreso, clave);
 		usuarios.add(usuario);
 		return usuario;
 	}
