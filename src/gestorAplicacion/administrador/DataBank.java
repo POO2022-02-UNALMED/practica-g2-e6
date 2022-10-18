@@ -1,7 +1,6 @@
 package gestorAplicacion.administrador;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +19,6 @@ public class DataBank implements Serializable{
 	private static final long serialVersionUID = 2979265545810011076L;
 	
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
-	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
-	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Divisa> divisas = new ArrayList<Divisa>();
 	private List<Banco> bancos = new ArrayList<Banco>();
 	
@@ -37,21 +34,6 @@ public class DataBank implements Serializable{
 		this.usuarios=usuarios;
 	}
 	
-	public List<Bolsillo> getBolsillos(){
-		return bolsillos;
-	}
-	
-	public void setBolsillos(List<Bolsillo> bolsillos) {
-		this.bolsillos=bolsillos;
-	}
-	
-	public List<Colchon> getColchon() {
-		return colchones;
-	}
-
-	public void setColchon(List<Colchon> colchones) {
-		this.colchones = colchones;
-	}
 	
 	public List<Divisa> getDivisas(){
 		return divisas;
@@ -74,19 +56,6 @@ public class DataBank implements Serializable{
 	}
 	
 	
-	public List<Colchon> getColchonesUsuario(Usuario usu){
-		
-		List<Colchon> colchones = new ArrayList<Colchon>();
-		
-		for(Colchon i:this.colchones) {
-			if(i.getUsuario().equals(usu)) {
-				colchones.add(i);
-			}
-		}
-		return colchones;
-		
-	}
-	
 	public Usuario getUsuarioPrincipal(String cc) {
 		for(Usuario i:usuarios) {
 			if(i.getCedula().equals(cc)) {
@@ -96,27 +65,18 @@ public class DataBank implements Serializable{
 		return null;
 	}
 	
-	public double dineroTotalUsu(Usuario usu) {
+	public double dineroTotalUsu(Usuario usuario) {
 		
 		double total=0;
 		
-		for(Bolsillo i:bolsillos) {
-			if(i.getUsuario().equals(usu)) {
-				total+=i.getSaldo();
-			}
+		for(Bolsillo i:usuario.getBolsillos()) {
+			total+=i.getSaldo();
 		}
 		
-		for(Colchon i:colchones) {
-			if(i.getUsuario().equals(usu)) {
-				total+=i.getSaldo();
-			}
+		for(Colchon i:usuario.getColchones()) {
+			total+=i.getSaldo();
 		}
 		return total;
-	}
-	
-	public void nuevoBolsillo(Bolsillo bolsillo, Usuario usuario) {
-		this.bolsillos.add(bolsillo);
-		usuario.nuevoBolsillo(bolsillo);
 	}
 	
 	public void nuevaDivisa(Divisa divisa) {
