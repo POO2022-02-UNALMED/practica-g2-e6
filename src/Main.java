@@ -88,10 +88,10 @@ public class Main {
 				break;
 			case 2:
 				List<Colchon> colchones = databank.getColchonesUsuario(usu);
-				int j=0;
+				int z=0;
 				for(Colchon i:colchones) {
-					System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
-					j++;
+					System.out.println(z+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
+					z++;
 				}
 				break;
 			case 3:
