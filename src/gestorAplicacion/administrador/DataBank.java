@@ -18,6 +18,7 @@ public class DataBank implements Serializable{
 	
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Divisa> divisas = new ArrayList<Divisa>();
 	
 	public DataBank() {
@@ -40,6 +41,22 @@ public class DataBank implements Serializable{
 		this.bolsillos=bolsillos;
 	}
 	
+	public List<Colchon> getColchon() {
+		return colchones;
+	}
+
+	public void setColchon(List<Colchon> colchones) {
+		this.colchones = colchones;
+	}
+	
+	public List<Divisa> getDivisas(){
+		return divisas;
+	}
+	
+	public void setDivisas(List<Divisa> divisas) {
+		this.divisas=divisas;
+	}
+
 	public Usuario nuevoUsuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave) {
 		Usuario usuario = new Usuario(nombre, email, fechaNacimiento, fechaIngreso, clave);
 		usuarios.add(usuario);
@@ -52,23 +69,23 @@ public class DataBank implements Serializable{
 		
 		for(int i = 0; i < this.bolsillos.size(); i++) {
 			if(bolsillos.get(i).getUsuario().equals(usu)) {
-				bolsillos.add(bolsillos.get(i));
+				bolsillos.add(this.bolsillos.get(i));
 			}
 		}
 		return bolsillos;
 		
 	}
 	
-	public List<Divisa> getDivisasUsuario(Usuario usu){
+	public List<Colchon> getColchonesUsuario(Usuario usu){
 		
-		List<Divisa> divisas = new ArrayList<Divisa>();
+		List<Colchon> colchones = new ArrayList<Colchon>();
 		
-		for(int i = 0; i < this.divisas.size(); i++) {
-			if(divisas.get(i).getUsuario().equals(usu)) {
-				divisas.add(divisas.get(i));
+		for(int i = 0; i < this.colchones.size(); i++) {
+			if(colchones.get(i).getUsuario().equals(usu)) {
+				colchones.add(this.colchones.get(i));
 			}
 		}
-		return divisas;
+		return colchones;
 		
 	}
 	
@@ -91,9 +108,9 @@ public class DataBank implements Serializable{
 			}
 		}
 		
-		for(int i = 0; i < this.divisas.size(); i++) {
-			if(divisas.get(i).getUsuario().equals(usu)) {
-				total+=divisas.get(i).getSaldo();
+		for(int i = 0; i < this.colchones.size(); i++) {
+			if(colchones.get(i).getUsuario().equals(usu)) {
+				total+=colchones.get(i).getSaldo();
 			}
 		}
 		return total;

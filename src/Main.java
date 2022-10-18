@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.usuario.Bolsillo;
+import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Divisa;
 import gestorAplicacion.usuario.Usuario;
 
@@ -66,7 +67,7 @@ public class Main {
 		
 		System.out.println("¿Que cuentas desea visualizar?");
 		System.out.println("1. Bolsillos");
-		System.out.println("2. Divisas");
+		System.out.println("2. Colchones");
 		System.out.println("3. Dinero total");
 		System.out.println("Por favor escoja una opción: ");
 		opcion = entrada.nextInt();
@@ -84,14 +85,14 @@ public class Main {
 				}
 				break;
 			case 2:
-				List<Divisa> divisas = databank.getDivisasUsuario(usu);
-				for(int i = 0; i < divisas.size(); i++) {
-					System.out.println(i+". "+divisas.get(i).getNombre()+"		Disponible: "+divisas.get(i).getSaldo());
-		
+				List<Colchon> colchones = databank.getColchonesUsuario(usu);
+				for(int i = 0; i < colchones.size(); i++) {
+					System.out.println(i+". "+colchones.get(i).getNombre()+"		Disponible: "+colchones.get(i).getSaldo()+"		Fecha de retiro: "+colchones.get(i).getFechaRetiro());	
 				}
 				break;
 			case 3:
 				double total = databank.dineroTotalUsu(usu);
+				System.out.println("Dinero total: "+total);
 				break;
 		}
 	}
