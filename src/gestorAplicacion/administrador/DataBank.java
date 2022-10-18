@@ -133,4 +133,8 @@ public class DataBank implements Serializable{
 		usuario.nuevoBolsillo(bolsillo);
 	}
 	
+	public void nuevaDivisa(Divisa divisa) {
+		this.divisas.add(divisa);
+	}
+	
 }
