@@ -20,7 +20,9 @@ public class Main {
 		//Divisa divisa = new Divisa("EURO",4500);
 		//databank.nuevaDivisa(divisa);
 		
-		Usuario usuario1 = new Usuario("1", "Jaime Guzman", "jguzman@unal.edu.co", LocalDate.now(), "segura");
+		//Usuario usuario1 = new Usuario("1", "Jaime Guzman", "jguzman@unal.edu.co", LocalDate.now(), "segura");
+		//databank.nuevoUsuario(usuario1);
+		
 		
 		Scanner entrada=new Scanner(System.in);
 		int opcion, opcUsuario;
@@ -96,7 +98,7 @@ public class Main {
 		
 		switch(opcion) {
 			case 1:
-				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
+				List<Bolsillo> bolsillos = usuario.getBolsillos();
 				if(!bolsillos.isEmpty()) {
 					int j=0;
 					for(Bolsillo i:bolsillos) {
@@ -140,7 +142,7 @@ public class Main {
 		
 		switch(opcion) {
 		case 1:
-			List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
+			List<Bolsillo> bolsillos = usuario.getBolsillos();
 			if(!bolsillos.isEmpty()) {
 				System.out.println("Elija el bolsillo destino");
 				int j=0;

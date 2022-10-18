@@ -73,18 +73,6 @@ public class DataBank implements Serializable{
 		usuarios.add(usuario);
 	}
 	
-	public List<Bolsillo> getBolsillosUsuario(Usuario usu){
-		
-		List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
-		
-		for(Bolsillo i:this.bolsillos) {
-			if(i.getUsuario().equals(usu)) {
-				bolsillos.add(i);
-			}
-		}
-		return bolsillos;
-		
-	}
 	
 	public List<Colchon> getColchonesUsuario(Usuario usu){
 		
