@@ -10,9 +10,8 @@ public class Bolsillo extends Cuenta{
 	private static final long serialVersionUID = -2479140568742305806L;
 	private String nombre;
 
-	public Bolsillo(Usuario usuario, double saldo,Divisa divisa, String Nombre) {
+	public Bolsillo(Usuario usuario,Divisa divisa, String nombre) {
 		super(usuario,divisa);
-		this.depositar(saldo);
 		setNombre(nombre);
 		setUsuario(usuario);
 	}
