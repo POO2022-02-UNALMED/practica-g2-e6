@@ -1,6 +1,7 @@
 package gestorAplicacion.usuario;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,7 @@ public class Usuario implements Serializable{
 	private String cedula;
 	private String nombre;
 	private String email;
-	private String fechaNacimiento;
-	private String fechaIngreso;
+	private LocalDate fechaIngreso;
 	private String clave;
 	private double total;
 	private List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
@@ -26,10 +26,9 @@ public class Usuario implements Serializable{
 	
 	public static int numeroUsuarios;
 	
-	public Usuario(String nombre, String email, String fechaNacimiento, String fechaIngreso, String clave){
+	public Usuario(String nombre, String email, LocalDate fechaIngreso, String clave){
 		setNombre(nombre);
 		setEmail(email);
-		setFechaNacimiento(fechaNacimiento);
 		setFechaIngreso(fechaIngreso);
 		setClave(clave);
 		numeroUsuarios++;
@@ -55,16 +54,10 @@ public class Usuario implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	public String getFechaIngreso() {
+	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
-	public void setFechaIngreso(String fechaIngreso) {
+	public void setFechaIngreso(LocalDate fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 	public String getClave() {
