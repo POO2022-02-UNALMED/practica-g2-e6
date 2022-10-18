@@ -1,5 +1,7 @@
 package gestorAplicacion.usuario;
 
+import java.time.LocalDate;
+
 import gestorAplicacion.economia.Divisa;
 
 public class Colchon extends Cuenta{
@@ -10,12 +12,11 @@ public class Colchon extends Cuenta{
 	private static final long serialVersionUID = 514183129515203955L;
 	
 	private String nombre;
-	private String fechaRetiro;
+	private LocalDate fechaRetiro;
 
 
-	public Colchon(Usuario usuario, Divisa divisa, double saldo, String Nombre, String fechaRetiro) {
+	public Colchon(Usuario usuario, Divisa divisa, String nombre, LocalDate fechaRetiro) {
 		super(usuario,divisa);
-		this.depositar(saldo);
 		setNombre(nombre);
 		setUsuario(usuario);
 		setFechaRetiro(fechaRetiro);
@@ -29,11 +30,11 @@ public class Colchon extends Cuenta{
 		this.nombre = nombre;
 	}
 
-	public String getFechaRetiro() {
+	public LocalDate getFechaRetiro() {
 		return fechaRetiro;
 	}
 
-	public void setFechaRetiro(String fechaRetiro) {
+	public void setFechaRetiro(LocalDate fechaRetiro) {
 		this.fechaRetiro = fechaRetiro;
 	}
 }
