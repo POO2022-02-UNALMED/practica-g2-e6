@@ -1,7 +1,6 @@
 package gestorAplicacion.usuario;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Bolsillo implements Serializable{
 
@@ -11,18 +10,13 @@ public class Bolsillo implements Serializable{
 	private static final long serialVersionUID = -2479140568742305806L;
 	private String Nombre;
 	private double Total;
-	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private Usuario usuario;
 
-	public Bolsillo(String Nombre, double Total, ArrayList<Usuario> usuarios) {
-		setNombre(Nombre);
-		setTotal(Total);
-		setUsuarios(usuarios);
-	}
 
 	public Bolsillo(String Nombre, double Total, Usuario usuario) {
 		setNombre(Nombre);
 		setTotal(Total);
-		agregarUsuario(usuario);
+		setUsuario(usuario);
 	}
 
 	public String getNombre() {
@@ -41,16 +35,12 @@ public class Bolsillo implements Serializable{
 		Total = total;
 	}
 
-	public ArrayList<Usuario> getUsuarios() {
-		return usuarios;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarios(ArrayList<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public void agregarUsuario(Usuario usuario) {
-		usuarios.add(usuario);
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

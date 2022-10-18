@@ -7,13 +7,13 @@ import java.util.ArrayList;
 public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = -64431385135968757L;
-
+	
+	private String cedula;
 	private String nombre;
 	private String email;
 	private String fechaNacimiento;
 	private String fechaIngreso;
 	private String clave;
-	private ArrayList<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 	private double total;
 	public static int numeroUsuarios;
 	
@@ -26,6 +26,14 @@ public class Usuario implements Serializable{
 		numeroUsuarios++;
 	}
 	
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -62,10 +70,6 @@ public class Usuario implements Serializable{
 		
 	}
 
-	public ArrayList<Bolsillo> getBolsillos() {
-		return bolsillos;
-	}
-
 	public double getTotal() {
 		return total;
 	}
@@ -73,17 +77,5 @@ public class Usuario implements Serializable{
 	public void setTotal(double total) {
 		this.total = total;
 	}
-
-	public boolean agregarBolsillo(String nombre, double total) {
-		if(total<getTotal()) {
-			bolsillos.add(new Bolsillo(nombre,total,this));
-			setTotal(getTotal()-total);
-			return true;
-		}else {
-			return false;
-		}
-		
-	}
- 
 	
 }

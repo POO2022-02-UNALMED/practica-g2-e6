@@ -45,4 +45,26 @@ public class DataBank implements Serializable{
 		return usuario;
 	}
 	
+	public List<Bolsillo> getBolsillosUsuario(Usuario usu){
+		
+		List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
+		
+		for(int i = 0; i < this.bolsillos.size(); i++) {
+			if(bolsillos.get(i).getUsuario().equals(usu)) {
+				bolsillos.add(bolsillos.get(i));
+			}
+		}
+		return bolsillos;
+		
+	}
+	
+	public Usuario getUsuarioPrincipal(String cc) {
+		for(int i = 0; i < usuarios.size() ; i++) {
+			if(usuarios.get(i).getCedula().equals(cc)) {
+				return usuarios.get(i);
+			}
+		}
+		return null;
+	}
+	
 }
