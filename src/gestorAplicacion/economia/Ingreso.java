@@ -17,16 +17,16 @@ public class Ingreso extends Movimiento{
 	private Divisa divisaDestino;
 	private Banco bancoOrigen;
 	
-	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		super(valor, fechaCreacion, interno, banco);
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, null);
 		setCuentaOrigen(cuentaOrigen);
 		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);
 		setDivisaDestino(divisaDestino);
 	}
 	
-	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		super(valor, fechaCreacion, interno, banco);
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, bancoOrigen);
 		setBancoOrigen(bancoOrigen);
 		setCuentaDestino(cuentaDestino);
 		setDivisaOrigen(divisaOrigen);

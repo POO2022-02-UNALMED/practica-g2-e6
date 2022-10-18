@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -165,7 +166,7 @@ public class Main {
 		cantidad = entrada.nextInt();
 		monto =  montoIngreso(bolsillo.getDivisa(),cantidad);
 		
-		Ingreso ingreso = new Ingreso(monto,bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
+		Ingreso ingreso = new Ingreso(monto,LocalDate.now(),false,bancos.get(opcion), bolsillo, bolsillo.getDivisa(), bolsillo.getDivisa());
 		usuario.nuevoIngreso(ingreso);
 	}
 	
