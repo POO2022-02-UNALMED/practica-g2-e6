@@ -1,10 +1,7 @@
 package gestorAplicacion.usuario;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import baseDatos.Serializador;
 
 public class Cuenta implements Serializable{
     
