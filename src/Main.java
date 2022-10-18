@@ -20,6 +20,8 @@ public class Main {
 		//Divisa divisa = new Divisa("EURO",4500);
 		//databank.nuevaDivisa(divisa);
 		
+		Usuario usuario1 = new Usuario("1", "Jaime Guzman", "jguzman@unal.edu.co", LocalDate.now(), "segura");
+		
 		Scanner entrada=new Scanner(System.in);
 		int opcion, opcUsuario;
 		
