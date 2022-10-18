@@ -12,8 +12,9 @@ public class Colchon extends Cuenta{
 	private String fechaRetiro;
 
 
-	public Colchon(double saldo, String Nombre, Usuario usuario, String fechaRetiro) {
-		super(saldo);
+	public Colchon(double saldo, Divisa divisa, String Nombre, Usuario usuario, String fechaRetiro) {
+		super(divisa);
+		this.depositar(saldo);
 		setNombre(nombre);
 		setUsuario(usuario);
 		setFechaRetiro(fechaRetiro);

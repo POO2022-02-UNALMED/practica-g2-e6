@@ -17,8 +17,9 @@ public class Cuenta implements Serializable{
     public static int numeroCuentas;
     
     
-    public Cuenta(double inicial) {
-        saldo = inicial;
+    public Cuenta(Divisa divisa) {
+        saldo = 0;
+        setDivisa(divisa);
         setNumeroCuenta(numeroCuentas++);
     } 
 
@@ -26,8 +27,13 @@ public class Cuenta implements Serializable{
         saldo = saldo + cantidad;
     }
 
-    public void retirar(double cantidad) {
-        saldo = saldo - cantidad;
+    public boolean retirar(double cantidad) {
+    	if(cantidad<saldo) {
+    		saldo = saldo - cantidad;
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 
     public double getSaldo() {

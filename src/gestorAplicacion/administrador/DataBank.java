@@ -67,9 +67,9 @@ public class DataBank implements Serializable{
 		
 		List<Bolsillo> bolsillos = new ArrayList<Bolsillo>();
 		
-		for(int i = 0; i < this.bolsillos.size(); i++) {
-			if(bolsillos.get(i).getUsuario().equals(usu)) {
-				bolsillos.add(this.bolsillos.get(i));
+		for(Bolsillo i:this.bolsillos) {
+			if(i.getUsuario().equals(usu)) {
+				bolsillos.add(i);
 			}
 		}
 		return bolsillos;
@@ -80,9 +80,9 @@ public class DataBank implements Serializable{
 		
 		List<Colchon> colchones = new ArrayList<Colchon>();
 		
-		for(int i = 0; i < this.colchones.size(); i++) {
-			if(colchones.get(i).getUsuario().equals(usu)) {
-				colchones.add(this.colchones.get(i));
+		for(Colchon i:this.colchones) {
+			if(i.getUsuario().equals(usu)) {
+				colchones.add(i);
 			}
 		}
 		return colchones;
@@ -90,9 +90,9 @@ public class DataBank implements Serializable{
 	}
 	
 	public Usuario getUsuarioPrincipal(String cc) {
-		for(int i = 0; i < usuarios.size() ; i++) {
-			if(usuarios.get(i).getCedula().equals(cc)) {
-				return usuarios.get(i);
+		for(Usuario i:usuarios) {
+			if(i.getCedula().equals(cc)) {
+				return i;
 			}
 		}
 		return null;
@@ -102,15 +102,15 @@ public class DataBank implements Serializable{
 		
 		double total=0;
 		
-		for(int i = 0; i < this.bolsillos.size(); i++) {
-			if(bolsillos.get(i).getUsuario().equals(usu)) {
-				total+=bolsillos.get(i).getSaldo();
+		for(Bolsillo i:bolsillos) {
+			if(i.getUsuario().equals(usu)) {
+				total+=i.getSaldo();
 			}
 		}
 		
-		for(int i = 0; i < this.colchones.size(); i++) {
-			if(colchones.get(i).getUsuario().equals(usu)) {
-				total+=colchones.get(i).getSaldo();
+		for(Colchon i:colchones) {
+			if(i.getUsuario().equals(usu)) {
+				total+=i.getSaldo();
 			}
 		}
 		return total;

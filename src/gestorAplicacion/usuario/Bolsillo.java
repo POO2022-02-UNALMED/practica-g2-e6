@@ -11,8 +11,9 @@ public class Bolsillo extends Cuenta{
 	private Usuario usuario;
 
 
-	public Bolsillo(double saldo, String Nombre, Usuario usuario) {
-		super(saldo);
+	public Bolsillo(double saldo,Divisa divisa, String Nombre, Usuario usuario) {
+		super(divisa);
+		this.depositar(saldo);
 		setNombre(nombre);
 		setUsuario(usuario);
 	}

@@ -80,14 +80,18 @@ public class Main {
 		switch(opcion) {
 			case 1:
 				List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usu);
-				for(int i = 0; i < bolsillos.size(); i++) {
-					System.out.println(i+". "+bolsillos.get(i).getNombre()+"		Disponible: "+bolsillos.get(i).getSaldo());
+				int j=0;
+				for(Bolsillo i:bolsillos) {
+					System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Divisa: "+i.getDivisa().getNombre());
+					j++;
 				}
 				break;
 			case 2:
 				List<Colchon> colchones = databank.getColchonesUsuario(usu);
-				for(int i = 0; i < colchones.size(); i++) {
-					System.out.println(i+". "+colchones.get(i).getNombre()+"		Disponible: "+colchones.get(i).getSaldo()+"		Fecha de retiro: "+colchones.get(i).getFechaRetiro());	
+				int j=0;
+				for(Colchon i:colchones) {
+					System.out.println(j+". "+i.getNombre()+"		Disponible: "+i.getSaldo()+"		Fecha de retiro: "+i.getFechaRetiro());	
+					j++;
 				}
 				break;
 			case 3:
