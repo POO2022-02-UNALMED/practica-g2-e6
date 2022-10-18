@@ -124,37 +124,44 @@ public class Main {
 		System.out.println("¿Para donde va su dinero?");
 		System.out.println("1. Bolsillos");
 		System.out.println("2. Colchones");
+		System.out.println("3. Volver al inicio");
 		System.out.println("Por favor escoja una opción: ");
 		opcion = entrada.nextInt();
 		
-		while(opcion != 1 & opcion !=2) {
+		while(opcion != 1 & opcion !=2 & opcion !=3) {
 			System.out.println("Por favor ingresa una opcion valida: ");
 			opcion = entrada.nextInt();
 		}
 		
 		switch(opcion) {
 		case 1:
-			System.out.println("Elija el bolsillo destino");
 			List<Bolsillo> bolsillos = databank.getBolsillosUsuario(usuario);
-			int j=0;
-			for(Bolsillo i:bolsillos) {
-				System.out.println(j+". "+i.getNombre());
-				j++;
-			}
-			System.out.println("Por favor escoja una opción: ");
-			opcion = entrada.nextInt();
+			if(!bolsillos.isEmpty()) {
+				System.out.println("Elija el bolsillo destino");
+				int j=0;
+				for(Bolsillo i:bolsillos) {
+					System.out.println(j+". "+i.getNombre());
+					j++;
+				}
+				System.out.println("Por favor escoja una opción: ");
+				opcion = entrada.nextInt();
+			}else{System.out.println("El usuario no posee bolsillos...");}
 			break;
 		case 2:
-			System.out.println("Elija el colchon destino");
 			List<Colchon> colchones = databank.getColchonesUsuario(usuario);
-			int z=0;
-			for(Colchon i:colchones) {
-				System.out.println(z+". "+i.getNombre());	
-				z++;
-			}
-			System.out.println("Por favor escoja una opción: ");
-			opcion = entrada.nextInt();
+			if(!colchones.isEmpty()) {
+				System.out.println("Elija el colchon destino");
+				int z=0;
+				for(Colchon i:colchones) {
+					System.out.println(z+". "+i.getNombre());	
+					z++;
+				}
+				System.out.println("Por favor escoja una opción: ");
+				opcion = entrada.nextInt();
+				break;
+			}else{System.out.println("El usuario no posee colchones...");}
 			break;
+		case 3:break;
 		}
 	}
 	
