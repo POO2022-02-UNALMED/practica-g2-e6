@@ -1,9 +1,9 @@
 package gestorAplicacion.economia;
 
 public enum Divisa {
-    EURO(4000,4500),
-    PESO(1,1),
-    DOLAR(4200,5000);
+    EUR(4000,4500),
+    COP(1,1),
+    USD(4200,5000);
 
     private double minValue;
     private double maxValue;

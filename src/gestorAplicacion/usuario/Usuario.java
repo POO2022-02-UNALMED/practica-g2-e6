@@ -31,7 +31,7 @@ public class Usuario implements Serializable{
 		setEmail(email);
 		setFechaIngreso(fechaIngreso);
 		setClave(clave);
-		bolsillos.add(new Bolsillo(this, Divisa.PESO,"DEFAULT"));
+		bolsillos.add(new Bolsillo(this, Divisa.COP,"DEFAULT"));
 	}
 	
 	public String getCedula() {
@@ -101,6 +101,7 @@ public class Usuario implements Serializable{
 	
 	public void nuevoIngreso(Ingreso ingreso) {
 		ingresos.add(ingreso);
+		ingreso.getCuentaDestino().depositar(ingreso.getValor());
 	}
 	
 	public void nuevoBolsillo(Bolsillo bolsillo) {

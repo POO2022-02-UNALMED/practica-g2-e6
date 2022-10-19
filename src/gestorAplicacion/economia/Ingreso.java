@@ -15,24 +15,23 @@ public class Ingreso extends Movimiento{
 	private Cuenta cuentaDestino;
 	private Divisa divisaOrigen;
 	private Divisa divisaDestino;
-	private Banco bancoOrigen;
 	
 	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		super(valor, fechaCreacion, interno, null);
-		setCuentaOrigen(cuentaOrigen);
-		setCuentaDestino(cuentaDestino);
-		setDivisaOrigen(divisaOrigen);
-		setDivisaDestino(divisaDestino);
+		this(valor, fechaCreacion, true,null, cuentaOrigen, cuentaDestino,divisaOrigen,divisaDestino);
 	}
-	
-	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno ,Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		super(valor, fechaCreacion, interno, bancoOrigen);
-		setBancoOrigen(bancoOrigen);
-		setCuentaDestino(cuentaDestino);
-		setDivisaOrigen(divisaOrigen);
-		setDivisaDestino(divisaDestino);
+
+	public Ingreso(double valor, LocalDate fechaCreacion , Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisa) {
+		this(valor,fechaCreacion,false, bancoOrigen, null,cuentaDestino,divisa,divisa);
 	}
-	
+
+	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco, Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valor, fechaCreacion, interno, banco);
+		this.cuentaOrigen = cuentaOrigen;
+		this.cuentaDestino = cuentaDestino;
+		this.divisaOrigen = divisaOrigen;
+		this.divisaDestino = divisaDestino;
+	}
+
 	public Cuenta getCuentaOrigen() {
 		return cuentaOrigen;
 	}
@@ -56,12 +55,6 @@ public class Ingreso extends Movimiento{
 	}
 	public void setDivisaDestino(Divisa divisaDestino) {
 		this.divisaDestino = divisaDestino;
-	}
-	public Banco getBancoOrigen() {
-		return bancoOrigen;
-	}
-	public void setBancoOrigen(Banco bancoOrigen) {
-		this.bancoOrigen = bancoOrigen;
 	}
 		
 }

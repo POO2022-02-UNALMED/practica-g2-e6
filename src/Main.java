@@ -15,31 +15,35 @@ public class Main {
     static Usuario usuario;
 
     public static void main(String[] args) {
-        //Divisa divisa = new Divisa("EURO",4500);
-        //databank.nuevaDivisa(divisa);
 
-        Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+        /*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
         Usuario usuario2 = new Usuario("2", "David Esteban Martin Acosta", "dMartin@unal.edu.co", LocalDate.now(), "segura2");
         Usuario usuario1 = new Usuario("1", "Jaime Alberto Guzman Luna", "jGuzman@unal.edu.co", LocalDate.now(), "segura1");
         DataBank.nuevoUsuario(usuario3);
         DataBank.nuevoUsuario(usuario2);
-        DataBank.nuevoUsuario(usuario1);
+        DataBank.nuevoUsuario(usuario1);*/
 
 
         Scanner entrada = new Scanner(System.in);
         int opcion, opcUsuario;
-
-        System.out.println("---- LOGIN ----");
-        System.out.println("¿Que usuario eres?");
-        System.out.println("1. Jaime Alberto Guzman Luna");
-        System.out.println("2. David Esteban Martin Acosta");
-        System.out.println("3. Oswaldo Andres Pena Rojas");
-        opcUsuario = entrada.nextInt();
-
-        while (opcUsuario != 1 & opcUsuario != 2 & opcUsuario != 3) {
-            System.out.println("Por favor ingresa una opcion valida: ");
-            opcUsuario = entrada.nextInt();
-        }
+        boolean repeted = false;
+        do {
+            try {
+                if (repeted) {
+                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO PIROBO");
+                }
+                System.out.println("---- LOGIN ----");
+                System.out.println("¿Que usuario eres?");
+                System.out.println("1. Jaime Alberto Guzman Luna");
+                System.out.println("2. David Esteban Martin Acosta");
+                System.out.println("3. Oswaldo Andres Pena Rojas");
+                opcUsuario = entrada.nextInt();
+            } catch (Exception e) {
+                opcUsuario = 0;
+                entrada.next();
+            }
+            repeted = true;
+        } while (opcUsuario <= 0 || opcUsuario >= DataBank.getUsuarios().size());
 
         usuario = DataBank.getUsuarioPorCC(String.valueOf(opcUsuario));
 
@@ -161,7 +165,7 @@ public class Main {
                     }
                     System.out.println("Por favor escoja una opción: ");
                     opcion = entrada.nextInt();
-                    Main.eleccionBancoMonto(bolsillos.get(opcion-1));
+                    Main.eleccionBancoMonto(bolsillos.get(opcion - 1));
                 } else {
                     System.out.println("El usuario no posee bolsillos...");
                 }
@@ -177,7 +181,7 @@ public class Main {
                     }
                     System.out.println("Por favor escoja una opción: ");
                     opcion = entrada.nextInt();
-                    Main.eleccionBancoMonto(colchones.get(opcion-1));
+                    Main.eleccionBancoMonto(colchones.get(opcion - 1));
                     break;
                 } else {
                     System.out.println("El usuario no posee colchones...");
@@ -202,9 +206,9 @@ public class Main {
         System.out.println("Por favor escoja una opción: ");
         opcion = entrada.nextInt() - 1;
 
-        System.out.println("Ingrese la cantidad que desea ingresar");
+        System.out.println("Ingrese la cantidad que desea ingresar en " + cuenta.getDivisa() + ": (utilice ',' para el símbolo decimal)");
         cantidad = entrada.nextDouble();
-        Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), false, Banco.values()[opcion], cuenta, cuenta.getDivisa(), cuenta.getDivisa());
+        Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcion], cuenta, cuenta.getDivisa());
         usuario.nuevoIngreso(ingreso);
     }
 }

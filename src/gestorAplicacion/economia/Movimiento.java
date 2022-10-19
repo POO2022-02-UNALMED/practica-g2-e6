@@ -14,13 +14,13 @@ public abstract class Movimiento implements Serializable{
 	private double valor;
 	private LocalDate fechaCreacion;
 	private boolean interno;
-	private Banco banco;
+	private Banco bancoOrigen;
 	
-	public Movimiento(double valor, LocalDate fechaCreacion, boolean interno, Banco banco) {
+	public Movimiento(double valor, LocalDate fechaCreacion, boolean interno, Banco bancoOrigen) {
 		setValor(valor);
 		setFechaCreacion(fechaCreacion);
 		setInterno(interno);
-		setBanco(banco);
+		setBanco(bancoOrigen);
 	}
 	
 	public double getValor() {
@@ -42,10 +42,10 @@ public abstract class Movimiento implements Serializable{
 		this.interno = interno;
 	}
 	public Banco getBanco() {
-		return banco;
+		return bancoOrigen;
 	}
-	public void setBanco(Banco banco) {
-		this.banco = banco;
+	public void setBanco(Banco bancoOrigen) {
+		this.bancoOrigen = bancoOrigen;
 	}
 	
 	
