@@ -65,7 +65,7 @@ public class Main {
                 	break;
                 case 4:agregarColchon();
                 	break;
-                case 5:
+                case 5:opcionModificar();
                 	break;
                 case 6:
                     break;
@@ -89,6 +89,7 @@ public class Main {
                 System.out.println("1. Bolsillos");
                 System.out.println("2. Colchones");
                 System.out.println("3. Dinero total");
+                System.out.println("3. Volver al inicio");
                 System.out.println("Por favor escoja una opción: ");
                 
                 opcion = entrada.nextInt();
@@ -97,40 +98,24 @@ public class Main {
                 entrada.next();
             }
             repeted = true;
-        } while (opcion != 1 && opcion != 2 && opcion != 3);
+        } while (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4);
 
         switch (opcion) {
-            case 1:
-                List<Bolsillo> bolsillos = usuario.getBolsillos();
-                if (!bolsillos.isEmpty()) {
-                    int j = 0;
-                    for (Bolsillo i : bolsillos) {
-                        System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Divisa: " + i.getDivisa());
-                        j++;
-                    }
-                } else {
-                    System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
-                }
+            case 1:listarBolsillos();
                 break;
             case 2:
-                List<Colchon> colchones = usuario.getColchones();
-                if (!colchones.isEmpty()) {
-                    int z = 0;
-                    for (Colchon i : colchones) {
-                        System.out.println(z + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro());
-                        z++;
-                    }
-                } else {
-                    System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
-                }
+            	listarColchones();
                 break;
             case 3:
                 double total = DataBank.dineroTotalUsu(usuario);
                 System.out.println("Dinero total: " + total);
                 break;
+            case 4:
+            	break;
         }
     }
-
+    
+    //TODO: Try catch
     static void ingresaDinero() {
         int opcion;
         Scanner entrada = new Scanner(System.in);
@@ -149,36 +134,21 @@ public class Main {
 
         switch (opcion) {
             case 1:
-                List<Bolsillo> bolsillos = usuario.getBolsillos();
-                if (!bolsillos.isEmpty()) {
-                    System.out.println("Elija el bolsillo destino");
-                    int j = 1;
-                    for (Bolsillo i : bolsillos) {
-                        System.out.println(j + ". " + i.getNombre());
-                        j++;
-                    }
+            	System.out.println("Bolsillos: ");
+            	boolean bol = listarBolsillos();
+                if (bol==true) {            
                     System.out.println("Por favor escoja una opción: ");
                     opcion = entrada.nextInt();
-                    Main.eleccionBancoMonto(bolsillos.get(opcion - 1));
-                } else {
-                    System.out.println("El usuario no posee bolsillos...");
+                    eleccionBancoMonto(usuario.getBolsillos().get(opcion - 1));
                 }
                 break;
             case 2:
-                List<Colchon> colchones = usuario.getColchones();
-                if (!colchones.isEmpty()) {
-                    System.out.println("Elija el colchon destino");
-                    int z = 1;
-                    for (Colchon i : colchones) {
-                        System.out.println(z + ". " + i.getNombre());
-                        z++;
-                    }
+            	System.out.println("Colchones: ");
+            	boolean col = listarColchones();
+                if (col==true) {            
                     System.out.println("Por favor escoja una opción: ");
                     opcion = entrada.nextInt();
-                    Main.eleccionBancoMonto(colchones.get(opcion - 1));
-                    break;
-                } else {
-                    System.out.println("El usuario no posee colchones...");
+                    eleccionBancoMonto(usuario.getColchones().get(opcion - 1));
                 }
                 break;
             case 3:
@@ -241,7 +211,7 @@ public class Main {
     static void agregarBolsillo() {
     	
     	Scanner entrada = new Scanner(System.in);
-    	int opcion;
+    	int divisa;
     	String nombre;
     	
         System.out.println("Elija la divisa que desea utilizar en el bolsillo");
@@ -251,12 +221,12 @@ public class Main {
             j++;
         }
         System.out.println("Por favor escoja una opción: ");
-        opcion = entrada.nextInt() - 1;
+        divisa = entrada.nextInt() - 1;
         
         System.out.println("Escriba el nombre que desea asignarle al bolsillo: ");
         nombre = entrada.next();
         
-        Bolsillo bolsillo = new Bolsillo(usuario,Divisa.values()[opcion],nombre);
+        Bolsillo bolsillo = new Bolsillo(usuario,Divisa.values()[divisa],nombre);
         usuario.nuevoBolsillo(bolsillo);
     }
     
@@ -290,5 +260,183 @@ public class Main {
         Colchon colchon = new Colchon(usuario,Divisa.values()[opcion],nombre,LocalDate.now().plusMonths(fecha));
         usuario.nuevoColchon(colchon);
     }
+    
+    //TODO: try catch
+    static void opcionModificar() {
+    	int opcion;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("¿Que desea modificar?");
+        System.out.println("1. Bolsillo");
+        System.out.println("2. Colchon");
+        System.out.println("3. Volver al inicio");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2 && opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:
+        		System.out.println("Bolsillos: ");
+            	boolean bol = listarBolsillos();
+                if (bol==true) {            
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt()-1;
+                    modificar(usuario.getBolsillos().get(opcion));
+                }
+                break;
+        	case 2:
+        		System.out.println("Colchones: ");
+            	boolean col = listarBolsillos();
+                if (col==true) {            
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt()-1;
+                    modificar(usuario.getColchones().get(opcion));
+                }
+        		break;
+        	case 3:
+        		break;
+        }
+    }
+    
+    //TODO: try catch
+    static void modificar(Bolsillo bolsillo) {
+    	int opcion, divisa;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("¿Que desea modificar?");
+        System.out.println("1. Nombre");
+        System.out.println("2. Divisa");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:
+        		System.out.println("Nuevo nombre:");
+        		String nombre = entrada.next();
+        		bolsillo.setNombre(nombre);
+        		break;
+        	case 2:
+        		System.out.println("Nueva divisa:");
+        		int j = 1;
+                listarDivisas();
+                System.out.println("Por favor escoja una opción: ");
+                divisa = entrada.nextInt() - 1;
+                double[] nuevoSaldo = bolsillo.getDivisa().ConvertToDivisa(bolsillo.getSaldo(),Divisa.values()[divisa]);
+                bolsillo.setDivisa(Divisa.values()[divisa]);
+                bolsillo.setSaldo(nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
+                break;
+        }
+    }
+    
+  //TODO: try catch
+    static void modificar(Colchon colchon) {
+    	int opcion, divisa;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("¿Que desea modificar?");
+        System.out.println("1. Nombre");
+        System.out.println("2. Divisa");
+        System.out.println("3. Cambiar fecha");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2 && opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:
+        		System.out.println("Nuevo nombre:");
+        		String nombre = entrada.next();
+        		colchon.setNombre(nombre);
+        		break;
+        	case 2:
+        		System.out.println("Nueva divisa:");
+        		int j = 1;
+                listarDivisas();
+                System.out.println("Por favor escoja una opción: ");
+                divisa = entrada.nextInt() - 1;
+                double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(),Divisa.values()[divisa]);
+                colchon.setDivisa(Divisa.values()[divisa]);
+                colchon.setSaldo(nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
+                break;
+        	case 3:
+        		if(cambiarFechaColchon()==1) {
+        			colchon.setFechaRetiro(colchon.getFechaRetiro().plusMonths(1));
+        		}else if(cambiarFechaColchon()==2) {
+        			colchon.setFechaRetiro(colchon.getFechaRetiro().minusMonths(1));
+        		}
+        }
+    }
+    
+    static int cambiarFechaColchon() {
+    	int opcion;
+        Scanner entrada = new Scanner(System.in);
+    	System.out.println("¿Que desea modificar?");
+        System.out.println("1. Aumentar 1 mes");
+        System.out.println("2. Disminuir 1 mes");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+        
+        while (opcion != 1 && opcion != 2) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:return 1;
+        	case 2:return 2;
+        	default:return 0;
+        }
+    }
+    
+    static boolean listarBolsillos() {
+        if (!usuario.getBolsillos().isEmpty()) {
+            int j = 1;
+            for (Bolsillo i : usuario.getBolsillos()) {
+                System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Divisa: " + i.getDivisa());
+                j++;
+            }
+            return true;
+        } else {
+            System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
+            return false;
+        }
+    }
+    
+    static boolean listarColchones() {
+        if (!usuario.getColchones().isEmpty()) {
+            int j = 1;
+            for (Colchon i : usuario.getColchones()) {
+                System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro() + "		Divisa: " + i.getDivisa());
+                j++;
+            }
+            return true;
+        } else {
+            System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
+            return false;
+        }
+    }
+    
+    static void listarDivisas() {
+    	int j = 1;
+        for (Divisa i : Divisa.values()) {
+            System.out.println(j + ". " + i);
+            j++;
+        }
+    }
+    
 }
 

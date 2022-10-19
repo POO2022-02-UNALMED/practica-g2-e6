@@ -59,6 +59,10 @@ public abstract class Cuenta implements Serializable{
     public double getSaldo() {
         return saldo;
     }
+    
+    public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
 
 	public Divisa getDivisa() {
 		return divisa;
