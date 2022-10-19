@@ -5,6 +5,7 @@ import java.util.Scanner;
 import baseDatos.Serializador;
 import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
+import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
@@ -25,27 +26,9 @@ public class Main {
 
 
         Scanner entrada = new Scanner(System.in);
-        int opcion, opcUsuario;
-        boolean repeted = false;
-        do {
-            try {
-                if (repeted) {
-                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO PIROBO");
-                }
-                System.out.println("---- LOGIN ----");
-                System.out.println("¿Que usuario eres?");
-                System.out.println("1. Jaime Alberto Guzman Luna");
-                System.out.println("2. David Esteban Martin Acosta");
-                System.out.println("3. Oswaldo Andres Pena Rojas");
-                opcUsuario = entrada.nextInt();
-            } catch (Exception e) {
-                opcUsuario = 0;
-                entrada.next();
-            }
-            repeted = true;
-        } while (opcUsuario <= 0 || opcUsuario >= DataBank.getUsuarios().size());
+        int opcion;
 
-        usuario = DataBank.getUsuarioPorCC(String.valueOf(opcUsuario));
+        usuario = login();
 
         do {
             System.out.println("---- SISTEMA GESTOR DE DINERO ----");
@@ -62,48 +45,59 @@ public class Main {
             //fecha de ingreso a la plataforma, cantidad de movimientos realizados, y de acuerdo a un puntaje que vamos a establecer, se le asignara una cantidad
             //maxima a desembolsar.
             System.out.println("3. Agregar bolsillo a su cuenta");
-            //Se listan las divisas existentes y se pregunta con cual desea crear el bolsillo, se pregunta si desea crear el bolsillo vacio
-            //o se desea agregar dinero, si escoje agregar dinero, se ejecuta la funcion 1 y se pregunta de donde quiere agregar el dinero
-            //y se descuenta de ese bolsillo o divisa y se agrega a el nuevo bolsillo(si el dinero es inferior a la cantidad que tiene)
-            //se crea el bolsillo y se debe actualizar el dinero total del usuario
-            System.out.println("4. Modificar bolsillo");
-            System.out.println("5. Solicitar credito");
+            //Se listan las divisas existentes y se pregunta con cual desea crear el bolsillo, se pide nombre y se agrega un nuevo bolsillo al usuario
+            System.out.println("4. Agregar colchon a su cuenta");
+            //Se listan las divisas existentes y se pregunta con cual desea crear el colchon, se pide nombre y fecha para sacar el dinero,
+            //luego se agrega el colchon a la cuenta
+            System.out.println("5. Modificar Colchon/Bolsillo");
+            System.out.println("6. Solicitar credito");
             //Se tomarán en cuenta varios parametros (cantidad de ingresos, edad, contrato de empleo fijo y experiencia crediticia.
-            System.out.println("6. Terminar ");
+            System.out.println("7. Terminar ");
             System.out.println("Por favor escoja una opción: ");
             opcion = entrada.nextInt();
 
             switch (opcion) {
-                case 1:
-                    saldosDisponibles();
+                case 1:saldosDisponibles();
                     break;
-                case 2:
-                    ingresaDinero();
+                case 2:ingresaDinero();
                     break;
-                //case 3:agregarBolsillo();
+                case 3:agregarBolsillo();
+                	break;
+                case 4:agregarColchon();
+                	break;
+                case 5:
+                	break;
                 case 6:
-                    Serializador.serializar();
                     break;
+                case 7:Serializador.serializar();
+                	break;
             }
 
-        } while (opcion != 6);
+        } while (opcion != 7);
     }
 
     static void saldosDisponibles() {
-        int opcion;
-        Scanner entrada = new Scanner(System.in);
-
-        System.out.println("¿Que cuentas desea visualizar?");
-        System.out.println("1. Bolsillos");
-        System.out.println("2. Colchones");
-        System.out.println("3. Dinero total");
-        System.out.println("Por favor escoja una opción: ");
-        opcion = entrada.nextInt();
-
-        while (opcion != 1 & opcion != 2 & opcion != 3) {
-            System.out.println("Por favor ingresa una opcion valida: ");
-            opcion = entrada.nextInt();
-        }
+    	Scanner entrada = new Scanner(System.in);
+    	int opcion;
+        boolean repeted = false;
+        do {
+            try {
+                if (repeted) {
+                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO...");
+                }
+                System.out.println("¿Que cuentas desea visualizar?");
+                System.out.println("1. Bolsillos");
+                System.out.println("2. Colchones");
+                System.out.println("3. Dinero total");
+                System.out.println("Por favor escoja una opción: ");
+                
+                opcion = entrada.nextInt();
+            } catch (Exception e) {
+            	opcion = 0;
+                entrada.next();
+            }
+            repeted = true;
+        } while (opcion != 1 && opcion != 2 && opcion != 3);
 
         switch (opcion) {
             case 1:
@@ -115,7 +109,7 @@ public class Main {
                         j++;
                     }
                 } else {
-                    System.out.println("El usuario no posee bolsillos...");
+                    System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
                 }
                 break;
             case 2:
@@ -127,7 +121,7 @@ public class Main {
                         z++;
                     }
                 } else {
-                    System.out.println("El usuario no posee colchones...");
+                    System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
                 }
                 break;
             case 3:
@@ -210,6 +204,91 @@ public class Main {
         cantidad = entrada.nextDouble();
         Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcion], cuenta, cuenta.getDivisa());
         usuario.nuevoIngreso(ingreso);
+    }
+    
+    //TODO: No se gestiona bien la eleccion del usuario en el while, en pruebas realizada solo ejecuta con el 1
+    static Usuario login() {
+    	Scanner entrada = new Scanner(System.in);
+        int opcUsuario;
+        boolean repeted = false;
+        do {
+            try {
+                if (repeted) {
+                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO PIROBO");
+                }
+                System.out.println("---- LOGIN ----");
+                System.out.println("¿Que usuario eres?");
+                
+                int j = 1;
+                for (Usuario i : DataBank.getUsuarios()) {
+                    System.out.println(j + ". " + i.getNombre());
+                    j++;
+                }
+                System.out.println("Por favor escoja una opción: ");
+               
+                opcUsuario = entrada.nextInt();
+            } catch (Exception e) {
+                opcUsuario = 0;
+                entrada.next();
+            }
+            repeted = true;
+        } while (opcUsuario <= 0 || opcUsuario >= DataBank.getUsuarios().size());
+
+        return DataBank.getUsuarioPorCC(String.valueOf(opcUsuario));
+    }
+    
+    //TODO: falta try catch para controlar la entrada
+    static void agregarBolsillo() {
+    	
+    	Scanner entrada = new Scanner(System.in);
+    	int opcion;
+    	String nombre;
+    	
+        System.out.println("Elija la divisa que desea utilizar en el bolsillo");
+        int j = 1;
+        for (Divisa i : Divisa.values()) {
+            System.out.println(j + ". " + i);
+            j++;
+        }
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt() - 1;
+        
+        System.out.println("Escriba el nombre que desea asignarle al bolsillo: ");
+        nombre = entrada.next();
+        
+        Bolsillo bolsillo = new Bolsillo(usuario,Divisa.values()[opcion],nombre);
+        usuario.nuevoBolsillo(bolsillo);
+    }
+    
+  //TODO: falta try catch para controlar la entrada
+    static void agregarColchon() {
+    	
+    	Scanner entrada = new Scanner(System.in);
+    	int opcion,fecha;
+    	String nombre;
+    	
+        System.out.println("Elija la divisa que desea utilizar en el colchon");
+        int j = 1;
+        for (Divisa i : Divisa.values()) {
+            System.out.println(j + ". " + i);
+            j++;
+        }
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt() - 1;
+        
+        System.out.println("Escriba el nombre que desea asignarle al colchon: ");
+        nombre = entrada.next();
+        
+        System.out.println("Elija la fecha en que desea liberar el colchon: ");
+        for(int i = 1; i < 5; i++) {
+        	System.out.println(i + ". "+LocalDate.now().plusMonths(i));
+        }
+        System.out.println("Por favor escoja una opción: ");
+        fecha = entrada.nextInt();
+        
+        
+        Colchon colchon = new Colchon(usuario,Divisa.values()[opcion],nombre,LocalDate.now().plusMonths(fecha));
+        usuario.nuevoColchon(colchon);
     }
 }
 

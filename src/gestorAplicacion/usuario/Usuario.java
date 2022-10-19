@@ -108,4 +108,8 @@ public class Usuario implements Serializable{
 		bolsillos.add(bolsillo);
 	}
 	
+	public void nuevoColchon(Colchon colchon) {
+		colchones.add(colchon);
+	}
+	
 }
