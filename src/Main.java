@@ -12,16 +12,14 @@ import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Usuario;
 
 public class Main {
-	
-	static DataBank databank = new DataBank();
 	static Usuario usuario;
 
 	public static void main(String[] args) {
 		//Divisa divisa = new Divisa("EURO",4500);
 		//databank.nuevaDivisa(divisa);
 		
-		//Usuario usuario1 = new Usuario("1", "Jaime Guzman", "jguzman@unal.edu.co", LocalDate.now(), "segura");
-		//databank.nuevoUsuario(usuario1);
+		Usuario usuario1 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+		DataBank.nuevoUsuario(usuario1);
 		
 		
 		Scanner entrada=new Scanner(System.in);
@@ -39,7 +37,7 @@ public class Main {
 			opcUsuario = entrada.nextInt();
 		}
 		
-		usuario=databank.getUsuarioPrincipal(String.valueOf(opcUsuario));
+		usuario= DataBank.getUsuarioPorCC(String.valueOf(opcUsuario));
 		
 		do {
 			System.out.println("---- SISTEMA GESTOR DE DINERO ----");
@@ -73,7 +71,7 @@ public class Main {
 				case 2:ingresaDinero();
 					break;
 				case 3:agregarBolsillo();
-				case 6:Serializador.serializar(databank);
+				case 6:Serializador.serializar();
 				break;
 			}
 
@@ -118,7 +116,7 @@ public class Main {
 				}else {System.out.println("El usuario no posee colchones...");}
 				break;
 			case 3:
-				double total = databank.dineroTotalUsu(usuario);
+				double total = DataBank.dineroTotalUsu(usuario);
 				System.out.println("Dinero total: "+total);
 				break;
 		}
@@ -178,7 +176,7 @@ public class Main {
 		Scanner entrada=new Scanner(System.in);
 		
 		System.out.println("Elija el banco por medio del cual quiere hacer el ingreso");
-		List<Banco> bancos = databank.getBancos();
+		List<Banco> bancos = DataBank.getBancos();
 		int j=0;
 		for(Banco i:bancos) {
 			System.out.println(j+". "+i.getNombre());
@@ -240,7 +238,7 @@ public class Main {
 		String nombre;
 		Scanner entrada=new Scanner(System.in);
 		
-		List<Divisa> divisas = databank.getDivisas();
+		List<Divisa> divisas = DataBank.getDivisas();
 		if(!divisas.isEmpty()) {
 			System.out.println("Elija la divisa");
 			int j=0;

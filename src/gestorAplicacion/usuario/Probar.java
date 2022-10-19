@@ -1,5 +1,7 @@
 package gestorAplicacion.usuario;
 
+import java.util.List;
+
 import baseDatos.Serializador;
 import gestorAplicacion.administrador.DataBank;
 
@@ -23,13 +25,8 @@ public class Probar {
 		 */
 		// System.out.println(conn.guardar(new Usuario("Manuela",
 		// "123manu2@unal.edu.co", "enero", "hoy", "vinilostopia")));
-		
-		DataBank databank = new DataBank();
-		//databank.nuevoUsuario("Juan", "juan@unal.edu.co", "hace dias", "hoy", "clave");
-		//databank.nuevoUsuario("Milton", "andres@unal.edu.co", "hace ddias", "hoy y ", "clave2");
-		
-		Serializador.serializar(databank);
-		for(Usuario usu : databank.getUsuarios()) {
+		List<Usuario> aux = DataBank.getUsuarios();
+		for(Usuario usu : aux) {
 			System.out.println(usu.getNombre());
 		}
 	}
