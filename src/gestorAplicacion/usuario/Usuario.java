@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
 import gestorAplicacion.economia.Salida;
 
@@ -22,8 +23,7 @@ public class Usuario implements Serializable{
 	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
 	private List<Salida> salidas = new ArrayList<Salida>();
-	
-	public static int numeroUsuarios;
+
 	
 	public Usuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave){
 		setCedula(cedula);
@@ -31,7 +31,7 @@ public class Usuario implements Serializable{
 		setEmail(email);
 		setFechaIngreso(fechaIngreso);
 		setClave(clave);
-		numeroUsuarios++;
+		bolsillos.add(new Bolsillo(this, Divisa.PESO,"DEFAULT"));
 	}
 	
 	public String getCedula() {

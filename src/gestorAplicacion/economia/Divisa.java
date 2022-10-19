@@ -1,39 +1,42 @@
 package gestorAplicacion.economia;
 
-import java.io.Serializable;
+public enum Divisa {
+    EURO(4000,4500),
+    PESO(1,1),
+    DOLAR(4200,5000);
 
-public class Divisa implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5338275442776943532L;
-	
-	private String nombre;
-	private double tasaCambio;
-	
-	public Divisa(String nombre, double tasaCambio) {
-		setNombre(nombre);
-		setTasaCambio(tasaCambio);
-	}
+    private double minValue;
+    private double maxValue;
 
-	public String getNombre() {
-		return nombre;
-	}
+    Divisa(double minValue, double maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public double getMinValue() {
+        return minValue;
+    }
 
+    public void setMinValue(double minValue) {
+        this.minValue = minValue;
+    }
 
-	public double getTasaCambio() {
-		return tasaCambio;
-	}
+    public double getMaxValue() {
+        return maxValue;
+    }
 
-	public void setTasaCambio(double tasaCambio) {
-		this.tasaCambio = tasaCambio;
-	}
-
-	
-	
+    public void setMaxValue(double maxValue) {
+        this.maxValue = maxValue;
+    }
+    public double[] ConvertToDivisa(double value, Divisa target){
+        double[] result = new double[2];
+        if (target == this) {
+            result[0] = value;
+            result[1] = 1;
+            return result;
+        };
+        result[1] = (Math.random()*(target.getMaxValue()-target.getMinValue()) + target.getMinValue())/(Math.random()*(this.getMaxValue()-this.getMinValue()) + this.getMinValue());
+        result[0] = value / result[1];
+        return result;
+    }
 }

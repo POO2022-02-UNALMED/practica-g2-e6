@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baseDatos.Deserializador;
-import gestorAplicacion.economia.Banco;
-import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.usuario.*;
 
 
@@ -14,13 +12,10 @@ public class DataBank implements Serializable {
 
     public static String[][] filesList = {
             // 1. name of file, 2.setterName, 3. getterName
-            {"usuarios.txt", "setUsuarios", "getUsuarios"},
-            {"divisas.txt", "setDivisas", "getDivisas"}
+            {"usuarios.txt", "setUsuarios", "getUsuarios"}
     };
     private static final long serialVersionUID = 2979265545810011076L;
     private static List<Usuario> usuarios = new ArrayList<Usuario>();
-    private static List<Divisa> divisas = new ArrayList<Divisa>();
-    private static List<Banco> bancos = new ArrayList<Banco>();
 
     static {
         Deserializador.deserializar();
@@ -36,30 +31,9 @@ public class DataBank implements Serializable {
         DataBank.usuarios = (List<Usuario>) usuarios;
     }
 
-    public static List<Divisa> getDivisas() {
-        return divisas;
-    }
-
-    public static void setDivisas(Object divisas) {
-        DataBank.divisas = (List<Divisa>)divisas;
-    }
-
-    public static List<Banco> getBancos() {
-        return bancos;
-    }
-
-    public static void setBancos(List<Banco> bancos) {
-        DataBank.bancos = bancos;
-    }
-
-
     // Add data to lists
     public static void nuevoUsuario(Usuario usuario) {
         usuarios.add(usuario);
-    }
-
-    public static void nuevaDivisa(Divisa divisa) {
-        divisas.add(divisa);
     }
 
     public static Usuario getUsuarioPorCC(String cc) {
@@ -71,7 +45,9 @@ public class DataBank implements Serializable {
         return null;
     }
 
-    //TODO: Migrate to User class (logic cross)
+    /*TODO: Migrate to User class (logic cross)
+        add segregation of divisa
+     */
     public static double dineroTotalUsu(Usuario usuario) {
 
         double total = 0;

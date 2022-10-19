@@ -1,9 +1,11 @@
 package gestorAplicacion.usuario;
 
+import java.io.DataInput;
 import java.util.List;
 
 import baseDatos.Serializador;
 import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.economia.Divisa;
 
 public class Probar {
 
@@ -29,6 +31,8 @@ public class Probar {
 		for(Usuario usu : aux) {
 			System.out.println(usu.getNombre());
 		}
+		double[] aux2 = Divisa.DOLAR.ConvertToDivisa(2,Divisa.PESO);
+		System.out.println(aux2[0]+ ", "+ aux2[1]);
 	}
 
 }

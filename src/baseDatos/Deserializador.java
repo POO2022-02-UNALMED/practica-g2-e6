@@ -2,16 +2,10 @@ package baseDatos;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 import gestorAplicacion.administrador.DataBank;
-import gestorAplicacion.economia.Divisa;
-import gestorAplicacion.usuario.*;
 
 public class Deserializador {
 
