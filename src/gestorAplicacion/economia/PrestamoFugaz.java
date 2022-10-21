@@ -13,20 +13,20 @@ public class PrestamoFugaz extends Prestamo {
 	 */
 	
 
-	private String nombre;
+	private String[] referencia;
 	
-	public PrestamoFugaz(double valorInicial, int tiempo, double TEA, LocalDate fechaInicio, String nombre) {
-		super(valorInicial, tiempo, TEA, fechaInicio, fechaInicio.plusMonths(tiempo));
-		this.nombre=nombre;
+	public PrestamoFugaz(double valorInicial,LocalDate fechaInicio, String[] referencia) {
+		super(valorInicial, 6 , 34.49, fechaInicio,fechaInicio.plusMonths(6));
+		setReferencia(referencia);
 
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String[] getReferencia() {
+		return referencia;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setReferencia(String[] referencia) {
+		this.referencia = referencia;
 	}
 	
 	
