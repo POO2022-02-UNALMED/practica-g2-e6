@@ -36,12 +36,6 @@ public abstract class Prestamo implements Serializable{
 		this.valorInicial = valorInicial;
 	}
 
-	//public double getValorInicual() {
-		//return valorInicial;
-	//}
-	//public void setValorInicual(double valorInicial) {
-		//this.valorInicial = valorInicial;
-	//}
 	public double getValorPagado() {
 		return valorPagado;
 	}
@@ -72,18 +66,11 @@ public abstract class Prestamo implements Serializable{
 	public void setFechaPago(LocalDate fechaPago) {
 		this.fechaFinal = fechaPago;
 	}
-	
-	public boolean getCumplida(boolean cumplida) {
-		return cumplida;
-		
-	}
 	public boolean isCumplida() {
 		return cumplida;
 	}
 	public void setCumplida(boolean cumplida) {
 		this.cumplida = cumplida;
 	}
-	
-	
 	
 }
