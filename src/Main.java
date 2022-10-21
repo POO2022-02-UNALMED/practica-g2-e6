@@ -7,6 +7,7 @@ import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
+import gestorAplicacion.economia.Prestamo;
 import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
@@ -51,7 +52,7 @@ public class Main {
             //Se listan las divisas existentes y se pregunta con cual desea crear el colchon, se pide nombre y fecha para sacar el dinero,
             //luego se agrega el colchon a la cuenta
             System.out.println("5. Modificar Colchon/Bolsillo");
-            System.out.println("6. Solicitar credito");
+            System.out.println("6. Solicitar Prestamo");
             //Se tomarán en cuenta varios parametros (cantidad de ingresos, edad, contrato de empleo fijo y experiencia crediticia.
             System.out.println("7. Terminar ");
             System.out.println("Por favor escoja una opción: ");
@@ -68,7 +69,7 @@ public class Main {
                 	break;
                 case 5:opcionModificar();
                 	break;
-                case 6:
+                case 6:solicitarPrestamo();
                     break;
                 case 7:Serializador.serializar();
                 	break;
@@ -455,7 +456,7 @@ public class Main {
         }
         
         switch(opcion) {
-        	case 1:
+        	case 1:prestamoFugaz();
         		break;
         	case 2:prestamoAlargoPlazo();
         	case 3: 
@@ -463,8 +464,6 @@ public class Main {
         	
         }
     }
-    
-    
     
 }
 

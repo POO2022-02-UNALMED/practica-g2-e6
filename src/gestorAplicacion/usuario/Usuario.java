@@ -7,6 +7,9 @@ import java.util.List;
 
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
+import gestorAplicacion.economia.Prestamo;
+import gestorAplicacion.economia.PrestamoFugaz;
+import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.economia.Salida;
 
 
@@ -23,6 +26,7 @@ public class Usuario implements Serializable{
 	private List<Colchon> colchones = new ArrayList<Colchon>();
 	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
 	private List<Salida> salidas = new ArrayList<Salida>();
+	private List<Prestamo> prestamos = new ArrayList<Prestamo>();
 
 	
 	public Usuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave){
@@ -99,6 +103,14 @@ public class Usuario implements Serializable{
 		this.salidas = salidas;
 	}
 	
+	public List<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(List<Prestamo> prestamos) {
+		this.prestamos = prestamos;
+	}
+
 	public void nuevoIngreso(Ingreso ingreso) {
 		ingresos.add(ingreso);
 		ingreso.getCuentaDestino().depositar(ingreso.getValor());
@@ -112,4 +124,11 @@ public class Usuario implements Serializable{
 		colchones.add(colchon);
 	}
 	
+	public void nuevoPrestamo(PrestamoFugaz prestamo) {
+		prestamos.add(prestamo);
+	}
+	
+	public void nuevoPrestamo(PrestamoLargoPlazo prestamo) {
+		prestamos.add(prestamo);
+	}
 }
