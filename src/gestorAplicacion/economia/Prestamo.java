@@ -1,6 +1,7 @@
 package gestorAplicacion.economia;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public abstract class Prestamo implements Serializable{
 
@@ -11,19 +12,19 @@ public abstract class Prestamo implements Serializable{
 	
 	protected double valorInicial;
 	protected double valorPagado;
-	protected int tiempo;
-	private float TEA;
-	private String fechaInicio;
-	private String fechaPago;
+	protected int tiempo;			//meses diferidos
+	private double TEA;
+	private LocalDate fechaInicio;
+	private LocalDate fechaFinal;
 	private boolean cumplida; // Con la intencion de que si se cumple el pago, imprima algun string
 	
-	public Prestamo(double valorInicial, double valorPagado, int tiempo, float TEA, String fechaInicio, String fechaPago, boolean cumplida) {
+	public Prestamo(double valorInicial,int tiempo , double TEA, LocalDate fechaInicio, LocalDate fechaFinal, boolean cumplida) {
 		setValorInicial(valorInicial);
-		setValorPagado(valorPagado);
+		valorPagado = 0;
 		setTiempo(tiempo);
 		setTEA(TEA);
 		setFechaInicio(fechaInicio);
-		setFechaPago(fechaPago);
+		setFechaPago(fechaFinal);
 		setCumplida(cumplida);
 	}
 	
@@ -53,23 +54,23 @@ public abstract class Prestamo implements Serializable{
 	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
 	}
-	public float getTEA() {
+	public double getTEA() {
 		return TEA;
 	}
-	public void setTEA(float tEA) {
+	public void setTEA(double tEA) {
 		TEA = tEA;
 	}
-	public String getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
-	public void setFechaInicio(String fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	public String getFechaPago() {
-		return fechaPago;
+	public LocalDate getFechaPago() {
+		return fechaFinal;
 	}
-	public void setFechaPago(String fechaPago) {
-		this.fechaPago = fechaPago;
+	public void setFechaPago(LocalDate fechaPago) {
+		this.fechaFinal = fechaPago;
 	}
 	
 	public boolean getCumplida(boolean cumplida) {

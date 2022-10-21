@@ -7,6 +7,7 @@ import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
+import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Cuenta;
@@ -437,6 +438,33 @@ public class Main {
             j++;
         }
     }
+    
+    static void solicitarPrestamo() {
+    	int opcion;
+        Scanner entrada = new Scanner(System.in);
+    	System.out.println("¿Que prestamo desea solicitar?");
+        System.out.println("1. Fugaz");
+        System.out.println("2. A largo plazo");
+        System.out.println("3. Volver al inicio");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+        
+        while (opcion != 1 && opcion != 2 && opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:
+        		break;
+        	case 2:prestamoAlargoPlazo();
+        	case 3: 
+        		break;
+        	
+        }
+    }
+    
+    
     
 }
 
