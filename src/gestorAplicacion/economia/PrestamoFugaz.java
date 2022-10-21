@@ -1,20 +1,22 @@
 package gestorAplicacion.economia;
-import java.io.Serializable;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PrestamoFugaz extends Prestamo {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3388280595710146580L;
+	/**
+	 * 
+	 */
 	
+
 	private String nombre;
 	
-	public PrestamoFugaz(String nombre, double valorInicial, double valorPagado, int tiempo, float TEA, String fechaInicio, String fechaPago, boolean cumplida) {
-		super(valorInicial, valorPagado, tiempo, TEA, fechaPago, fechaPago, cumplida);
+	public PrestamoFugaz(double valorInicial, int tiempo, double TEA, LocalDate fechaInicio, String nombre) {
+		super(valorInicial, tiempo, TEA, fechaInicio, fechaInicio.plusMonths(tiempo));
 		this.nombre=nombre;
 
 	}
