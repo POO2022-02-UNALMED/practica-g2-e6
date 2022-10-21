@@ -18,14 +18,14 @@ public abstract class Prestamo implements Serializable{
 	private LocalDate fechaFinal;
 	private boolean cumplida; // Con la intencion de que si se cumple el pago, imprima algun string
 	
-	public Prestamo(double valorInicial,int tiempo , double TEA, LocalDate fechaInicio, LocalDate fechaFinal, boolean cumplida) {
+	public Prestamo(double valorInicial,int tiempo , double TEA, LocalDate fechaInicio, LocalDate fechaFinal) {
 		setValorInicial(valorInicial);
 		valorPagado = 0;
 		setTiempo(tiempo);
 		setTEA(TEA);
 		setFechaInicio(fechaInicio);
 		setFechaPago(fechaFinal);
-		setCumplida(cumplida);
+		setCumplida(false);
 	}
 	
 	public double getValorInicial() {
