@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 import baseDatos.Serializador;
@@ -175,6 +174,7 @@ public class Main {
         return DataBank.getUsuarioPorCC(String.valueOf(validarEntradaInt(DataBank.getUsuarios().size())));
     }
     
+    //Se agrega un bolsillo al usuario que se seleccionó en el login() con el nombre y la divisa seleccionada por el usuario
     static void agregarBolsillo() {
     	int divisa;
     	String nombre;
@@ -194,6 +194,7 @@ public class Main {
         usuario.nuevoBolsillo(bolsillo);
     }
     
+  //Se agrega un colchon al usuario que se seleccionó en el login() con el nombre, la divisa y la fecha de retiro seleccionada por el usuario
     static void agregarColchon() {
     	int divisa,fecha;
     	String nombre;
@@ -282,7 +283,7 @@ public class Main {
     
     //Menú para modificar nombre, divisa o fecha minima de retiro de un colchon
     static void modificar(Colchon colchon) {
-    	int opcion, divisa, cambioFecha;
+    	int opcion, divisa;
         System.out.println("¿Que desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
@@ -299,7 +300,7 @@ public class Main {
         	case 2:
         		System.out.println("Nueva divisa:");
                 listarDivisas();
-                divisa = validarEntradaInt(Divisa.values().length) - 1;		//3 porque son las cantidades de divisas, si se agregan mas se debe cambiar
+                divisa = validarEntradaInt(Divisa.values().length) - 1;
                 double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(),Divisa.values()[divisa]);
                 colchon.setDivisa(Divisa.values()[divisa]);
                 colchon.setSaldo(nuevoSaldo[0]);
@@ -330,30 +331,36 @@ public class Main {
     
     //Se listan los bolsillos del usuario que se seleccionó en el login()
     static boolean listarBolsillos() {
+    	System.out.println("---------------------------------------------------------");
         if (!usuario.getBolsillos().isEmpty()) {
             int j = 1;
             for (Bolsillo i : usuario.getBolsillos()) {
                 System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Divisa: " + i.getDivisa());
                 j++;
             }
+            System.out.println("---------------------------------------------------------");
             return true;
         } else {
             System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
+            System.out.println("---------------------------------------------------------");
             return false;
         }
     }
     
     //Se listan los colchones del usuario que se seleccionó en el login()
     static boolean listarColchones() {
+    	System.out.println("---------------------------------------------------------");
         if (!usuario.getColchones().isEmpty()) {
             int j = 1;
             for (Colchon i : usuario.getColchones()) {
                 System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro() + "		Divisa: " + i.getDivisa());
                 j++;
+                System.out.println("---------------------------------------------------------");
             }
             return true;
         } else {
             System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
+            System.out.println("---------------------------------------------------------");
             return false;
         }
     }
@@ -361,10 +368,12 @@ public class Main {
     //Se listan las divisas del sistema
     static void listarDivisas() {
     	int j = 1;
+    	System.out.println("---------------------------------------------------------");
         for (Divisa i : Divisa.values()) {
             System.out.println(j + ". " + i);
             j++;
         }
+        System.out.println("---------------------------------------------------------");
     }
     
     static void solicitarPrestamo() {
