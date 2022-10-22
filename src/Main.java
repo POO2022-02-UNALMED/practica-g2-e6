@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import baseDatos.Serializador;
@@ -7,6 +8,7 @@ import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
 import gestorAplicacion.economia.Prestamo;
+import gestorAplicacion.economia.PrestamoFugaz;
 import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
@@ -15,7 +17,6 @@ import gestorAplicacion.usuario.Usuario;
 
 public class Main {
     static Usuario usuario;
-    static Scanner entrada = new Scanner(System.in);
 
     public static void main(String[] args) {
 
@@ -27,6 +28,7 @@ public class Main {
         DataBank.nuevoUsuario(usuario1);*/
 
 
+        Scanner entrada = new Scanner(System.in);
         int opcion;
 
         usuario = login();
@@ -35,13 +37,27 @@ public class Main {
             System.out.println("---- SISTEMA GESTOR DE DINERO ----");
             System.out.println("¿Que operación desea realizar?");
             System.out.println("1. Ver saldos disponibles en la cuenta");
+            //Nuestra idea de modelo es que un usuario puede tener su dinero repartido en divisas y bolsillos, esas divisas heredan de una clase cuenta
+            //los bolsillos heredan de cuenta tambien, para ver los saldos disponibles de un usuario, se revisan los bolsillos, consultamos
+            //si existen bolsillos asociados al usuario, los guardamos en una array x de tipo cuenta, luego revisamos las divisas, si hay divisas
+            //asociadas al cliente,de igual manera se añaden a el array x de tipo cuenta y se listan por pantalla
             System.out.println("2. Ingresar dinero a su cuenta");
+            //En este apartado el usuario tiene la opción de ingresar dinero a uno de sus bolsillos desde una cuenta externa, para lo cual solo debe indicar
+            //el bolsillo existente y la cantidad de dinero a ingresar.
+            //Tambien crearemos la funcion de realizar un avance a uno de sus bolsillo, para lo cual se verifica la cantidad de bolsillos existentes,
+            //fecha de ingreso a la plataforma, cantidad de movimientos realizados, y de acuerdo a un puntaje que vamos a establecer, se le asignara una cantidad
+            //maxima a desembolsar.
             System.out.println("3. Agregar bolsillo a su cuenta");
+            //Se listan las divisas existentes y se pregunta con cual desea crear el bolsillo, se pide nombre y se agrega un nuevo bolsillo al usuario
             System.out.println("4. Agregar colchon a su cuenta");
+            //Se listan las divisas existentes y se pregunta con cual desea crear el colchon, se pide nombre y fecha para sacar el dinero,
+            //luego se agrega el colchon a la cuenta
             System.out.println("5. Modificar Colchon/Bolsillo");
             System.out.println("6. Solicitar Prestamo");
+            //Se tomarán en cuenta varios parametros (cantidad de ingresos, edad, contrato de empleo fijo y experiencia crediticia.
             System.out.println("7. Terminar ");
-            opcion = validarEntradaInt(7);
+            System.out.println("Por favor escoja una opción: ");
+            opcion = entrada.nextInt();
 
             switch (opcion) {
                 case 1:saldosDisponibles();
@@ -59,95 +75,127 @@ public class Main {
                 case 7:Serializador.serializar();
                 	break;
             }
+
         } while (opcion != 7);
     }
 
-    //Menú de cuentas disponibles y sus respectivos saldos del usuario seleccionado en el login()
     static void saldosDisponibles() {
+    	Scanner entrada = new Scanner(System.in);
     	int opcion;
-    	System.out.println("¿Que cuentas desea visualizar?");
-        System.out.println("1. Bolsillos");
-        System.out.println("2. Colchones");
-        System.out.println("3. Dinero total");
-        System.out.println("4. Volver al inicio");       
-        opcion = validarEntradaInt(4);
-        
+        boolean repeted = false;
+        do {
+            try {
+                if (repeted) {
+                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO...");
+                }
+                System.out.println("¿Que cuentas desea visualizar?");
+                System.out.println("1. Bolsillos");
+                System.out.println("2. Colchones");
+                System.out.println("3. Dinero total");
+                System.out.println("3. Volver al inicio");
+                System.out.println("Por favor escoja una opción: ");
+                
+                opcion = entrada.nextInt();
+            } catch (Exception e) {
+            	opcion = 0;
+                entrada.next();
+            }
+            repeted = true;
+        } while (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4);
+
         switch (opcion) {
-            case 1:
-            	listarBolsillos();
+            case 1:listarBolsillos();
                 break;
             case 2:
             	listarColchones();
                 break;
             case 3:
-                System.out.println("Dinero total: " + DataBank.dineroTotalUsu(usuario));
+                double total = DataBank.dineroTotalUsu(usuario);
+                System.out.println("Dinero total: " + total);
                 break;
             case 4:
             	break;
         }
     }
     
-    //Menú de seleccion a que cuenta va a realizar el ingreso de dinero y se llama a eleccionBancoMonto() donde se va a realizar el ingreso
+    //TODO: Try catch
     static void ingresaDinero() {
-        int opcion, opc;
+        int opcion;
+        Scanner entrada = new Scanner(System.in);
+
         System.out.println("¿Para donde va su dinero?");
         System.out.println("1. Bolsillos");
         System.out.println("2. Colchones");
         System.out.println("3. Volver al inicio");
-        opcion = validarEntradaInt(3);
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 & opcion != 2 & opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
 
         switch (opcion) {
             case 1:
             	System.out.println("Bolsillos: ");
             	boolean bol = listarBolsillos();
                 if (bol==true) {            
-                    opc = validarEntradaInt(usuario.getBolsillos().size())-1;
-                    eleccionBancoMonto(usuario.getBolsillos().get(opc));
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt();
+                    eleccionBancoMonto(usuario.getBolsillos().get(opcion - 1));
                 }
                 break;
             case 2:
             	System.out.println("Colchones: ");
             	boolean col = listarColchones();
                 if (col==true) {            
-                	opc = validarEntradaInt(usuario.getColchones().size())-1;
-                    eleccionBancoMonto(usuario.getColchones().get(opc));
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt();
+                    eleccionBancoMonto(usuario.getColchones().get(opcion - 1));
                 }
                 break;
             case 3:
                 break;
         }
     }
-    
-    //Se selecciona el banco por medio del cual hará el ingreso de dinero y se pide la cantidad en la divisa actual de la cuenta
+
     static void eleccionBancoMonto(Cuenta cuenta) {
-        int opcBanco;
+        int opcion;
         double cantidad;
+        Scanner entrada = new Scanner(System.in);
+
         System.out.println("Elija el banco por medio del cual quiere hacer el ingreso");
         int j = 1;
         for (Banco i : Banco.values()) {
             System.out.println(j + ". " + i);
             j++;
         }
-        opcBanco = validarEntradaInt(Banco.values().length) - 1;
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt() - 1;
 
         System.out.println("Ingrese la cantidad que desea ingresar en " + cuenta.getDivisa() + ": (utilice ',' para el símbolo decimal)");
-        try {
-        	cantidad = entrada.nextDouble();
-        	Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
-            usuario.nuevoIngreso(ingreso);
-        }catch(Exception e) {
-        	System.err.println("CANTIDAD INCORRECTA (RECUERDE SEPARAR CON ',' LOS DECIMALES)");
-        }   
+        cantidad = entrada.nextDouble();
+        Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcion], cuenta, cuenta.getDivisa());
+        usuario.nuevoIngreso(ingreso);
     }
     
-    //Se controla cualquier posible problema en la entrada de los datos de tipo int
-    static int validarEntradaInt(int opcMax) {
+    //TODO: No se gestiona bien la eleccion del usuario en el while, en pruebas realizada solo ejecuta con el 1
+    static Usuario login() {
+    	Scanner entrada = new Scanner(System.in);
         int opcUsuario;
         boolean repeted = false;
         do {
             try {
                 if (repeted) {
-                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO");
+                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO PIROBO");
+                }
+                System.out.println("---- LOGIN ----");
+                System.out.println("¿Que usuario eres?");
+                
+                int j = 1;
+                for (Usuario i : DataBank.getUsuarios()) {
+                    System.out.println(j + ". " + i.getNombre());
+                    j++;
                 }
                 System.out.println("Por favor escoja una opción: ");
                
@@ -157,25 +205,15 @@ public class Main {
                 entrada.next();
             }
             repeted = true;
-        } while (opcUsuario <= 0 || opcUsuario > opcMax);
-        return opcUsuario;
+        } while (opcUsuario <= 0 || opcUsuario >= DataBank.getUsuarios().size());
+
+        return DataBank.getUsuarioPorCC(String.valueOf(opcUsuario));
     }
     
-    
-    //Se implementa login para la facilidad de prueba del profesor y los monitores, se listan los usuarios agregados anteriormente
-    static Usuario login() {
-    	System.out.println("---- LOGIN ----");
-        System.out.println("¿Que usuario eres?");    
-        int j = 1;
-        for (Usuario i : DataBank.getUsuarios()) {
-        	System.out.println(j + ". " + i.getNombre());
-        	j++;
-        }
-        return DataBank.getUsuarioPorCC(String.valueOf(validarEntradaInt(DataBank.getUsuarios().size())));
-    }
-    
-    //Se agrega un bolsillo al usuario que se seleccionó en el login() con el nombre y la divisa seleccionada por el usuario
+    //TODO: falta try catch para controlar la entrada
     static void agregarBolsillo() {
+    	
+    	Scanner entrada = new Scanner(System.in);
     	int divisa;
     	String nombre;
     	
@@ -185,7 +223,8 @@ public class Main {
             System.out.println(j + ". " + i);
             j++;
         }
-        divisa = validarEntradaInt(Divisa.values().length) - 1;
+        System.out.println("Por favor escoja una opción: ");
+        divisa = entrada.nextInt() - 1;
         
         System.out.println("Escriba el nombre que desea asignarle al bolsillo: ");
         nombre = entrada.next();
@@ -194,9 +233,11 @@ public class Main {
         usuario.nuevoBolsillo(bolsillo);
     }
     
-  //Se agrega un colchon al usuario que se seleccionó en el login() con el nombre, la divisa y la fecha de retiro seleccionada por el usuario
+  //TODO: falta try catch para controlar la entrada
     static void agregarColchon() {
-    	int divisa,fecha;
+    	
+    	Scanner entrada = new Scanner(System.in);
+    	int opcion,fecha;
     	String nombre;
     	
         System.out.println("Elija la divisa que desea utilizar en el colchon");
@@ -205,7 +246,8 @@ public class Main {
             System.out.println(j + ". " + i);
             j++;
         }
-        divisa = validarEntradaInt(Divisa.values().length) - 1;
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt() - 1;
         
         System.out.println("Escriba el nombre que desea asignarle al colchon: ");
         nombre = entrada.next();
@@ -214,36 +256,48 @@ public class Main {
         for(int i = 1; i < 5; i++) {
         	System.out.println(i + ". "+LocalDate.now().plusMonths(i));
         }
-        fecha = validarEntradaInt(4);
+        System.out.println("Por favor escoja una opción: ");
+        fecha = entrada.nextInt();
         
-        Colchon colchon = new Colchon(usuario,Divisa.values()[divisa],nombre,LocalDate.now().plusMonths(fecha));
+        
+        Colchon colchon = new Colchon(usuario,Divisa.values()[opcion],nombre,LocalDate.now().plusMonths(fecha));
         usuario.nuevoColchon(colchon);
     }
     
-    //Menú para la eleccion de modificacion, sea bolsillo o colchon, luego se envia la eleccion a la funcion modificar
+    //TODO: try catch
     static void opcionModificar() {
-    	int opcion, opc;
-    	System.out.println("¿Que desea modificar?");
+    	int opcion;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("¿Que desea modificar?");
         System.out.println("1. Bolsillo");
         System.out.println("2. Colchon");
         System.out.println("3. Volver al inicio");
-        opcion = validarEntradaInt(3);
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2 && opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
         
         switch(opcion) {
         	case 1:
         		System.out.println("Bolsillos: ");
             	boolean bol = listarBolsillos();
                 if (bol==true) {            
-                    opc = validarEntradaInt(usuario.getBolsillos().size())-1;
-                    modificar(usuario.getBolsillos().get(opc));
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt()-1;
+                    modificar(usuario.getBolsillos().get(opcion));
                 }
                 break;
         	case 2:
         		System.out.println("Colchones: ");
-            	boolean col = listarColchones();
+            	boolean col = listarBolsillos();
                 if (col==true) {            
-                    opc = validarEntradaInt(usuario.getColchones().size())-1;
-                    modificar(usuario.getColchones().get(opc));
+                    System.out.println("Por favor escoja una opción: ");
+                    opcion = entrada.nextInt()-1;
+                    modificar(usuario.getColchones().get(opcion));
                 }
         		break;
         	case 3:
@@ -251,14 +305,21 @@ public class Main {
         }
     }
     
-    //Menú para modificar nombre o divisa de un bolsillo
+    //TODO: try catch
     static void modificar(Bolsillo bolsillo) {
     	int opcion, divisa;
+        Scanner entrada = new Scanner(System.in);
+
         System.out.println("¿Que desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
-        System.out.println("3. Volver al inicio");
-        opcion = validarEntradaInt(3);
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
         
         switch(opcion) {
         	case 1:
@@ -270,26 +331,32 @@ public class Main {
         		System.out.println("Nueva divisa:");
         		int j = 1;
                 listarDivisas();
-                divisa = validarEntradaInt(Divisa.values().length) - 1;
+                System.out.println("Por favor escoja una opción: ");
+                divisa = entrada.nextInt() - 1;
                 double[] nuevoSaldo = bolsillo.getDivisa().ConvertToDivisa(bolsillo.getSaldo(),Divisa.values()[divisa]);
                 bolsillo.setDivisa(Divisa.values()[divisa]);
                 bolsillo.setSaldo(nuevoSaldo[0]);
                 System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
                 break;
-        	case 3:
-        		break;
         }
     }
     
-    //Menú para modificar nombre, divisa o fecha minima de retiro de un colchon
+  //TODO: try catch
     static void modificar(Colchon colchon) {
     	int opcion, divisa;
+        Scanner entrada = new Scanner(System.in);
+
         System.out.println("¿Que desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
         System.out.println("3. Cambiar fecha");
-        System.out.println("4. Volver al inicio");
-        opcion = validarEntradaInt(4);
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+
+        while (opcion != 1 && opcion != 2 && opcion != 3) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
         
         switch(opcion) {
         	case 1:
@@ -299,81 +366,79 @@ public class Main {
         		break;
         	case 2:
         		System.out.println("Nueva divisa:");
+        		int j = 1;
                 listarDivisas();
-                divisa = validarEntradaInt(Divisa.values().length) - 1;
+                System.out.println("Por favor escoja una opción: ");
+                divisa = entrada.nextInt() - 1;
                 double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(),Divisa.values()[divisa]);
                 colchon.setDivisa(Divisa.values()[divisa]);
                 colchon.setSaldo(nuevoSaldo[0]);
                 System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
                 break;
         	case 3:
-        		System.out.println("¿Que desea modificar?");
-                System.out.println("1. Aumentar 1 mes");
-                System.out.println("2. Disminuir 1 mes");
-                System.out.println("3. Volver al inicio");
-                opcion = validarEntradaInt(3);
-                
-                switch(opcion) {
-                	case 1:
-                		colchon.setFechaRetiro(colchon.getFechaRetiro().plusMonths(1));
-                		break;
-                	case 2:
-                		colchon.setFechaRetiro(colchon.getFechaRetiro().minusMonths(1));
-                		break;
-                	case 3:
-                		break;
-                }
-                break;
-        	case 4:
-        		break;
+        		if(cambiarFechaColchon()==1) {
+        			colchon.setFechaRetiro(colchon.getFechaRetiro().plusMonths(1));
+        		}else if(cambiarFechaColchon()==2) {
+        			colchon.setFechaRetiro(colchon.getFechaRetiro().minusMonths(1));
+        		}
         }
     }
     
-    //Se listan los bolsillos del usuario que se seleccionó en el login()
+    static int cambiarFechaColchon() {
+    	int opcion;
+        Scanner entrada = new Scanner(System.in);
+    	System.out.println("¿Que desea modificar?");
+        System.out.println("1. Aumentar 1 mes");
+        System.out.println("2. Disminuir 1 mes");
+        System.out.println("Por favor escoja una opción: ");
+        opcion = entrada.nextInt();
+        
+        while (opcion != 1 && opcion != 2) {
+            System.out.println("Por favor ingresa una opcion valida: ");
+            opcion = entrada.nextInt();
+        }
+        
+        switch(opcion) {
+        	case 1:return 1;
+        	case 2:return 2;
+        	default:return 0;
+        }
+    }
+    
     static boolean listarBolsillos() {
-    	System.out.println("---------------------------------------------------------");
         if (!usuario.getBolsillos().isEmpty()) {
             int j = 1;
             for (Bolsillo i : usuario.getBolsillos()) {
                 System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Divisa: " + i.getDivisa());
                 j++;
             }
-            System.out.println("---------------------------------------------------------");
             return true;
         } else {
             System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
-            System.out.println("---------------------------------------------------------");
             return false;
         }
     }
     
-    //Se listan los colchones del usuario que se seleccionó en el login()
     static boolean listarColchones() {
-    	System.out.println("---------------------------------------------------------");
         if (!usuario.getColchones().isEmpty()) {
             int j = 1;
             for (Colchon i : usuario.getColchones()) {
                 System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro() + "		Divisa: " + i.getDivisa());
                 j++;
-                System.out.println("---------------------------------------------------------");
             }
             return true;
         } else {
             System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
-            System.out.println("---------------------------------------------------------");
             return false;
         }
     }
     
-    //Se listan las divisas del sistema
     static void listarDivisas() {
     	int j = 1;
-    	System.out.println("---------------------------------------------------------");
         for (Divisa i : Divisa.values()) {
             System.out.println(j + ". " + i);
             j++;
         }
-        System.out.println("---------------------------------------------------------");
     }
     
     static void solicitarPrestamo() {
@@ -392,9 +457,12 @@ public class Main {
         }
         
         switch(opcion) {
-        	case 1:
+        	case 1:prestamoFugaz();
         		break;
-        	case 2:
+        		
+        	case 2:prestamoALargoPlazo();
+        		break;
+        		
         	case 3: 
         		break;
    
@@ -424,8 +492,11 @@ public class Main {
     	
     	if(hijos < 2 && ingresoMensual>=1500000 && dineroSolicitado>1000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>1000000 ) {
     		double TEA = calcularTEA(dineroSolicitado);
-    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
+    		PrestamoLargoPlazo prestamoLargoPlazo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
     		System.out.println("Su prestamo HA SIDO APROBADO!!!");
+    		
+    		usuario.nuevoPrestamo(prestamoLargoPlazo);
+    		
     		return true;
     		
     	} else {
@@ -470,8 +541,11 @@ public class Main {
     	if(hijos < 4 && ingresoMensual>=800000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>200000 ) {
     		double TEA = calcularTEA(dineroSolicitado);
     		
-    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
+    		PrestamoFugaz prestamoFugaz = new PrestamoFugaz(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
     		System.out.println("Su prestamo HA SIDO APROBADO!!!");
+    		
+    		usuario.nuevoPrestamo(prestamoFugaz);
+    		
     		return true;
     		
     	} else {

@@ -15,9 +15,9 @@ public class PrestamoFugaz extends Prestamo {
 
 	private String nombre;
 	
-	public PrestamoFugaz(double valorInicial, int tiempo, double TEA, LocalDate fechaInicio, String nombre) {
+	public PrestamoFugaz(double valorInicial, int tiempo, double TEA, LocalDate fechaInicio, LocalDate localDate) {
 		super(valorInicial, tiempo, TEA, fechaInicio, fechaInicio.plusMonths(tiempo));
-		this.nombre=nombre;
+		this.nombre=localDate;
 
 	}
 
