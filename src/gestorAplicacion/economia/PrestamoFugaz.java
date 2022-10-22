@@ -8,36 +8,25 @@ public class PrestamoFugaz extends Prestamo {
 	 * 
 	 */
 	private static final long serialVersionUID = -3388280595710146580L;
-	/**
-	 * 
-	 */
 	
-
-	private String nombre;
+	private double TEA;
 	
-	public PrestamoFugaz(double valorInicial, int tiempo, double TEA, LocalDate fechaInicio, LocalDate localDate) {
-		super(valorInicial, tiempo, TEA, fechaInicio, fechaInicio.plusMonths(tiempo));
-		this.nombre=localDate;
-
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public PrestamoFugaz(double valorInicial, LocalDate fechaInicio) {
+		super(valorInicial, 6, fechaInicio, fechaInicio.plusMonths(6));
+		setTEA(valorInicial);
 	}
 	
+	@Override
+	protected void setTEA(double monto) {
+		if(monto<400000) {
+			this.TEA = 36.49;
+		}else {
+			this.TEA = 35.69;
+		}
+	}
 	
+	public double getTEA() {
+		return TEA;
+	}
 	
-	
-	
-	
-	
-
-	
-	
-
-
 }

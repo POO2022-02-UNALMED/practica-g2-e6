@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import baseDatos.Serializador;
@@ -130,14 +131,10 @@ public class Main {
         }
         opcBanco = validarEntradaInt(Banco.values().length) - 1;
 
-        System.out.println("Ingrese la cantidad que desea ingresar en " + cuenta.getDivisa() + ": (utilice ',' para el símbolo decimal)");
-        try {
-        	cantidad = entrada.nextDouble();
-        	Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
-            usuario.nuevoIngreso(ingreso);
-        }catch(Exception e) {
-        	System.err.println("CANTIDAD INCORRECTA (RECUERDE SEPARAR CON ',' LOS DECIMALES)");
-        }   
+        System.out.println("Ingrese la cantidad que desea ingresar en " + cuenta.getDivisa() + " (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
+        cantidad = validarEntradaDouble(10000000);
+        Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
+        usuario.nuevoIngreso(ingreso);
     }
     
     //Se controla cualquier posible problema en la entrada de los datos de tipo int
@@ -161,6 +158,26 @@ public class Main {
         return opcUsuario;
     }
     
+    //Se controla cualquier posible problema en la entrada de los datos de tipo double
+    static double validarEntradaDouble(double cantMax) {
+        double cantidad;
+        boolean repeted = false;
+        do {
+            try {
+                if (repeted) {
+                	System.err.println("CANTIDAD INCORRECTA (RECUERDE SEPARAR CON ',' LOS DECIMALES) Y QUE LA CANTIDAD SEA MENOR A ("+cantMax+")");
+                }
+                System.out.println("Por favor ingrese una cantidad: ");
+               
+                cantidad = entrada.nextDouble();
+            } catch (Exception e) {
+            	cantidad = 0;
+                entrada.next();
+            }
+            repeted = true;
+        } while (cantidad <= 0 || cantidad > cantMax);
+        return cantidad;
+    }
     
     //Se implementa login para la facilidad de prueba del profesor y los monitores, se listan los usuarios agregados anteriormente
     static Usuario login() {
@@ -376,120 +393,129 @@ public class Main {
         System.out.println("---------------------------------------------------------");
     }
     
+    //Menú para que el usuario seleccione que prestamo desea
     static void solicitarPrestamo() {
     	int opcion;
-        Scanner entrada = new Scanner(System.in);
     	System.out.println("¿Que tipo de prestamo desea solicitar?");
         System.out.println("1. Prestamo fugaz");
         System.out.println("2. Prestamo a largo plazo");
         System.out.println("3. Volver al inicio");
-        System.out.println("Por favor escoja una opción: ");
-        opcion = entrada.nextInt();
-        
-        while (opcion != 1 && opcion != 2 && opcion != 3) {
-            System.out.println("Por favor ingresa una opcion valida: ");
-            opcion = entrada.nextInt();
-        }
-        
+        opcion = validarEntradaInt(3);
+
         switch(opcion) {
         	case 1:
         		break;
         	case 2:
+        		peticionPrestamoLP();
+        		break;
         	case 3: 
         		break;
-   
         }
     }
     
-    static boolean prestamoALargoPlazo() {
-    	int hijos, tiempo = 0;
+    //Se inicia la peticion del prestamo a largo plazo con algunos datos basicos para validar si es apto
+    static void peticionPrestamoLP() {
+    	int hijos;
     	double ingresoMensual, dineroSolicitado;
     	
-    	Scanner entrada = new Scanner(System.in);
-    	
     	System.out.println("---- Criterios para validar el credito ----");
-    	System.out.println("");
-    	
     	System.out.println("¿Cuantos hijos tiene?: ");
-    	hijos = entrada.nextInt();
+    	hijos = validarEntradaInt(100);//100 porque el metodo necesita un valor máximo de entrada y se espera sea imposible de alcanzar un valor maximo de 100 hijos
     	
-    	System.out.println("Digite su ingreso mensual en COP: ");
-    	ingresoMensual = entrada.nextDouble();
+    	System.out.println("Digite su ingreso mensual en COP (utilice ',' para el símbolo decimal) (Cantidad maxima 20000000):");
+    	ingresoMensual = validarEntradaDouble(20000000);
     	
-    	System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo?");
-    	dineroSolicitado = entrada.nextDouble();
+    	System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo? (utilice ',' para el símbolo decimal) (Cantidad maxima 50000000): ");
+    	dineroSolicitado = validarEntradaDouble(50000000);
     	
-    	System.out.println("Ingrese a cuantos meses desea solicitar el prestamo, tomando el numero de meses como enteros.");
-    	tiempo = entrada.nextInt();
-    	
-    	if(hijos < 2 && ingresoMensual>=1500000 && dineroSolicitado>1000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>1000000 ) {
-    		double TEA = calcularTEA(dineroSolicitado);
-    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
-    		System.out.println("Su prestamo HA SIDO APROBADO!!!");
-    		return true;
-    		
+    	if(hijos <= 2 && ingresoMensual>=1500000 && dineroSolicitado>2000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>500000) {
+    		AceptadoPrestamoLP(dineroSolicitado);
     	} else {
-    		System.out.println("Su prestamo ha sido rechazado :(");
-    		return false;
-    	}
-    	
-    }
-    
-    //Calcular TEA Interes Anual
-    static double calcularTEA(double cantidad) {
-    	if(cantidad > 1000000) {
-    		return 30.5;
-    	} else {
-    		return 35.5;
+    		System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
     	}
     }
     
+    //Si el usuario es apto para un prestado a largo plazo se le solicitan unos datos para guardar como garantia, se genera el prestamo y se agrega a los prestamos realizados por el usuario
+    static void AceptadoPrestamoLP(double dineroSolicitado) {
+    	int opcTiempo, tiempo = 0;
+    	String[] referencia = null;
+    	System.out.println("¿A cuantos meses desea solicitar el prestamo?");
+        System.out.println("1. 12 meses");
+        System.out.println("2. 24 meses");
+        System.out.println("3. 36 meses");
+        System.out.println("4. 60 meses");
+        System.out.println("5. Volver al inicio");
+        opcTiempo = validarEntradaInt(5);
+        
+    	System.out.println("Escriba el nombre de una referencia: ");
+    	referencia[0] = entrada.next();
     
-    static boolean prestamoFugaz() {
+    	System.out.println("Escriba el numero telefonico de la referencia: ");
+    	referencia[1] = entrada.next();
     	
-    	int hijos, tiempo = 0;
-    	double ingresoMensual, dineroSolicitado;
-    	
-    	Scanner entrada = new Scanner(System.in);
-    	
-    	System.out.println("---- Criterios para validar el credito ----");
-    	System.out.println("");
-    	
-    	System.out.println("¿Cuantos hijos tiene?: ");
-    	hijos = entrada.nextInt();
-    	
-    	System.out.println("Digite su ingreso mensual en COP: ");
-    	ingresoMensual = entrada.nextDouble();
-    	
-    	System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo?");
-    	dineroSolicitado = entrada.nextDouble();
-    	
-    	System.out.println("Ingrese a cuantos meses desea solicitar el prestamo, tomando el numero de meses como enteros.");
-    	tiempo = entrada.nextInt();
-    	
-    	if(hijos < 4 && ingresoMensual>=800000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>200000 ) {
-    		double TEA = calcularTEA(dineroSolicitado);
-    		
-    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
-    		System.out.println("Su prestamo HA SIDO APROBADO!!!");
-    		return true;
-    		
-    	} else {
-    		System.out.println("Su prestamo ha sido rechazado :(");
-    		return false;
+    	switch(opcTiempo) {
+    		case 1:tiempo = 12;
+        		break;
+    		case 2:tiempo = 24;
+    			break;
+    		case 3:tiempo = 36;
+    			break;
+    		case 4:tiempo = 60;
+    			break;
+    		case 5:tiempo = 0;
+    			break;
     	}
     	
+    	if(tiempo!=0) {
+    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, LocalDate.now(), referencia);
+    		usuario.nuevoPrestamo(prestamo);
+    		System.out.println("PRESTAMO APROBADO...");
+    	}else {
+    		System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
+    	}
     }	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
     
-    
+  //Se inicia la peticion del prestamo fugaz con algunos datos basicos para validar si es apto
+    static void prestamoFugaz() {
+    	int opcion;
+    	List<Ingreso> ingresos;
+    	if(usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(2)) == true &&
+    			usuario.getIngresos().size() > 1 &&
+    			DataBank.dineroTotalUsu(usuario) > 10000) {
+    		
+    		double ingresoTotPesos=0;
+    		for(Ingreso i : usuario.getIngresos()) {
+    			double[] pesos = i.getDivisaDestino().ConvertToDivisa(i.getValor(), Divisa.COP);
+    			ingresoTotPesos += pesos[0];
+    		}
+    		//El prestamo fugaz ofrece 2 opciones cuando el usuario es apto
+			double montoPrestamo1 = ingresoTotPesos*0.1;//el 10% de los ingresos realizados desde que sea inferior a 1 millon
+    		double montoPrestamo2 = ingresoTotPesos*0.4;//o el 40% de los ingresos realizados desde que sea inferior a 2 millones
+    		
+    		if(montoPrestamo1 > 1000000) {
+    			montoPrestamo1 = 1000000;
+    		}
+    		
+    		if(montoPrestamo2 > 2000000) {
+    			montoPrestamo2 = 2000000;
+    		}
+    		
+    		System.out.println("¿Que cantidad desea prestar?");
+            System.out.println("1. "+montoPrestamo1);
+            System.out.println("2. "+montoPrestamo2);
+            opcion = validarEntradaInt(2);
+            
+            switch(opcion) {
+        	case 1:
+        		//PrestamoFugaz prestamo = new PrestamoFugaz(montoPrestamo1,LocalDate.now(),referencia);
+        		//usuario.nuevoPrestamo(prestamo);
+        		break;
+        	case 2:	
+        		//PrestamoFugaz prestamo2 = new PrestamoFugaz(montoPrestamo2,LocalDate.now(),referencia);
+        		//usuario.nuevoPrestamo(prestamo2);
+        		break; 	
+            }
+    	}  
+    }
 }
 
