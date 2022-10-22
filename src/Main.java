@@ -473,8 +473,10 @@ public class Main {
     	double ingresoMensual, dineroSolicitado;
     	
     	Scanner entrada = new Scanner(System.in);
+    	
     	System.out.println("---- Criterios para validar el credito ----");
     	System.out.println("");
+    	
     	System.out.println("¿Cuantos hijos tiene?: ");
     	hijos = entrada.nextInt();
     	
@@ -487,11 +489,12 @@ public class Main {
     	System.out.println("Ingrese a cuantos meses desea solicitar el prestamo, tomando el numero de meses como enteros.");
     	tiempo = entrada.nextInt();
     	
-    	if(hijos < 3 && ingresoMensual>=1500000 && dineroSolicitado>1000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>1000000 ) {
+    	if(hijos < 2 && ingresoMensual>=1500000 && dineroSolicitado>1000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>1000000 ) {
     		double TEA = calcularTEA(dineroSolicitado);
     		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
     		System.out.println("Su prestamo HA SIDO APROBADO!!!");
     		return true;
+    		
     	} else {
     		System.out.println("Su prestamo ha sido rechazado :(");
     		return false;
@@ -510,8 +513,50 @@ public class Main {
     
     
     static boolean prestamoFugaz() {
-    	return true;
-    }
+    	
+    	int hijos, tiempo = 0;
+    	double ingresoMensual, dineroSolicitado;
+    	
+    	Scanner entrada = new Scanner(System.in);
+    	
+    	System.out.println("---- Criterios para validar el credito ----");
+    	System.out.println("");
+    	
+    	System.out.println("¿Cuantos hijos tiene?: ");
+    	hijos = entrada.nextInt();
+    	
+    	System.out.println("Digite su ingreso mensual en COP: ");
+    	ingresoMensual = entrada.nextDouble();
+    	
+    	System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo?");
+    	dineroSolicitado = entrada.nextDouble();
+    	
+    	System.out.println("Ingrese a cuantos meses desea solicitar el prestamo, tomando el numero de meses como enteros.");
+    	tiempo = entrada.nextInt();
+    	
+    	if(hijos < 4 && ingresoMensual>=800000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>200000 ) {
+    		double TEA = calcularTEA(dineroSolicitado);
+    		
+    		PrestamoLargoPlazo prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, TEA, LocalDate.now(), LocalDate.now().plusMonths(tiempo));
+    		System.out.println("Su prestamo HA SIDO APROBADO!!!");
+    		return true;
+    		
+    	} else {
+    		System.out.println("Su prestamo ha sido rechazado :(");
+    		return false;
+    	}
+    	
+    }	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    
     
 }
 
