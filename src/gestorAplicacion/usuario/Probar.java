@@ -3,6 +3,7 @@ package gestorAplicacion.usuario;
 import java.util.List;
 
 import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 
 public class Probar {
@@ -25,12 +26,13 @@ public class Probar {
 		 */
 		// System.out.println(conn.guardar(new Usuario("Manuela",
 		// "123manu2@unal.edu.co", "enero", "hoy", "vinilostopia")));
-		List<Usuario> aux = DataBank.getUsuarios();
+		/*List<Usuario> aux = DataBank.getUsuarios();
 		for(Usuario usu : aux) {
 			System.out.println(usu.getNombre());
 		}
 		double[] aux2 = Divisa.USD.ConvertToDivisa(2,Divisa.COP);
-		System.out.println(aux2[0]+ ", "+ aux2[1]);
+		System.out.println(aux2[0]+ ", "+ aux2[1]);*/
+		System.out.print(Banco.values().length);
 	}
 
 }
