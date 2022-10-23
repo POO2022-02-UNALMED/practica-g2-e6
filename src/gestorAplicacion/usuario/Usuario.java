@@ -124,8 +124,15 @@ public class Usuario implements Serializable {
     }
 
     public void nuevoIngreso(Ingreso ingreso) {
-        ingresos.add(ingreso);
         ingreso.getCuentaDestino().depositar(ingreso.getValor());
+        ingresos.add(ingreso);
+    }
+    public boolean nuevaSalida(Salida salida) {
+        boolean retirado = salida.getCuentaOrigen().retirar(salida.getValor());
+        if(retirado){
+            salidas.add(salida);
+        }
+        return retirado;
     }
 
     public void nuevoBolsillo(Bolsillo bolsillo) {

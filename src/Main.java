@@ -19,22 +19,18 @@ public class Main {
     static Usuario login() {
         System.out.println("---- LOGIN ----");
         System.out.println("¿Que usuario eres?");
-        int j = 1;
-        for (Usuario i : DataBank.getUsuarios()) {
-            System.out.println(j + ". " + i.getNombre());
-            j++;
-        }
+        Utils.listarUsuarios();
         return DataBank.getUsuarios().get(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false) - 1);
     }
 
     public static void main(String[] args) {
 
-    	/*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+    	Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
         Usuario usuario2 = new Usuario("2", "David Esteban Martin Acosta", "dMartin@unal.edu.co", LocalDate.now(), "segura2");
         Usuario usuario1 = new Usuario("1", "Jaime Alberto Guzman Luna", "jGuzman@unal.edu.co", LocalDate.now(), "segura1");
         DataBank.nuevoUsuario(usuario3);
         DataBank.nuevoUsuario(usuario2);
-        DataBank.nuevoUsuario(usuario1);*/
+        DataBank.nuevoUsuario(usuario1);
 
 
         int option;
@@ -47,28 +43,34 @@ public class Main {
             System.out.println("1. Ver saldos disponibles en la cuenta");
             System.out.println("2. Ingresar dinero a su cuenta");
             System.out.println("3. Mover dinero en su cuenta");
-            System.out.println("4. Enviar y sacar dinero de su cuenta");//TODO
+            System.out.println("4. Enviar y sacar dinero de su cuenta");
             System.out.println("5. Agregar bolsillo a su cuenta");
             System.out.println("6. Agregar colchón a su cuenta");
             System.out.println("7. Agregar Meta a su cuenta");//TODO
             System.out.println("8. Modificar Colchón/Bolsillo/Meta");//TODO: parte De la meta
             System.out.println("9. Solicitar Préstamo");
             System.out.println("10. Abonar a un préstamo o Meta");//TODO
-            System.out.println("11. Terminar ");
+            System.out.println("11. Logout");
+            System.out.println("12. Terminar ");
             option = validarEntradaInt(11, true, 0, false);
 
             switch (option) {
                 case 1 -> saldosDisponibles();
                 case 2 -> ingresaDinero();
                 case 3 -> moverDineroInterno();
+                case 4 -> enviarYSacarDinero();
                 case 5 -> agregarBolsillo();
                 case 6 -> agregarColchon();
                 case 8 -> opcionModificar();
                 case 9 -> solicitarPrestamo();
-                case 11 -> Serializador.serializar();
+                case 11 -> {
+                    usuario = login();
+                }
+                case 12 -> Serializador.serializar();
                 default -> System.out.println("OPCIÓN EN DESARROLLO");
             }
-        } while (option != 11);
+        } while (option != 12);
+        System.exit(0);
     }
 
     //OPCIÓN1
@@ -171,17 +173,19 @@ public class Main {
             int opc = validarEntradaInt(list.size(), true, 1, true) - 1;
             destino = list.get(opc);
             origen = seleccionarCuentaDeOrigen(destino);
-            System.out.println("Ingrese al cantidad a transferir (en "+origen.getDivisa()+")(entre 0 y "+origen.getSaldo()+")");
-            double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
-            double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,destino.getDivisa());
-            boolean retirado =origen.retirar(monto);
-            if(!retirado){
-                return;
+            if (origen != null) {
+                System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + origen.getSaldo() + ")");
+                double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
+                double[] monto2 = origen.getDivisa().ConvertToDivisa(monto, destino.getDivisa());
+                boolean retirado = origen.retirar(monto);
+                if (!retirado) {
+                    return;
+                }
+                destino.depositar(monto2[0]);
+                System.out.println("Movimiento exitosos con una trm de: " + monto2[1]);
+                System.out.println("Nuevo saldo en el origen de: " + origen.getSaldo());
+                System.out.println("Nuevo saldo en el destino de: " + destino.getSaldo());
             }
-            destino.depositar(monto2[0]);
-            System.out.println("Movimiento exitosos con una trm de: "+ monto2[1]);
-            System.out.println("Nuevo saldo en el origen de: "+ origen.getSaldo());
-            System.out.println("Nuevo saldo en el destino de: "+ destino.getSaldo());
         }
     }
 
@@ -224,6 +228,53 @@ public class Main {
         return null;
     }
 
+    //OPCION 4
+    private static void enviarYSacarDinero() {
+        int option;
+        Cuenta destino = null;
+        System.out.println("¿Desea hacer un envio o retiro?");
+        System.out.println("1. Retiro");
+        System.out.println("2. Envio");
+        System.out.println("3. volver al menu");
+        option = Validador.validarEntradaInt(3, true, 1, true);
+        switch (option) {
+            case 2:
+                System.out.println("Seleccione a quien le desea enviar el dinero");
+                Utils.listarUsuarios();
+                destino = DataBank.getUsuarios().get(Validador.validarEntradaInt(DataBank.getUsuarios().size(), true, 1, true)-1).getBolsillos().get(0);
+                break;
+            case 3:
+                return;
+        }
+        Cuenta origen = seleccionarCuentaDeOrigen(destino);
+        if (origen != null) {
+            System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + origen.getSaldo() + ")");
+            double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
+            Salida salida;
+            boolean retirado = false;
+            if (destino != null) {
+                double[] monto2 = origen.getDivisa().ConvertToDivisa(monto, destino.getDivisa());
+                salida = new Salida(monto2[0], LocalDate.now(), origen, destino, origen.getDivisa(), destino.getDivisa());
+                retirado = usuario.nuevaSalida(salida);
+                if (retirado) {
+                    Ingreso ingreso = new Ingreso(monto2[0], LocalDate.now(), origen, destino, origen.getDivisa(), destino.getDivisa());
+                    destino.getUsuario().nuevoIngreso(ingreso);
+                }
+            } else {
+                System.out.println("Seleccione el Banco Al que va a retirar");
+                Utils.listarBancos();
+                int opcBanco = validarEntradaInt(Banco.values().length, true, 1, true) - 1;
+                salida = new Salida(monto, LocalDate.now(), origen, Banco.values()[opcBanco], origen.getDivisa());
+                retirado = usuario.nuevaSalida(salida);
+            }
+            if (retirado) {
+                System.out.println("Retiro Exitoso");
+                System.err.println("Nuevo saldo en " + origen.getNombre() + " es: " + origen.getSaldo());
+            }
+
+        }
+    }
+
     //OPCIÓN 5
     //Se agrega un bolsillo al usuario que se seleccionó en el login() con el nombre y la divisa seleccionada por el usuario
     static void agregarBolsillo() {
@@ -237,7 +288,7 @@ public class Main {
         nombre = Validador.validarEntradaTexto(false);
         Bolsillo bolsillo = new Bolsillo(usuario, Divisa.values()[divisa], nombre);
         usuario.nuevoBolsillo(bolsillo);
-        System.out.println("Bolsillo "+nombre+" AGREGADO CON EXITO");
+        System.out.println("Bolsillo " + nombre + " AGREGADO CON EXITO");
     }
 
     //OPCIÓN6
@@ -259,7 +310,7 @@ public class Main {
         fecha = validarEntradaInt(12, true, 1, true);
         Colchon colchon = new Colchon(usuario, Divisa.values()[divisa], nombre, LocalDate.now().plusMonths(fecha));
         usuario.nuevoColchon(colchon);
-        System.out.println("Colchon "+nombre+" AGREGADO CON EXITO");
+        System.out.println("Colchon " + nombre + " AGREGADO CON EXITO");
 
     }
 
@@ -335,8 +386,8 @@ public class Main {
             case 3:
                 break;
         }
-        
-        if(opcion != 3) {
+
+        if (opcion != 3) {
             System.out.println("MODIFICACION REALIZADA CON EXITO");
         }
     }
@@ -392,7 +443,7 @@ public class Main {
                 }
             }
         }
-        if(opcion != 4) {
+        if (opcion != 4) {
             System.out.println("MODIFICACION REALIZADA CON EXITO");
         }
     }
