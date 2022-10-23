@@ -13,25 +13,26 @@ public abstract class Prestamo implements Serializable{
 	protected double valorInicial;
 	protected double valorPagado;
 	protected int tiempo;			//meses diferidos
-	private double TEA;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFinal;
-	private boolean cumplida; // Con la intencion de que si se cumple el pago, imprima algun string
+	private Divisa divisa;
+	private boolean cumplida;
 	
-	public Prestamo(double valorInicial,int tiempo , double TEA, LocalDate fechaInicio, LocalDate fechaFinal) {
+	public Prestamo(double valorInicial,int tiempo ,LocalDate fechaInicio, LocalDate fechaFinal) {
 		setValorInicial(valorInicial);
 		valorPagado = 0;
 		setTiempo(tiempo);
-		setTEA(TEA);
 		setFechaInicio(fechaInicio);
 		setFechaPago(fechaFinal);
+		setDivisa(Divisa.COP);
 		setCumplida(false);
 	}
+	
+	protected abstract void setTEA(double monto); 
 	
 	public double getValorInicial() {
 		return valorInicial;
 	}
-
 	public void setValorInicial(double valorInicial) {
 		this.valorInicial = valorInicial;
 	}
@@ -48,12 +49,6 @@ public abstract class Prestamo implements Serializable{
 	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
 	}
-	public double getTEA() {
-		return TEA;
-	}
-	public void setTEA(double tEA) {
-		TEA = tEA;
-	}
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -66,11 +61,16 @@ public abstract class Prestamo implements Serializable{
 	public void setFechaPago(LocalDate fechaPago) {
 		this.fechaFinal = fechaPago;
 	}
+	public Divisa getDivisa() {
+		return divisa;
+	}
+	public void setDivisa(Divisa divisa) {
+		this.divisa = divisa;
+	}
 	public boolean isCumplida() {
 		return cumplida;
 	}
 	public void setCumplida(boolean cumplida) {
 		this.cumplida = cumplida;
 	}
-	
 }
