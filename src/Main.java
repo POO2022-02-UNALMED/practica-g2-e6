@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 import baseDatos.Serializador;
@@ -7,16 +6,12 @@ import gestorAplicacion.administrador.DataBank;
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
-import gestorAplicacion.economia.Prestamo;
 import gestorAplicacion.economia.PrestamoFugaz;
 import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Cuenta;
 import gestorAplicacion.usuario.Usuario;
-import gestorAplicacion.usuario.PerfilCredito;
-import gestorAplicacion.usuario.comportamientoPago;
-import gestorAplicacion.economia.Credito;
 
 public class Main {
     static Usuario usuario;
@@ -490,7 +485,7 @@ public class Main {
     static void peticionPrestamoF() {
     	int opcion;
     	double montoPrestamo = 0;
-    	if(usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(0)) == true &&
+    	if(usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(0)) &&
     			usuario.getIngresos().size() > 1 &&
     			(usuario.getDineroTotal()[0] > 5 || usuario.getDineroTotal()[1] > 10000 || usuario.getDineroTotal()[2] > 5) ) {
     		
@@ -531,30 +526,6 @@ public class Main {
     	}else {
     		System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
     	}
-    }
-    //Solicitar crédito
-
-    static void solicitarCredito(Usuario usuario) {
-        System.out.println("Solicitar crédito");
-        System.out.print("Ingrese el monto en pesos colombianos a solicitar: ");
-        float monto = readLong();
-        System.out.println("Usted ingresó " + monto);
-        System.out.print("Ingrese el plazo en meses del crédito: ");
-        int plazo = readInt();
-        System.out.println("Usted ingresó un plazo de " + plazo);
-        System.out.println("Saldo antes del credito " + String.format("%.1f", numeroCuenta.getSaldo()));
-        int sCredito = usuario.solicitarCredito(monto, plazo,numeroCuenta);
-        switch(sCredito) {
-            case 1:
-                System.out.println("Credito rechazado bajo nivel crediticio");
-                break;
-            case 2:
-                System.out.println("Credito rechazado por falta de capacidad de deuda");
-                break;
-            case 3:
-                System.out.println("Su solicitud ha sido aprobada y el saldo actual es: "+ String.format("%.1f", numeroCuenta.getSaldo()) );
-                break;
-        }
     }
 }
 

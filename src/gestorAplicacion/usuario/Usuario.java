@@ -27,7 +27,6 @@ public class Usuario implements Serializable{
 	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
 	private List<Salida> salidas = new ArrayList<Salida>();
 	private List<Prestamo> prestamos = new ArrayList<Prestamo>();
-	private PerfilCredito perfilCredito;
 
 	
 	public Usuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave){
@@ -133,35 +132,7 @@ public class Usuario implements Serializable{
 		prestamos.add(prestamo);
 	}
 
-	public int solicitarCredito(float monto, int plazo, Cuenta numeroCuenta) {
-		int salida=0;
-		if(this.getPerfilCredito()==null) {
-			PerfilCredito perfil = new PerfilCredito(this,this.getIngresos(),comportamientoPago.randomNivel());
-			this.setPerfilCredito(perfil);
-		}
 
-		if(this.getPerfilCredito().getcomportamientoPago().getNivel()==3) {
-
-			salida=10;
-
-		}else {
-
-			float posibleCuota = Credito.simularCredito(monto, plazo);
-
-			if(posibleCuota>this.getPerfilCredito().getcapacidadDeuda()) {
-
-				salida=5;
-
-			}else {
-
-				Credito credito = new Credito(this, monto, posibleCuota);
-				numeroCuenta.setSaldo(numeroCuenta.getSaldo() + monto);
-				salida=1;
-
-			}
-		}
-		return salida;
-	}
 
 
 	public double[] getDineroTotal() {
