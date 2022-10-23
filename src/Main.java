@@ -237,6 +237,7 @@ public class Main {
         nombre = Validador.validarEntradaTexto(false);
         Bolsillo bolsillo = new Bolsillo(usuario, Divisa.values()[divisa], nombre);
         usuario.nuevoBolsillo(bolsillo);
+        System.out.println("Bolsillo "+nombre+" AGREGADO CON EXITO");
     }
 
     //OPCIÓN6
@@ -258,6 +259,8 @@ public class Main {
         fecha = validarEntradaInt(12, true, 1, true);
         Colchon colchon = new Colchon(usuario, Divisa.values()[divisa], nombre, LocalDate.now().plusMonths(fecha));
         usuario.nuevoColchon(colchon);
+        System.out.println("Colchon "+nombre+" AGREGADO CON EXITO");
+
     }
 
     //Menú para la eleccion de modificacion, sea bolsillo o colchon, luego se envia la eleccion a la funcion modificar
@@ -332,6 +335,10 @@ public class Main {
             case 3:
                 break;
         }
+        
+        if(opcion != 3) {
+            System.out.println("MODIFICACION REALIZADA CON EXITO");
+        }
     }
 
     //Menú para modificar nombre, divisa o fecha minima de retiro de un colchon
@@ -384,6 +391,9 @@ public class Main {
                     case 3 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusYears(total));
                 }
             }
+        }
+        if(opcion != 4) {
+            System.out.println("MODIFICACION REALIZADA CON EXITO");
         }
     }
 
