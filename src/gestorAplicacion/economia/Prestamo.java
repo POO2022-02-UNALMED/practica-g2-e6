@@ -20,9 +20,10 @@ public abstract class Prestamo implements Serializable, Abonable{
 
 	private LocalDate ultimaFechaPago;
 
-	public Prestamo(double valorInicial,int tiempo ,LocalDate fechaInicio, LocalDate fechaFinal) {
+	public Prestamo(double valorInicial,int tiempo ,LocalDate fechaInicio, LocalDate fechaFinal, Divisa divisa) {
 		setValorInicial(valorInicial);
 		valorPagado = 0;
+		setDivisa(divisa);
 		setTiempo(tiempo);
 		setFechaInicio(fechaInicio);
 		setFechaPago(fechaFinal);
