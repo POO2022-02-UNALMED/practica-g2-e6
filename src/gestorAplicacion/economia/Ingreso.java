@@ -16,7 +16,7 @@ public class Ingreso extends Movimiento{
 	private Divisa divisaOrigen;
 	private Divisa divisaDestino;
 	
-	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+	public Ingreso(double valor, LocalDate fechaCreacion,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
 		this(valor, fechaCreacion, true,null, cuentaOrigen, cuentaDestino,divisaOrigen,divisaDestino);
 	}
 

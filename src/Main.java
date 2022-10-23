@@ -15,6 +15,18 @@ import static gestorAplicacion.administrador.Validador.validarEntradaTexto;
 public class Main {
     static Usuario usuario;
 
+    //Se implementa login para la facilidad de prueba del profesor y los monitores, se listan los usuarios agregados anteriormente
+    static Usuario login() {
+        System.out.println("---- LOGIN ----");
+        System.out.println("¿Que usuario eres?");
+        int j = 1;
+        for (Usuario i : DataBank.getUsuarios()) {
+            System.out.println(j + ". " + i.getNombre());
+            j++;
+        }
+        return DataBank.getUsuarios().get(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false) - 1);
+    }
+
     public static void main(String[] args) {
 
     	/*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
@@ -34,7 +46,7 @@ public class Main {
             System.out.println("¿Que operación desea realizar?");
             System.out.println("1. Ver saldos disponibles en la cuenta");
             System.out.println("2. Ingresar dinero a su cuenta");
-            System.out.println("3. Mover dinero en su cuenta");//TODO
+            System.out.println("3. Mover dinero en su cuenta");
             System.out.println("4. Enviar y sacar dinero de su cuenta");//TODO
             System.out.println("5. Agregar bolsillo a su cuenta");
             System.out.println("6. Agregar colchón a su cuenta");
@@ -48,6 +60,7 @@ public class Main {
             switch (option) {
                 case 1 -> saldosDisponibles();
                 case 2 -> ingresaDinero();
+                case 3 -> moverDineroInterno();
                 case 5 -> agregarBolsillo();
                 case 6 -> agregarColchon();
                 case 8 -> opcionModificar();
@@ -88,7 +101,7 @@ public class Main {
         }
     }
 
-    //OPCIÓN
+    //OPCIÓN2
     //Menú de selección a que cuenta va a realizar el ingreso de dinero y se llama a elección BancoMonto() donde se va a realizar el ingreso
     static void ingresaDinero() {
         int option, opc;
@@ -107,6 +120,7 @@ public class Main {
             }
             case 2 -> {
                 System.out.println("Colchones: ");
+                bool = usuario.listarColchones();
                 list.addAll(usuario.getColchones());
             }
         }
@@ -130,16 +144,81 @@ public class Main {
         System.out.println("Su nuevo saldo es de " + cuenta.getSaldo() + " " + cuenta.getDivisa());
     }
 
-    //Se implementa login para la facilidad de prueba del profesor y los monitores, se listan los usuarios agregados anteriormente
-    static Usuario login() {
-        System.out.println("---- LOGIN ----");
-        System.out.println("¿Que usuario eres?");
-        int j = 1;
-        for (Usuario i : DataBank.getUsuarios()) {
-            System.out.println(j + ". " + i.getNombre());
-            j++;
+    //Opcion3
+    static void moverDineroInterno() {
+        int option;
+        Cuenta destino, origen;
+        System.out.println("¿Para donde va su dinero?");
+        System.out.println("1. Bolsillos");
+        System.out.println("2. Colchones");
+        System.out.println("3. Volver al inicio");
+        option = validarEntradaInt(3, true, 1, true);
+        boolean bool = false;
+        List<Cuenta> list = new ArrayList<>();
+        switch (option) {
+            case 1 -> {
+                System.out.println("Bolsillos: ");
+                bool = usuario.listarBolsillos();
+                list.addAll(usuario.getBolsillos());
+            }
+            case 2 -> {
+                System.out.println("Colchones: ");
+                bool = usuario.listarColchones();
+                list.addAll(usuario.getColchones());
+            }
         }
-        return DataBank.getUsuarios().get(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false)-1);
+        if (bool) {
+            int opc = validarEntradaInt(list.size(), true, 1, true) - 1;
+            destino = list.get(opc);
+            origen = seleccionarCuentaDeOrigen(destino);
+            System.out.println("Ingrese al cantidad a transferir (en "+origen.getDivisa()+")(entre 0 y "+origen.getSaldo()+")");
+            double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
+            double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,destino.getDivisa());
+            destino.depositar(monto2[0]);
+            origen.retirar(monto);
+            System.out.println("Movimiento exitosos con una trm de: "+ monto2[1]);
+            System.out.println("Nuevo saldo en el origen de: "+ origen.getSaldo());
+            System.out.println("Nuevo saldo en el destino de: "+ destino.getSaldo());
+        }
+    }
+
+    static Cuenta seleccionarCuentaDeOrigen(Cuenta destino) {
+        boolean repet = false;
+        do {
+            int option, opc;
+            Cuenta origen;
+            repet = false;
+            System.out.println("¿De donde sale su dinero?");
+            System.out.println("1. Bolsillos");
+            System.out.println("2. Colchones");
+            System.out.println("3. Volver al inicio");
+            option = validarEntradaInt(3, true, 1, true);
+            boolean bool = false;
+            List<Cuenta> list = new ArrayList<>();
+            switch (option) {
+                case 1 -> {
+                    System.out.println("Bolsillos: ");
+                    bool = usuario.listarBolsillos();
+                    list.addAll(usuario.getBolsillos());
+                }
+                case 2 -> {
+                    System.out.println("Colchones: ");
+                    bool = usuario.listarColchones();
+                    list.addAll(usuario.getColchones());
+                }
+            }
+            if (bool) {
+                opc = validarEntradaInt(list.size(), true, 1, true) - 1;
+                origen = list.get(opc);
+                if (origen == destino) {
+                    System.err.println("NO PUEDES ENVIAR EL DINERO AL MISMO LUGAR");
+                    repet = true;
+                } else {
+                    return origen;
+                }
+            }
+        } while (repet);
+        return null;
     }
 
     //OPCIÓN 5
