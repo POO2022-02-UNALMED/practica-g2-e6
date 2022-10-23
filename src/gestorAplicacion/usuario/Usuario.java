@@ -156,7 +156,9 @@ public class Usuario implements Serializable {
             for (int j = 0; j < Divisa.values().length; j++) {
                 if (i.getDivisa().equals(Divisa.values()[j])) {
                     total[j] += i.getSaldo();
-                    break;
+                    break;/**
+     *
+     */
                 }
             }
         }

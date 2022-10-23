@@ -55,7 +55,7 @@ public class Main {
                 case 11 -> Serializador.serializar();
                 default -> System.out.println("OPCIÓN EN DESARROLLO");
             }
-        } while (option != 7);
+        } while (option != 11);
     }
 
     //OPCIÓN1
@@ -139,7 +139,7 @@ public class Main {
             System.out.println(j + ". " + i.getNombre());
             j++;
         }
-        return DataBank.getUsuarioPorCC(String.valueOf(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false)));
+        return DataBank.getUsuarios().get(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false)-1);
     }
 
     //OPCIÓN 5
@@ -293,10 +293,8 @@ public class Main {
                     case 3 -> limite = 10;
                 }
                 if (limite != 0) {
-                    for (int i = 1; i < limite; i++) {
-                        System.out.println("Ingrese la cantidad que desa aumentar (entre 1 y " + limite + ")");
-                        total = Validador.validarEntradaInt(limite, true, 1, true);
-                    }
+                    System.out.println("Ingrese la cantidad que desa aumentar (entre 1 y " + limite + ")");
+                    total = Validador.validarEntradaInt(limite, true, 1, true);
                 }
                 switch (opcion) {
                     case 1 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusDays(total));

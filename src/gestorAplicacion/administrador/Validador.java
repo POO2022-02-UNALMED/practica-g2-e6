@@ -48,10 +48,9 @@ public abstract class Validador {
                 if (repeted) {
                     System.err.println("PORFAVOR INGRESE UN DATO VALIDO");
                 }
+                opcUsuario =entrada.next() + entrada.nextLine();
                 if(!allowSpaces){
-                    opcUsuario = entrada.next();
-                }else {
-                    opcUsuario =entrada.next() + entrada.nextLine();
+                    opcUsuario = opcUsuario.split(" ")[0];
                 }
             } catch (Exception e) {;
                 repeted = true;
