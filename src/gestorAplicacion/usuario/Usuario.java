@@ -132,7 +132,6 @@ public class Usuario implements Serializable{
 	public void nuevoPrestamo(PrestamoLargoPlazo prestamo) {
 		prestamos.add(prestamo);
 	}
-<<<<<<< Updated upstream
 
 	public int solicitarCredito(float monto, int plazo, Cuenta numeroCuenta) {
 		int salida=0;
@@ -163,8 +162,8 @@ public class Usuario implements Serializable{
 		}
 		return salida;
 	}
-=======
-	
+
+
 	public double[] getDineroTotal() {
         double[] total = {0,0,0};		//[EUR,COP,USD]
         
@@ -192,5 +191,5 @@ public class Usuario implements Serializable{
         
         return total;
     }
->>>>>>> Stashed changes
+	
 }

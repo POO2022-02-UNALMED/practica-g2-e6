@@ -11,33 +11,26 @@ public class PrestamoFugaz extends Prestamo {
 	/**
 	 * 
 	 */
-	
+	private double TEA;
 
-	private String[] referencia;
 	
-	public PrestamoFugaz(double valorInicial,LocalDate fechaInicio, String[] referencia) {
-		super(valorInicial, 6 , 34.49, fechaInicio,fechaInicio.plusMonths(6));
-		setReferencia(referencia);
+	public PrestamoFugaz(double valorInicial,LocalDate fechaInicio) {
+		super(valorInicial, 6, fechaInicio,fechaInicio.plusMonths(6));
+		setTEA(valorInicial);
 
 	}
-
-	public String[] getReferencia() {
-		return referencia;
+	
+	@Override
+	protected void setTEA(double monto) {
+		if(monto<5000000) {
+			this.TEA = 34.49;
+		}else {
+			this.TEA = 30.69;
+		}
 	}
-
-	public void setReferencia(String[] referencia) {
-		this.referencia = referencia;
+	
+	public double getTEA() {
+		return TEA;
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-
 
 }
