@@ -45,21 +45,4 @@ public class DataBank implements Serializable {
         return null;
     }
 
-    /*TODO: Migrate to User class (logic cross)
-        add segregation of divisa
-     */
-    public static double dineroTotalUsu(Usuario usuario) {
-
-        double total = 0;
-
-        for (Bolsillo i : usuario.getBolsillos()) {
-            total += i.getSaldo();
-        }
-
-        for (Colchon i : usuario.getColchones()) {
-            total += i.getSaldo();
-        }
-        return total;
-    }
-
 }

@@ -132,6 +132,7 @@ public class Usuario implements Serializable{
 	public void nuevoPrestamo(PrestamoLargoPlazo prestamo) {
 		prestamos.add(prestamo);
 	}
+<<<<<<< Updated upstream
 
 	public int solicitarCredito(float monto, int plazo, Cuenta numeroCuenta) {
 		int salida=0;
@@ -162,4 +163,34 @@ public class Usuario implements Serializable{
 		}
 		return salida;
 	}
+=======
+	
+	public double[] getDineroTotal() {
+        double[] total = {0,0,0};		//[EUR,COP,USD]
+        
+        for (Bolsillo i : getBolsillos()) {
+        	if(i.getDivisa().equals(Divisa.EUR)) {
+        		total[0] += i.getSaldo();
+        		
+        	}else if(i.getDivisa().equals(Divisa.COP)) {
+        		total[1] += i.getSaldo();
+        	}else {
+        		total[2] += i.getSaldo();
+        	}
+        }
+
+        for (Colchon i : getColchones()) {
+        	if(i.getDivisa().equals(Divisa.EUR)) {
+        		total[0] += i.getSaldo();
+        		
+        	}else if(i.getDivisa().equals(Divisa.COP)) {
+        		total[1] += i.getSaldo();
+        	}else {
+        		total[2] += i.getSaldo();
+        	}
+        }
+        
+        return total;
+    }
+>>>>>>> Stashed changes
 }

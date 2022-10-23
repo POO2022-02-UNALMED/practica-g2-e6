@@ -8,6 +8,7 @@ import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Ingreso;
 import gestorAplicacion.economia.Prestamo;
+import gestorAplicacion.economia.PrestamoFugaz;
 import gestorAplicacion.economia.PrestamoLargoPlazo;
 import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
@@ -23,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+    	/*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
         Usuario usuario2 = new Usuario("2", "David Esteban Martin Acosta", "dMartin@unal.edu.co", LocalDate.now(), "segura2");
         Usuario usuario1 = new Usuario("1", "Jaime Alberto Guzman Luna", "jGuzman@unal.edu.co", LocalDate.now(), "segura1");
         DataBank.nuevoUsuario(usuario3);
@@ -84,7 +85,13 @@ public class Main {
             	listarColchones();
                 break;
             case 3:
-                System.out.println("Dinero total: " + DataBank.dineroTotalUsu(usuario));
+            	double[] dineroTot = usuario.getDineroTotal();
+            	System.out.println("--------------------------------------------------------------------------");
+                System.out.println("Dinero total: ");
+                System.out.println("EUR: "+dineroTot[0]);
+                System.out.println("COP: "+dineroTot[1]);
+                System.out.println("USD: "+dineroTot[2]);
+            	System.out.println("--------------------------------------------------------------------------");
                 break;
             case 4:
             	break;
@@ -294,7 +301,7 @@ public class Main {
                 double[] nuevoSaldo = bolsillo.getDivisa().ConvertToDivisa(bolsillo.getSaldo(),Divisa.values()[divisa]);
                 bolsillo.setDivisa(Divisa.values()[divisa]);
                 bolsillo.setSaldo(nuevoSaldo[0]);
-                System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
+                System.err.println("Tasa de cambio: "+nuevoSaldo[1]);
                 break;
         	case 3:
         		break;
@@ -324,7 +331,7 @@ public class Main {
                 double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(),Divisa.values()[divisa]);
                 colchon.setDivisa(Divisa.values()[divisa]);
                 colchon.setSaldo(nuevoSaldo[0]);
-                System.out.println("Tasa de cambio: "+nuevoSaldo[1]);
+                System.err.println("Tasa de cambio: "+nuevoSaldo[1]);
                 break;
         	case 3:
         		System.out.println("¿Que desea modificar?");
@@ -375,12 +382,12 @@ public class Main {
             for (Colchon i : usuario.getColchones()) {
                 System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro() + "		Divisa: " + i.getDivisa());
                 j++;
-                System.out.println("---------------------------------------------------------");
+            	System.out.println("--------------------------------------------------------------------------");
             }
             return true;
         } else {
             System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
-            System.out.println("---------------------------------------------------------");
+        	System.out.println("--------------------------------------------------------------------------");
             return false;
         }
     }
@@ -388,12 +395,12 @@ public class Main {
     //Se listan las divisas del sistema
     static void listarDivisas() {
     	int j = 1;
-    	System.out.println("---------------------------------------------------------");
+    	System.out.println("--------------------------------------------------------------------------");
         for (Divisa i : Divisa.values()) {
             System.out.println(j + ". " + i);
             j++;
         }
-        System.out.println("---------------------------------------------------------");
+    	System.out.println("--------------------------------------------------------------------------");
     }
     
     //Menú para que el usuario seleccione que prestamo desea
@@ -407,6 +414,7 @@ public class Main {
 
         switch(opcion) {
         	case 1:
+        		peticionPrestamoF();
         		break;
         	case 2:
         		peticionPrestamoLP();
@@ -431,10 +439,10 @@ public class Main {
     	System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo? (utilice ',' para el símbolo decimal) (Cantidad maxima 50000000): ");
     	dineroSolicitado = validarEntradaDouble(50000000);
     	
-    	if(hijos <= 2 && ingresoMensual>=1500000 && dineroSolicitado>2000000 && usuario.getIngresos().size()>3 && DataBank.dineroTotalUsu(usuario)>500000) {
+    	if(hijos <= 2 && ingresoMensual>=1500000 && dineroSolicitado>2000000 && usuario.getIngresos().size()>3) {
     		AceptadoPrestamoLP(dineroSolicitado);
     	} else {
-    		System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
+    		System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
     	}
     }
     
@@ -474,17 +482,17 @@ public class Main {
     		usuario.nuevoPrestamo(prestamo);
     		System.out.println("PRESTAMO APROBADO...");
     	}else {
-    		System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
+    		System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
     	}
     }	
     
   //Se inicia la peticion del prestamo fugaz con algunos datos basicos para validar si es apto
-    static void prestamoFugaz() {
+    static void peticionPrestamoF() {
     	int opcion;
-    	List<Ingreso> ingresos;
-    	if(usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(2)) == true &&
+    	double montoPrestamo = 0;
+    	if(usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(0)) == true &&
     			usuario.getIngresos().size() > 1 &&
-    			DataBank.dineroTotalUsu(usuario) > 10000) {
+    			(usuario.getDineroTotal()[0] > 5 || usuario.getDineroTotal()[1] > 10000 || usuario.getDineroTotal()[2] > 5) ) {
     		
     		double ingresoTotPesos=0;
     		for(Ingreso i : usuario.getIngresos()) {
@@ -497,28 +505,32 @@ public class Main {
     		
     		if(montoPrestamo1 > 1000000) {
     			montoPrestamo1 = 1000000;
-    		}
-    		
-    		if(montoPrestamo2 > 2000000) {
     			montoPrestamo2 = 2000000;
     		}
     		
     		System.out.println("¿Que cantidad desea prestar?");
             System.out.println("1. "+montoPrestamo1);
             System.out.println("2. "+montoPrestamo2);
-            opcion = validarEntradaInt(2);
+            System.out.println("3. Volver al inicio");
+            opcion = validarEntradaInt(3);
             
             switch(opcion) {
-        	case 1:
-        		//PrestamoFugaz prestamo = new PrestamoFugaz(montoPrestamo1,LocalDate.now(),referencia);
-        		//usuario.nuevoPrestamo(prestamo);
-        		break;
-        	case 2:	
-        		//PrestamoFugaz prestamo2 = new PrestamoFugaz(montoPrestamo2,LocalDate.now(),referencia);
-        		//usuario.nuevoPrestamo(prestamo2);
-        		break; 	
+        		case 1:montoPrestamo = montoPrestamo1;
+        			break;
+        		case 2:	montoPrestamo = montoPrestamo2;
+        			break; 
+        		case 3:montoPrestamo = 0;
             }
-    	}  
+            if(montoPrestamo!=0) {
+            	PrestamoFugaz prestamo = new PrestamoFugaz(montoPrestamo,LocalDate.now());
+            	usuario.nuevoPrestamo(prestamo);
+        		System.out.println("PRESTAMO APROBADO...");
+            }else {
+            	System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
+            }
+    	}else {
+    		System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
+    	}
     }
     //Solicitar crédito
 
