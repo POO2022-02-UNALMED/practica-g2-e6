@@ -13,6 +13,9 @@ import gestorAplicacion.usuario.Bolsillo;
 import gestorAplicacion.usuario.Colchon;
 import gestorAplicacion.usuario.Cuenta;
 import gestorAplicacion.usuario.Usuario;
+import gestorAplicacion.usuario.PerfilCredito;
+import gestorAplicacion.usuario.comportamientoPago;
+import gestorAplicacion.economia.Credito;
 
 public class Main {
     static Usuario usuario;
@@ -516,6 +519,30 @@ public class Main {
         		break; 	
             }
     	}  
+    }
+    //Solicitar crédito
+
+    static void solicitarCredito(Usuario usuario) {
+        System.out.println("Solicitar crédito");
+        System.out.print("Ingrese el monto en pesos colombianos a solicitar: ");
+        float monto = readLong();
+        System.out.println("Usted ingresó " + monto);
+        System.out.print("Ingrese el plazo en meses del crédito: ");
+        int plazo = readInt();
+        System.out.println("Usted ingresó un plazo de " + plazo);
+        System.out.println("Saldo antes del credito " + String.format("%.1f", numeroCuenta.getSaldo()));
+        int sCredito = usuario.solicitarCredito(monto, plazo,numeroCuenta);
+        switch(sCredito) {
+            case 1:
+                System.out.println("Credito rechazado bajo nivel crediticio");
+                break;
+            case 2:
+                System.out.println("Credito rechazado por falta de capacidad de deuda");
+                break;
+            case 3:
+                System.out.println("Su solicitud ha sido aprobada y el saldo actual es: "+ String.format("%.1f", numeroCuenta.getSaldo()) );
+                break;
+        }
     }
 }
 
