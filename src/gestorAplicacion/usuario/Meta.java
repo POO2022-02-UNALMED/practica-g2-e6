@@ -6,20 +6,35 @@ import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Salida;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Meta implements Serializable, Abonable, Contable {
 
 	private static final long serialVersionUID = 659116063038663746L;
+
+	private Usuario usuario;
+
 	private String nombre;
 	private boolean cumplida;
-	private String fechaCumplimiento;
-	private String fechaInicio;
+	private LocalDate fechaCumplimiento;
+	private LocalDate fechaInicio;
 
 	private double objetivo;
 
 	private Divisa divisa;
 
 	private double saldo = 0;
+
+	public Meta(Usuario usuario, String nombre, LocalDate fechaInicio, double objetivo, Divisa divisa) {
+		this.nombre = nombre;
+		this.cumplida = false;
+		this.fechaCumplimiento = null;
+		this.fechaInicio = fechaInicio;
+		this.objetivo = objetivo;
+		this.divisa = divisa;
+		this.usuario = usuario;
+		this.saldo = 0;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -36,22 +51,7 @@ public class Meta implements Serializable, Abonable, Contable {
 	public void setCumplida(boolean cumplida) {
 		this.cumplida = cumplida;
 	}
-	
-	public String getFechaCumplimiento() {
-		return fechaCumplimiento;
-	}
-	
-	public void setFechaCumplimiento(String fechaCumplimiento) {
-		this.fechaCumplimiento = fechaCumplimiento;
-	}
-	
-	public String getFechaInicio() {
-		return fechaInicio;
-	}
-	
-	public void setFechaInicio(String fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+
 
 	public double getObjetivo() {
 		return objetivo;
@@ -75,6 +75,30 @@ public class Meta implements Serializable, Abonable, Contable {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public LocalDate getFechaCumplimiento() {
+		return fechaCumplimiento;
+	}
+
+	public void setFechaCumplimiento(LocalDate fechaCumplimiento) {
+		this.fechaCumplimiento = fechaCumplimiento;
+	}
+
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
 	@Override

@@ -143,6 +143,10 @@ public class Usuario implements Serializable {
         colchones.add(colchon);
     }
 
+    public void nuevaMeta(Meta meta) {
+        metas.add(meta);
+    }
+
     public void nuevoPrestamo(PrestamoLargoPlazo prestamo, Bolsillo bolsillo) {
         prestamos.add(prestamo);
         bolsillo.depositar(prestamo.getDivisa().ConvertToDivisa(prestamo.getValorInicial(), bolsillo.getDivisa())[0]);
@@ -151,7 +155,6 @@ public class Usuario implements Serializable {
         prestamos.add(prestamo);
         bolsillo.depositar(prestamo.getDivisa().ConvertToDivisa(prestamo.getValorInicial(), bolsillo.getDivisa())[0]);
     }
-
 
     public double[] getDineroTotal() {
         double[] total = new double[Divisa.values().length];
@@ -213,7 +216,7 @@ public class Usuario implements Serializable {
         if (!this.getMetas().isEmpty()) {
             int j = 1;
             for (Meta i : this.getMetas()) {
-                System.out.println(j + ". " + i.getNombre() + "\t\tDisponible: " + i.getSaldo() + "\t\tDivisa: " + i.getDivisa() + " cantidad objetivo: " + i.getObjetivo());
+                System.out.println(j + ". " + i.getNombre() + "\t\tcumplido: "+(i.isCumplida()?"Si":"No")+"\t\tDisponible: " + i.getSaldo() + "\t\tDivisa: " + i.getDivisa() + " cantidad objetivo: " + i.getObjetivo());
                 j++;
                 System.out.println("--------------------------------------------------------------------------");
             }
@@ -224,4 +227,5 @@ public class Usuario implements Serializable {
             return false;
         }
     }
+
 }

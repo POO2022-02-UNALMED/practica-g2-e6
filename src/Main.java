@@ -9,8 +9,7 @@ import gestorAplicacion.administrador.Validador;
 import gestorAplicacion.economia.*;
 import gestorAplicacion.usuario.*;
 
-import static gestorAplicacion.administrador.Validador.validarEntradaInt;
-import static gestorAplicacion.administrador.Validador.validarEntradaTexto;
+import static gestorAplicacion.administrador.Validador.*;
 
 public class Main {
     static Usuario usuario;
@@ -61,6 +60,7 @@ public class Main {
                 case 4 -> enviarYSacarDinero();
                 case 5 -> agregarBolsillo();
                 case 6 -> agregarColchon();
+                case 7 -> agregarMeta();
                 case 8 -> opcionModificar();
                 case 9 -> solicitarPrestamo();
                 case 11 -> {
@@ -313,7 +313,23 @@ public class Main {
         System.out.println("Colchon " + nombre + " AGREGADO CON EXITO");
 
     }
+    //OPCION 7
+    private static void agregarMeta() {
+        int divisa;
+        String nombre;
+        double objetivo;
+        System.out.println("Elija la divisa que desea utilizar la meta: ");
+        Utils.listarDivisas();
+        divisa = validarEntradaInt(Divisa.values().length, true, 1, true) - 1;
 
+        System.out.println("Escriba el nombre que desea asignarle a la meta: ");
+        nombre = Validador.validarEntradaTexto(true);
+        System.out.println("ingrese el valor objetivo que desea asignarle a la meta (recuerde que no podra sacar el dinero de una meta hasta alcanzar el objetivo): ");
+        objetivo = validarEntradaDouble(Double.MAX_VALUE,true, 0, true);
+        Meta meta = new Meta(usuario, nombre, LocalDate.now(),objetivo, Divisa.values()[divisa]);
+        usuario.nuevaMeta(meta);
+    }
+    //OPCION 8
     //Menú para la eleccion de modificacion, sea bolsillo o colchon, luego se envia la eleccion a la funcion modificar
     static void opcionModificar() {
         int opcion, opc;
