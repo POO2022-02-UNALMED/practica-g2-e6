@@ -5,12 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import gestorAplicacion.economia.Divisa;
-import gestorAplicacion.economia.Ingreso;
-import gestorAplicacion.economia.Prestamo;
-import gestorAplicacion.economia.PrestamoFugaz;
-import gestorAplicacion.economia.PrestamoLargoPlazo;
-import gestorAplicacion.economia.Salida;
+import gestorAplicacion.economia.*;
 
 
 public class Usuario implements Serializable{
@@ -27,6 +22,8 @@ public class Usuario implements Serializable{
 	private List<Ingreso> ingresos = new ArrayList<Ingreso>();
 	private List<Salida> salidas = new ArrayList<Salida>();
 	private List<Prestamo> prestamos = new ArrayList<Prestamo>();
+
+	private List<Meta> metas = new ArrayList<Meta>();
 
 	
 	public Usuario(String cedula, String nombre, String email, LocalDate fechaIngreso, String clave){
@@ -111,6 +108,14 @@ public class Usuario implements Serializable{
 		this.prestamos = prestamos;
 	}
 
+	public List<Meta> getMetas() {
+		return metas;
+	}
+
+	public void setMetas(List<Meta> metas) {
+		this.metas = metas;
+	}
+
 	public void nuevoIngreso(Ingreso ingreso) {
 		ingresos.add(ingreso);
 		ingreso.getCuentaDestino().depositar(ingreso.getValor());
@@ -128,39 +133,81 @@ public class Usuario implements Serializable{
 		prestamos.add(prestamo);
 	}
 	
-	public void nuevoPrestamo(PrestamoLargoPlazo prestamo) {
+	public void nuevoPrestamo(PrestamoLargoPlazo prestamo, Bolsillo bolsillo) {
 		prestamos.add(prestamo);
+		bolsillo.depositar(prestamo.getDivisa().ConvertToDivisa(prestamo.getValorInicial(), bolsillo.getDivisa())[0]);
 	}
 
 
 
 
 	public double[] getDineroTotal() {
-        double[] total = {0,0,0};		//[EUR,COP,USD]
-        
-        for (Bolsillo i : getBolsillos()) {
-        	if(i.getDivisa().equals(Divisa.EUR)) {
-        		total[0] += i.getSaldo();
-        		
-        	}else if(i.getDivisa().equals(Divisa.COP)) {
-        		total[1] += i.getSaldo();
-        	}else {
-        		total[2] += i.getSaldo();
-        	}
+        double[] total = new double[Divisa.values().length];
+        List<Contable> contables = new ArrayList<Contable>();
+		contables.addAll(getBolsillos());
+		contables.addAll(getColchones());
+		contables.addAll(getMetas());
+        for (Contable i : contables) {
+			for (int j =0; j < Divisa.values().length; j++) {
+				if(i.getDivisa().equals(Divisa.values()[j])) {
+					total[j] += i.getSaldo();
+					break;
+				}
+			}
         }
-
-        for (Colchon i : getColchones()) {
-        	if(i.getDivisa().equals(Divisa.EUR)) {
-        		total[0] += i.getSaldo();
-        		
-        	}else if(i.getDivisa().equals(Divisa.COP)) {
-        		total[1] += i.getSaldo();
-        	}else {
-        		total[2] += i.getSaldo();
-        	}
-        }
-        
         return total;
     }
-	
+
+	//Se listan los bolsillos del usuario
+	public boolean listarBolsillos() {
+		System.out.println("---------------------------------------------------------");
+		if (!this.getBolsillos().isEmpty()) {
+			int j = 1;
+			for (Bolsillo i : this.getBolsillos()) {
+				System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Divisa: " + i.getDivisa());
+				j++;
+			}
+			System.out.println("---------------------------------------------------------");
+			return true;
+		} else {
+			System.out.println("EL USUARIO NO POSEE BOLSILLOS...\n");
+			System.out.println("---------------------------------------------------------");
+			return false;
+		}
+	}
+
+	//Se listan los colchones del usuario que se seleccionó en el login()
+	public boolean listarColchones() {
+		System.out.println("---------------------------------------------------------");
+		if (!this.getColchones().isEmpty()) {
+			int j = 1;
+			for (Colchon i : this.getColchones()) {
+				System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "		Fecha de retiro: " + i.getFechaRetiro() + "		Divisa: " + i.getDivisa());
+				j++;
+				System.out.println("--------------------------------------------------------------------------");
+			}
+			return true;
+		} else {
+			System.out.println("EL USUARIO NO POSEE COLCHONES...\n");
+			System.out.println("--------------------------------------------------------------------------");
+			return false;
+		}
+	}
+
+	public boolean listarMetas() {
+		System.out.println("---------------------------------------------------------");
+		if (!this.getMetas().isEmpty()) {
+			int j = 1;
+			for (Meta i : this.getMetas()) {
+				System.out.println(j + ". " + i.getNombre() + "		Disponible: " + i.getSaldo() + "Divisa: " + i.getDivisa() +" cantidad objetivo: "+ i.getObjetivo());
+				j++;
+				System.out.println("--------------------------------------------------------------------------");
+			}
+			return true;
+		} else {
+			System.out.println("EL USUARIO NO POSEE METAS...\n");
+			System.out.println("--------------------------------------------------------------------------");
+			return false;
+		}
+	}
 }

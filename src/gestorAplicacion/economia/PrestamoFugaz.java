@@ -28,9 +28,18 @@ public class PrestamoFugaz extends Prestamo {
 			this.TEA = 30.69;
 		}
 	}
-	
+
+	@Override
+	protected void setTEA(double monto, Garantia garantia) {
+		this.setTEA(monto);
+	}
+
 	public double getTEA() {
 		return TEA;
 	}
 
+	@Override
+	public Salida abonar(double monto) {
+		return null;
+	}
 }

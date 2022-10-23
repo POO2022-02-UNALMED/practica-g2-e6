@@ -3,8 +3,17 @@ package gestorAplicacion.economia;
 public enum Divisa {
     EUR(4000,4500),
     COP(1,1),
-    USD(4200,5000);
-
+    USD(4200,5000),
+    JPY(30,34),
+    GBP(4500, 5500),
+    AUD(2800, 3400),
+    CAD(3200,3600),
+    CHF(4400,5200),
+    CNH(610,680),
+    HKD(550,630),
+    NZD(2500, 2900),
+    MXN(210, 250),
+    VND(0.18, 0.22);
     private double minValue;
     private double maxValue;
 

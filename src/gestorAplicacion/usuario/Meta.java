@@ -1,47 +1,26 @@
 package gestorAplicacion.usuario;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import gestorAplicacion.economia.Abonable;
+import gestorAplicacion.economia.Contable;
+import gestorAplicacion.economia.Divisa;
+import gestorAplicacion.economia.Salida;
 
-public class Meta implements Serializable{
-	
-	/**
-	 * 
-	 */
+import java.io.Serializable;
+
+public class Meta implements Serializable, Abonable, Contable {
+
 	private static final long serialVersionUID = 659116063038663746L;
-	
-	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-	private int plazo;
-	private boolean automatico;
 	private String nombre;
 	private boolean cumplida;
 	private String fechaCumplimiento;
 	private String fechaInicio;
-	
-	public ArrayList<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	
-	public void setUsuarios(ArrayList<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	
-	public int getPlazo() {
-		return plazo;
-	}
-	
-	public void setPlazo(int plazo) {
-		this.plazo = plazo;
-	}
-	
-	public boolean isAutomatico() {
-		return automatico;
-	}
-	
-	public void setAutomatico(boolean automatico) {
-		this.automatico = automatico;
-	}
-	
+
+	private double objetivo;
+
+	private Divisa divisa;
+
+	private double saldo = 0;
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -73,6 +52,33 @@ public class Meta implements Serializable{
 	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
 
+	public double getObjetivo() {
+		return objetivo;
+	}
+
+	public void setObjetivo(double objetivo) {
+		this.objetivo = objetivo;
+	}
+
+	public Divisa getDivisa() {
+		return divisa;
+	}
+
+	public void setDivisa(Divisa divisa) {
+		this.divisa = divisa;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
+	@Override
+	public Salida abonar(double monto) {
+		return null;
+	}
 }

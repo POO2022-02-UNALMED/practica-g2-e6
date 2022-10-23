@@ -1,8 +1,11 @@
 package gestorAplicacion.usuario;
 
+import gestorAplicacion.economia.Contable;
 import gestorAplicacion.economia.Divisa;
 
-public class Bolsillo extends Cuenta{
+import java.io.Serializable;
+
+public class Bolsillo extends Cuenta {
 
 	/**
 	 * 

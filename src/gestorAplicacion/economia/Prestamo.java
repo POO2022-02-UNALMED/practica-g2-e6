@@ -3,7 +3,7 @@ package gestorAplicacion.economia;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Prestamo implements Serializable{
+public abstract class Prestamo implements Serializable, Abonable{
 
 	/**
 	 * 
@@ -17,7 +17,9 @@ public abstract class Prestamo implements Serializable{
 	private LocalDate fechaFinal;
 	private Divisa divisa;
 	private boolean cumplida;
-	
+
+	private LocalDate ultimaFechaPago;
+
 	public Prestamo(double valorInicial,int tiempo ,LocalDate fechaInicio, LocalDate fechaFinal) {
 		setValorInicial(valorInicial);
 		valorPagado = 0;
@@ -28,7 +30,8 @@ public abstract class Prestamo implements Serializable{
 		setCumplida(false);
 	}
 	
-	protected abstract void setTEA(double monto); 
+	protected abstract void setTEA(double monto);
+	protected abstract void setTEA(double monto, Garantia garantia);
 	
 	public double getValorInicial() {
 		return valorInicial;

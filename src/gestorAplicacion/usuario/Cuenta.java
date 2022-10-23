@@ -1,11 +1,12 @@
 package gestorAplicacion.usuario;
 
+import gestorAplicacion.economia.Contable;
 import gestorAplicacion.economia.Divisa;
 
 import java.io.Serializable;
 
 
-public abstract class Cuenta implements Serializable{
+public abstract class Cuenta implements Serializable, Contable {
     
     /**
 	 * 
@@ -20,7 +21,7 @@ public abstract class Cuenta implements Serializable{
     public static int numeroCuentas;
     
     
-    protected Cuenta(Usuario usuario, Divisa divisa) {
+    protected Cuenta(Usuario usuario, Divisa divisa)  {
         saldo = 0;
         setUsuario(usuario);
         setDivisa(divisa);
