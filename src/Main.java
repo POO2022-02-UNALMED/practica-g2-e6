@@ -174,8 +174,11 @@ public class Main {
             System.out.println("Ingrese al cantidad a transferir (en "+origen.getDivisa()+")(entre 0 y "+origen.getSaldo()+")");
             double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
             double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,destino.getDivisa());
+            boolean retirado =origen.retirar(monto);
+            if(!retirado){
+                return;
+            }
             destino.depositar(monto2[0]);
-            origen.retirar(monto);
             System.out.println("Movimiento exitosos con una trm de: "+ monto2[1]);
             System.out.println("Nuevo saldo en el origen de: "+ origen.getSaldo());
             System.out.println("Nuevo saldo en el destino de: "+ destino.getSaldo());

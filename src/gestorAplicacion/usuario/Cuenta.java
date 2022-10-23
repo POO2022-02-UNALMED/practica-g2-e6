@@ -53,6 +53,7 @@ public abstract class Cuenta implements Serializable, Contable {
     		saldo = saldo - cantidad;
     		return true;
     	}else {
+			System.err.println("No tienes saldo suficiente");
     		return false;
     	}
     }

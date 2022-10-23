@@ -30,6 +30,15 @@ public class Colchon extends Cuenta{
 		this.nombre = nombre;
 	}
 
+	public boolean retirar(double monto){
+		if(this.fechaRetiro.isBefore(LocalDate.now())){
+			return super.retirar(monto);
+		}
+		System.err.println("No es posible retirar aun de este colchon");
+		return false;
+
+
+	}
 	public LocalDate getFechaRetiro() {
 		return fechaRetiro;
 	}
