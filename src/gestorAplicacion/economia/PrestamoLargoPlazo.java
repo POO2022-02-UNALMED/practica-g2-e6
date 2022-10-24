@@ -1,6 +1,7 @@
 package gestorAplicacion.economia;
 
 import gestorAplicacion.usuario.Cuenta;
+import gestorAplicacion.usuario.Usuario;
 
 import java.time.LocalDate;
 
@@ -9,19 +10,19 @@ public class PrestamoLargoPlazo extends Prestamo {
     private static final long serialVersionUID = 1L;
 
     private String[] referencia;
-    private double TEA;
 
     private Garantia garantia;
 
-    public PrestamoLargoPlazo(double valorIncial, int tiempo, LocalDate fechaInicio, Divisa divisa, String[] referencia, Garantia garantia) {
-        super(valorIncial, tiempo, fechaInicio, fechaInicio.plusMonths(tiempo), divisa);
+    public PrestamoLargoPlazo(Usuario usuario, double valorIncial, int tiempo, LocalDate fechaInicio, Divisa divisa, String[] referencia, Garantia garantia) {
+        super(usuario, valorIncial, tiempo, fechaInicio, fechaInicio.plusMonths(tiempo), divisa);
         setReferencia(referencia);
         setGarantia(garantia);
         setTEA(valorIncial, garantia);
+        calcularCuotas();
     }
 
-    public PrestamoLargoPlazo(double valorIncial, int tiempo, LocalDate fechaInicio, Divisa divisa, String[] referencia) {
-        super(valorIncial, tiempo, fechaInicio, fechaInicio.plusYears(tiempo), divisa);
+    public PrestamoLargoPlazo(Usuario usuario, double valorIncial, int tiempo, LocalDate fechaInicio, Divisa divisa, String[] referencia) {
+        super(usuario, valorIncial, tiempo, fechaInicio, fechaInicio.plusMonths(tiempo), divisa);
         setReferencia(referencia);
         setGarantia(null);
         setTEA(valorIncial);
@@ -55,7 +56,7 @@ public class PrestamoLargoPlazo extends Prestamo {
             case Moto -> acumulado += 22;
             default -> acumulado += 30;
         }
-        this.TEA = acumulado;
+        super.TEA = acumulado;
 
     }
 
@@ -71,10 +72,6 @@ public class PrestamoLargoPlazo extends Prestamo {
         this.garantia = garantia;
     }
 
-    @Override
-    public Salida abonar(double monto, Cuenta origen) {
-        return null;
-    }
 }
 	
 

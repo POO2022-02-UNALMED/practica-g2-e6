@@ -24,21 +24,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+        /*Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
         Usuario usuario2 = new Usuario("2", "David Esteban Martin Acosta", "dMartin@unal.edu.co", LocalDate.now(), "segura2");
         Usuario usuario1 = new Usuario("1", "Jaime Alberto Guzman Luna", "jGuzman@unal.edu.co", LocalDate.now(), "segura1");
         DataBank.nuevoUsuario(usuario3);
         DataBank.nuevoUsuario(usuario2);
-        DataBank.nuevoUsuario(usuario1);
+        DataBank.nuevoUsuario(usuario1);*/
 
 
         int option;
 
         usuario = login();
-
         do {
             System.out.println("---- SISTEMA GESTOR DE DINERO ----");
-            System.err.println("|| USUARIO: "+usuario.getNombre()+" ||");
+            System.err.println("|| USUARIO: " + usuario.getNombre() + " ||");
             System.out.println("¿Que operación desea realizar?");
             System.out.println("1. Ver saldos disponibles en la cuenta");
             System.out.println("2. Ingresar dinero a su cuenta");
@@ -64,6 +63,7 @@ public class Main {
                 case 7 -> agregarMeta();
                 case 8 -> opcionModificar();
                 case 9 -> solicitarPrestamo();
+                case 10 -> abonarPrestamoOMeta();
                 case 11 -> {
                     usuario = login();
                 }
@@ -577,7 +577,7 @@ public class Main {
 
         }
         if (puntaje > 5) {
-            AceptadoPrestamoLP(dineroSolicitado, tiempo, divisa);
+            AceptadoPrestamoLP(dineroSolicitado, tiempo * 12, divisa);
         } else {
             System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
         }
@@ -606,9 +606,9 @@ public class Main {
         int bolsillo = Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1;
         PrestamoLargoPlazo prestamo;
         if (opcGarantia < 0) {
-            prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia);
+            prestamo = new PrestamoLargoPlazo(usuario, dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia);
         } else {
-            prestamo = new PrestamoLargoPlazo(dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia, Garantia.values()[opcGarantia]);
+            prestamo = new PrestamoLargoPlazo(usuario, dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia, Garantia.values()[opcGarantia]);
         }
         usuario.nuevoPrestamo(prestamo, usuario.getBolsillos().get(bolsillo));
         System.out.println("PRESTAMO APROBADO...");
@@ -619,8 +619,7 @@ public class Main {
     static void peticionPrestamoF(Divisa divisa) {
         int opcion;
         double montoPrestamo = 0;
-        if (usuario.getFechaIngreso().isBefore(LocalDate.now().minusDays(0)) &&
-                usuario.getIngresos().size() > 1) {
+        if (usuario.getIngresos().size() > 1) {
 
             double ingresoTotPesos = 0;
             for (Ingreso i : usuario.getIngresos()) {
@@ -646,7 +645,7 @@ public class Main {
                 System.out.println("Escoja el bolsillo al que se le enviara el dinero");
                 usuario.listarBolsillos();
                 int bolsillo = Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1;
-                PrestamoFugaz prestamo = new PrestamoFugaz(montoPrestamo, LocalDate.now(), divisa);
+                PrestamoFugaz prestamo = new PrestamoFugaz(usuario, montoPrestamo, LocalDate.now(), divisa);
                 usuario.nuevoPrestamo(prestamo, usuario.getBolsillos().get(bolsillo));
                 System.out.println("PRESTAMO APROBADO...");
             } else {
@@ -655,6 +654,36 @@ public class Main {
         } else {
             System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
         }
+    }
+
+    //OPCION 10
+    private static void abonarPrestamoOMeta() {
+        System.out.println("¿A que desea abonar?");
+        System.out.println("1. Prestamos");
+        System.out.println("2. Metas");
+        System.out.println("3. Volver al inicio");
+        int option = validarEntradaInt(3, true, 1, true);
+        Abonable abonable;
+        switch (option) {
+            case 1:
+                System.out.println("Seleccione una meta");
+                usuario.listarPrestamos();
+                abonable = usuario.getPrestamos().get(Validador.validarEntradaInt(usuario.getPrestamos().size(), true, 1, true) - 1);
+                break;
+            case 2:
+                System.out.println("Seleccione una meta");
+                usuario.listarMetas();
+                abonable = usuario.getMetas().get(Validador.validarEntradaInt(usuario.getMetas().size(), true, 1, true) - 1);
+                break;
+            default:
+                return;
+        }
+        System.out.println("Seleccione el Bolsillo desde el que va a abonar");
+        usuario.listarBolsillos();
+        Bolsillo bolsillo = usuario.getBolsillos().get(Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1);
+        System.out.println("Ingrese la cantidad que va a abonar (entre 0 y " + bolsillo.getSaldo() + " " + bolsillo.getDivisa() + "):");
+        double monto = Validador.validarEntradaDouble(bolsillo.getSaldo(), true, 0, false);
+        abonable.abonar(monto, bolsillo);
     }
 }
 

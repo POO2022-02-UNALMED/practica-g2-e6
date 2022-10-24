@@ -228,4 +228,20 @@ public class Usuario implements Serializable {
         }
     }
 
+    public boolean listarPrestamos() {
+        System.out.println("---------------------------------------------------------");
+        if (!this.getPrestamos().isEmpty()) {
+            int j = 1;
+            for (Prestamo i : this.getPrestamos()) {
+                System.out.println(j + ". " + i.getClass().getSimpleName() + "\t\tcumplido: "+(i.isCumplida()?"Si":"No")+"\t\tValor: " + i.getValorInicial() + "\t\tDivisa: " + i.getDivisa() + " cantidad Pagada: " + i.getValorPagado());
+                j++;
+                System.out.println("--------------------------------------------------------------------------");
+            }
+            return true;
+        } else {
+            System.out.println("EL USUARIO NO POSEE PRESTAMOS...\n");
+            System.out.println("--------------------------------------------------------------------------");
+            return false;
+        }
+    }
 }

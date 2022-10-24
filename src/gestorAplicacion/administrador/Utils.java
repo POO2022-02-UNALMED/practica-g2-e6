@@ -2,6 +2,7 @@ package gestorAplicacion.administrador;
 
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.MONTHS;
 
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
@@ -51,6 +52,9 @@ public abstract class Utils {
     }
     //Retorna la cantidad de dias entre dos fechas, inicio: inicio el credito, fin: la fecha de pago (LocalDate.now() para obtener fecha del sistema)
     public static long diasEntreFechas(LocalDate inicio, LocalDate fin){
-        return DAYS.between(inicio, fin);
+        return Math.abs(DAYS.between(inicio, fin));
+    }
+    public static long mesesEntreFechas(LocalDate inicio, LocalDate fin){
+        return Math.abs(MONTHS.between(inicio, fin));
     }
 }
