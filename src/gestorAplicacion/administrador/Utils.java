@@ -1,5 +1,8 @@
 package gestorAplicacion.administrador;
 
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 import gestorAplicacion.economia.Garantia;
@@ -16,6 +19,7 @@ public abstract class Utils {
         }
     	System.out.println("--------------------------------------------------------------------------");
     }
+    //Se listan los bancos del sistema
     public static void listarBancos() {
         int j = 1;
         System.out.println("--------------------------------------------------------------------------");
@@ -25,7 +29,7 @@ public abstract class Utils {
         }
         System.out.println("--------------------------------------------------------------------------");
     }
-
+    //Se listan las garantias del sistema
     public static void listarGarantias() {
         int j = 1;
         System.out.println("--------------------------------------------------------------------------");
@@ -35,6 +39,7 @@ public abstract class Utils {
         }
         System.out.println("--------------------------------------------------------------------------");
     }
+    //Se listan los usuarios del sistema
     public static void listarUsuarios() {
         int j = 1;
         System.out.println("--------------------------------------------------------------------------");
@@ -43,5 +48,9 @@ public abstract class Utils {
             j++;
         }
         System.out.println("--------------------------------------------------------------------------");
+    }
+    //Retorna la cantidad de dias entre dos fechas, inicio: inicio el credito, fin: la fecha de pago (LocalDate.now() para obtener fecha del sistema)
+    public static long diasEntreFechas(LocalDate inicio, LocalDate fin){
+        return DAYS.between(inicio, fin);
     }
 }

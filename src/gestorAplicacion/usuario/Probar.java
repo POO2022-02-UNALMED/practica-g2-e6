@@ -1,8 +1,10 @@
 package gestorAplicacion.usuario;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import gestorAplicacion.administrador.DataBank;
+import gestorAplicacion.administrador.Utils;
 import gestorAplicacion.economia.Banco;
 import gestorAplicacion.economia.Divisa;
 
@@ -32,7 +34,14 @@ public class Probar {
 		}
 		double[] aux2 = Divisa.USD.ConvertToDivisa(2,Divisa.COP);
 		System.out.println(aux2[0]+ ", "+ aux2[1]);*/
-		System.out.print(Banco.values().length);
+		
+		
+		
+		
+		
+		/*LocalDate fecha = LocalDate.now().minusYears(1).minusDays(15);
+		long a = Utils.diasEntreFechas(fecha,LocalDate.now());
+		System.out.print(a);*/
 	}
 
 }

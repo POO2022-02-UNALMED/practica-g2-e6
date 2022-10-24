@@ -38,6 +38,7 @@ public class Main {
 
         do {
             System.out.println("---- SISTEMA GESTOR DE DINERO ----");
+            System.err.println("|| USUARIO: "+usuario.getNombre()+" ||");
             System.out.println("¿Que operación desea realizar?");
             System.out.println("1. Ver saldos disponibles en la cuenta");
             System.out.println("2. Ingresar dinero a su cuenta");
@@ -51,7 +52,7 @@ public class Main {
             System.out.println("10. Abonar a un préstamo o Meta");//TODO
             System.out.println("11. Logout");
             System.out.println("12. Terminar ");
-            option = validarEntradaInt(11, true, 0, false);
+            option = validarEntradaInt(12, true, 0, false);
 
             switch (option) {
                 case 1 -> saldosDisponibles();

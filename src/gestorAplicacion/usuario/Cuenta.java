@@ -56,7 +56,7 @@ public abstract class Cuenta implements Serializable, Contable {
     }
 
     public boolean retirar(double cantidad) {
-    	if(cantidad<saldo) {
+    	if(cantidad<=saldo) {
     		saldo = saldo - cantidad;
     		return true;
     	}else {
