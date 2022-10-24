@@ -18,14 +18,12 @@ public abstract class Cuenta implements Serializable, Contable {
 	private Usuario usuario;
     private double saldo;
     private Divisa divisa;
-    public static int numeroCuentas;
-
 	private String nombre;
+	
     protected Cuenta(Usuario usuario, Divisa divisa, String nombre)  {
         saldo = 0;
         setUsuario(usuario);
         setDivisa(divisa);
-        setNumeroCuenta(numeroCuentas++);
 		setNombre(nombre);
     }
 	public String getNombre() {
