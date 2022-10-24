@@ -1,6 +1,5 @@
 package gestorAplicacion.economia;
 
-import gestorAplicacion.usuario.Cuenta;
 import gestorAplicacion.usuario.Usuario;
 
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ public class PrestamoFugaz extends Prestamo {
     public PrestamoFugaz(Usuario usuario, double valorInicial, LocalDate fechaInicio, Divisa divisa) {
         super(usuario,valorInicial, 6, fechaInicio, fechaInicio.plusMonths(6), divisa);
         setTEA(valorInicial);
-        calcularCuotas();
     }
 
     @Override

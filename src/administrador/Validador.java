@@ -1,4 +1,4 @@
-package gestorAplicacion.administrador;
+package administrador;
 
 import java.util.Scanner;
 
@@ -40,6 +40,7 @@ public abstract class Validador {
         return validarEntradaNumerical(opcMax, incluyente1, opcMin, incluyente2, false);
     }
 
+    //Se controla cualquier posible problema en la entrada de los datos de tipo String
     public static String validarEntradaTexto(boolean allowSpaces){
         String opcUsuario = "";
         boolean repeted = false;

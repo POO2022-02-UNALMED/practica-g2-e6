@@ -1,13 +1,11 @@
 package gestorAplicacion.usuario;
 
-import gestorAplicacion.administrador.Utils;
-import gestorAplicacion.administrador.Validador;
 import gestorAplicacion.economia.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Meta implements Serializable, Abonable, Contable {
+public class Meta implements Serializable, Abonable<Movimiento>, Contable {
 
     private static final long serialVersionUID = 659116063038663746L;
 
@@ -56,33 +54,22 @@ public class Meta implements Serializable, Abonable, Contable {
         return objetivo;
     }
 
-    public void setObjetivo(double objetivo) {
+    public boolean[] setObjetivo(double objetivo) {
+    	boolean[] bol = new boolean[2];
         if (!this.cumplida) {
             this.objetivo = objetivo;
-            this.metaCumplida();
+            bol[1] = this.metaCumplida();
+            bol[0] = true;
         } else {
-            System.err.println("Esta Meta ya esta cumplida por lo que no es posible cambiar el objetivo");
+        	bol[0] = false;
+        	bol[1] = false;
         }
+        return bol;
     }
 
-    private void metaCumplida() {
-        if (this.saldo >= this.objetivo) {
-            System.err.println("FELICIDADES HAS CUMPLIDO TU META " + this.nombre.toUpperCase());
-            System.out.println("Escoge un Bolsillo al cual enviar el dinero para que lo puedas usar (" + this.saldo + " " + this.divisa + "): ");
-            this.usuario.listarBolsillos();
-            int option = Validador.validarEntradaInt(this.usuario.getBolsillos().size(), true, 1, true) - 1;
-            Bolsillo bolsillo = this.usuario.getBolsillos().get(option);
-            double[] nuevoSaldo = this.divisa.ConvertToDivisa(this.saldo, bolsillo.getDivisa());
-            this.saldo = 0;
-            this.cumplida = true;
-            this.fechaCumplimiento = LocalDate.now();
-            Ingreso ingreso = new Ingreso(nuevoSaldo[0], LocalDate.now(), true, null, null, bolsillo, this.divisa, bolsillo.getDivisa());
-            usuario.nuevoIngreso(ingreso);
-            System.out.println("Nuevo saldo en el bolsillo de: " + nuevoSaldo[0] + " " + bolsillo.getDivisa());
-            System.out.println("TRM usada de: " + nuevoSaldo[1]);
-        }else{
-            System.out.println("Restante para cumplir la meta de: " +(this.objetivo-this.saldo));
-        }
+    public boolean metaCumplida() {
+    	return this.saldo>= this.objetivo;
+        
     }
 
     public Divisa getDivisa() {
@@ -126,21 +113,38 @@ public class Meta implements Serializable, Abonable, Contable {
     }
 
     @Override
-    public boolean abonar(double monto, Cuenta origen) {
+    public Movimiento abonar(double monto, Cuenta origen) {
         if (!this.cumplida) {
-            Salida salida = new Salida(monto, LocalDate.now(), origen, null, origen.getDivisa(), this.divisa);
+            double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,this.divisa);
+            Salida salida = new Salida(monto2[0],monto, LocalDate.now(), origen, null, origen.getDivisa(), this.divisa);
             boolean retirado = this.usuario.nuevaSalida(salida);
-            if (retirado) {
-                double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,this.divisa);
-                this.saldo += monto2[0];
+            /*if (retirado) {
                 System.out.println("Nuevo Saldo en la meta de: "+ this.saldo + " "+ this.divisa);
                 System.out.println("Nuevo saldo en la cuenta origen de: "+ origen.getSaldo() + "" + origen.getDivisa());
                 System.out.println("TRM usada de: "+ monto2[1]);
                 metaCumplida();
+                return true;
+            }else {
+            	System.err.println("Abono Fallido");
+            	return null;
+            }*/
+            if(!retirado) {
+            	return null;
             }
-            return true;
+            this.saldo += monto2[0];
+            return salida;
         }
-        System.err.println("Esta Meta ya esta cumplida por lo cual no es posible hacer un abono");
-        return false;
+        return null;
     }
+
+	@Override
+	public Movimiento terminar(Cuenta cuenta) {
+		double[] nuevoSaldo = this.getDivisa().ConvertToDivisa(this.saldo, cuenta.getDivisa());
+        this.saldo = 0;
+        this.cumplida = true;
+        this.fechaCumplimiento = LocalDate.now();
+        Ingreso ingreso = new Ingreso(nuevoSaldo[0], this.saldo, LocalDate.now(), true, null, null, cuenta, this.divisa, cuenta.getDivisa());
+        usuario.nuevoIngreso(ingreso);
+		return ingreso;
+	}
 }

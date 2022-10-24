@@ -24,7 +24,6 @@ public class Colchon extends Cuenta{
 		if(this.fechaRetiro.isBefore(LocalDate.now())){
 			return super.retirar(monto);
 		}
-		System.err.println("No es posible retirar aun de este colchon");
 		return false;
 
 

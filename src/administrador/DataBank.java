@@ -1,4 +1,4 @@
-package gestorAplicacion.administrador;
+package administrador;
 
 import java.io.Serializable;
 import java.util.ArrayList;

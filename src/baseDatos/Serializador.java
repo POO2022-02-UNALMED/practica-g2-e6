@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 
-import gestorAplicacion.administrador.DataBank;
+import administrador.DataBank;
 
 public class Serializador {
 

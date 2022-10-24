@@ -16,16 +16,16 @@ public class Ingreso extends Movimiento{
 	private Divisa divisaOrigen;
 	private Divisa divisaDestino;
 	
-	public Ingreso(double valor, LocalDate fechaCreacion,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		this(valor, fechaCreacion, true,null, cuentaOrigen, cuentaDestino,divisaOrigen,divisaDestino);
+	public Ingreso(double valorDestino, double valorOrigen, LocalDate fechaCreacion,Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		this(valorDestino, valorOrigen, fechaCreacion, true,null, cuentaOrigen, cuentaDestino,divisaOrigen,divisaDestino);
 	}
 
-	public Ingreso(double valor, LocalDate fechaCreacion , Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisa) {
-		this(valor,fechaCreacion,false, bancoOrigen, null,cuentaDestino,divisa,divisa);
+	public Ingreso(double valorDestino, LocalDate fechaCreacion , Banco bancoOrigen, Cuenta cuentaDestino, Divisa divisa) {
+		this(valorDestino,valorDestino,fechaCreacion,false, bancoOrigen, null,cuentaDestino,divisa,divisa);
 	}
 
-	public Ingreso(double valor, LocalDate fechaCreacion, boolean interno, Banco banco, Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
-		super(valor, fechaCreacion, interno, banco);
+	public Ingreso(double valorDestino, double valorOrigen, LocalDate fechaCreacion, boolean interno, Banco banco, Cuenta cuentaOrigen, Cuenta cuentaDestino, Divisa divisaOrigen, Divisa divisaDestino) {
+		super(valorDestino, valorOrigen, fechaCreacion, interno, banco);
 		this.cuentaOrigen = cuentaOrigen;
 		this.cuentaDestino = cuentaDestino;
 		this.divisaOrigen = divisaOrigen;

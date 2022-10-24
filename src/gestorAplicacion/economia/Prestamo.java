@@ -1,14 +1,13 @@
 package gestorAplicacion.economia;
 
-import gestorAplicacion.administrador.Utils;
-import gestorAplicacion.usuario.Bolsillo;
+import administrador.Utils;
 import gestorAplicacion.usuario.Cuenta;
 import gestorAplicacion.usuario.Usuario;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Prestamo implements Serializable, Abonable {
+public abstract class Prestamo implements Serializable, Abonable<double[]> {
 
     /**
      *
@@ -136,53 +135,51 @@ public abstract class Prestamo implements Serializable, Abonable {
         this.cumplida = cumplida;
     }
 
-    public void calcularCuotas() {
+    public double calcularCuotas() {
         long n = Utils.mesesEntreFechas(this.ultimaFechaPago, this.fechaFinal);
         double capitalPendiente = this.interesesPendientes + this.valorInicial - this.valorPagado;
         double r = Math.pow(1 + this.TEA / 100, 1 / 12.0) - 1;
         double cuotaMensual = (r * capitalPendiente) / (1 - Math.pow(1 + r, -n));
-        System.out.println("Se recomienda una cuota mensual de " + cuotaMensual + " " + this.divisa);
-        System.out.println("Para poder dar cumplimiento a la fecha del cobro");
+        return cuotaMensual;
     }
 
-    public boolean abonar(double monto, Cuenta origen) {
+    public double[] abonar(double monto, Cuenta origen) {
+    	double[] arreglo = new double[3];
         if (!cumplida) {
             double capitalPendiente = this.valorInicial - this.valorPagado;
             long diasDeIntereses = Utils.diasEntreFechas(this.ultimaFechaPago, LocalDate.now());
             double intereses = interesesPendientes + ((this.interesesPendientes + capitalPendiente) * (Math.pow(1 + (this.TEA / 100), diasDeIntereses / 365.0) - 1));
             double pendiente = intereses + capitalPendiente;
             LocalDate now = LocalDate.now();
-            Salida salida = new Salida(monto, now, origen, null, origen.getDivisa(), this.divisa);
+            double[] monto2 = origen.getDivisa().ConvertToDivisa(monto, this.divisa);
+            Salida salida = new Salida(monto2[0],monto, now, origen, null, origen.getDivisa(), this.divisa);
             if (this.usuario.nuevaSalida(salida)) {
-                double[] monto2 = origen.getDivisa().ConvertToDivisa(monto, this.divisa);
                 double nuevosIntereses = Math.max(0, intereses - monto2[0]);
                 double nuevoCapital = Math.min(capitalPendiente, pendiente - monto2[0]);
-                System.out.println("Intereses pagados de: " + (intereses - nuevosIntereses) + " " + this.divisa);
-                System.out.println("Abono a Capital de: " + Math.max(0, monto2[0] - intereses + nuevosIntereses) + " " + this.divisa);
-                System.out.println("TRM usada de: " + monto2[1]);
+                arreglo[0] = intereses - nuevosIntereses;
+                arreglo[1] = Math.max(0, monto2[0] - intereses + nuevosIntereses);
+                arreglo[2] = monto2[1];
                 this.interesesPendientes = nuevosIntereses;
                 this.valorPagado = this.valorInicial - nuevoCapital;
                 this.ultimaFechaPago = LocalDate.now();
-                if (this.valorPagado < this.valorInicial) {
-                    System.out.println("Te queda por pagar: " + nuevoCapital);
-                    calcularCuotas();
-                } else {
-                    System.err.println("FELICIDADES PAGASTE TU PRESTAMO");
-                    this.cumplida = true;
-                    if (valorPagado > valorInicial) {
-                        System.out.println("Quedaste con un saldo a favor de: " + (valorPagado - valorInicial));
-                        System.out.println("Este se enviara a tu Bolsillo default");
-                        Bolsillo bolsillo = this.usuario.getBolsillos().get(0);
-                        Ingreso ingreso = new Ingreso(this.divisa.ConvertToDivisa(valorPagado - valorInicial, bolsillo.getDivisa())[0], LocalDate.now(), true, null, null, bolsillo, this.divisa, bolsillo.getDivisa());
-                        usuario.nuevoIngreso(ingreso);
-                    }
-                }
-                return true;
+                return arreglo;                
+            }else {
+            	System.err.println("Abono Fallido");
             }
-            return false;
+            return null;
         }
         System.err.println("El prestamo ya esta pago, no es posible generar el abono");
-        return false;
+        return null;
 
+    }
+
+    public Movimiento terminar(Cuenta cuenta) {
+    	 this.cumplida = true;
+         if (valorPagado > valorInicial) {
+             Ingreso ingreso = new Ingreso(this.divisa.ConvertToDivisa(valorPagado - valorInicial, cuenta.getDivisa())[0],(valorPagado-valorInicial), LocalDate.now(), true, null, null, cuenta, this.divisa, cuenta.getDivisa());
+             usuario.nuevoIngreso(ingreso);
+             return ingreso;
+         }
+         return null;
     }
 }

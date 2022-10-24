@@ -11,23 +11,31 @@ public abstract class Movimiento implements Serializable{
 	private static final long serialVersionUID = 3102227367414792060L;
 	
 	
-	private double valor;
+	private double valorDestino;
+	private double valorOrigen;
 	private LocalDate fechaCreacion;
 	private boolean interno;
 	private Banco bancoOrigen;
 	
-	public Movimiento(double valor, LocalDate fechaCreacion, boolean interno, Banco bancoOrigen) {
-		setValor(valor);
+	public Movimiento(double valorDestino, double valorOrigen, LocalDate fechaCreacion, boolean interno, Banco bancoOrigen) {
+		setValorDestino(valorDestino);
+		setValorOrigen(valorOrigen);
 		setFechaCreacion(fechaCreacion);
 		setInterno(interno);
 		setBanco(bancoOrigen);
 	}
 	
-	public double getValor() {
-		return valor;
+	public double getValorDestino() {
+		return valorDestino;
 	}
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValorDestino(double valorDestino) {
+		this.valorDestino = valorDestino;
+	}
+	public double getValorOrigen() {
+		return valorOrigen;
+	}
+	public void setValorOrigen(double valorOrigen) {
+		this.valorOrigen = valorOrigen;
 	}
 	public LocalDate getFechaCreacion() {
 		return fechaCreacion;

@@ -1,6 +1,5 @@
 package gestorAplicacion.economia;
 
-import gestorAplicacion.usuario.Cuenta;
 import gestorAplicacion.usuario.Usuario;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ public class PrestamoLargoPlazo extends Prestamo {
         setReferencia(referencia);
         setGarantia(garantia);
         setTEA(valorIncial, garantia);
-        calcularCuotas();
     }
 
     public PrestamoLargoPlazo(Usuario usuario, double valorIncial, int tiempo, LocalDate fechaInicio, Divisa divisa, String[] referencia) {
