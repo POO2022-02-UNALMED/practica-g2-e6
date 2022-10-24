@@ -118,16 +118,6 @@ public class Meta implements Serializable, Abonable<Movimiento>, Contable {
             double[] monto2 = origen.getDivisa().ConvertToDivisa(monto,this.divisa);
             Salida salida = new Salida(monto2[0],monto, LocalDate.now(), origen, null, origen.getDivisa(), this.divisa);
             boolean retirado = this.usuario.nuevaSalida(salida);
-            /*if (retirado) {
-                System.out.println("Nuevo Saldo en la meta de: "+ this.saldo + " "+ this.divisa);
-                System.out.println("Nuevo saldo en la cuenta origen de: "+ origen.getSaldo() + "" + origen.getDivisa());
-                System.out.println("TRM usada de: "+ monto2[1]);
-                metaCumplida();
-                return true;
-            }else {
-            	System.err.println("Abono Fallido");
-            	return null;
-            }*/
             if(!retirado) {
             	return null;
             }

@@ -163,14 +163,10 @@ public abstract class Prestamo implements Serializable, Abonable<double[]> {
                 this.valorPagado = this.valorInicial - nuevoCapital;
                 this.ultimaFechaPago = LocalDate.now();
                 return arreglo;                
-            }else {
-            	System.err.println("Abono Fallido");
             }
             return null;
         }
-        System.err.println("El prestamo ya esta pago, no es posible generar el abono");
         return null;
-
     }
 
     public Movimiento terminar(Cuenta cuenta) {

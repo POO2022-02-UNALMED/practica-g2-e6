@@ -222,7 +222,7 @@ public class Main {
                 opc = validarEntradaInt(list.size(), true, 1, true) - 1;
                 origen = list.get(opc);
                 if (origen == destino) {
-                    System.err.println("NO PUEDES ENVIAR EL DINERO AL MISMO LUGAR");
+                    System.out.println("NO PUEDES ENVIAR EL DINERO AL MISMO LUGAR");
                     repet = true;
                 } else {
                     return origen;
@@ -280,7 +280,7 @@ public class Main {
                 }
             }
             if (retirado) {
-                System.err.println("Nuevo saldo en " + origen.getNombre() + " es: " + origen.getSaldo());
+                System.out.println("Nuevo saldo en " + origen.getNombre() + " es: " + origen.getSaldo());
             }
         }else {
         	System.out.println("La cuenta no existe o no contiene dinero");
@@ -443,8 +443,8 @@ public class Main {
                 double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(), Divisa.values()[divisa]);
                 colchon.setDivisa(Divisa.values()[divisa]);
                 colchon.setSaldo(nuevoSaldo[0]);
-                System.err.println("Tasa de cambio: " + nuevoSaldo[1]);
-                System.err.println("El nuevo saldo es: " + nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: " + nuevoSaldo[1]);
+                System.out.println("El nuevo saldo es: " + nuevoSaldo[0]);
             }
             case 3 -> {
                 System.out.println("¿Cuanto lo desea modificar?");
@@ -522,18 +522,18 @@ public class Main {
                 double[] nuevoSaldo = meta.getDivisa().ConvertToDivisa(meta.getSaldo(), Divisa.values()[divisa]);
                 meta.setDivisa(Divisa.values()[divisa]);
                 meta.setSaldo(nuevoSaldo[0]);
-                System.err.println("Tasa de cambio: " + nuevoSaldo[1]);
-                System.err.println("Nuevo saldo: " + nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: " + nuevoSaldo[1]);
+                System.out.println("Nuevo saldo: " + nuevoSaldo[0]);
                 break;
             case 3:
                 System.out.println("Nuevo Objetivo (en " + meta.getDivisa() + "): ");
                 bol = meta.setObjetivo(Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false));
                 if(!bol[0]) {
-                	System.err.println("Esta Meta ya esta cumplida por lo que no es posible cambiar el objetivo");
+                	System.out.println("Esta Meta ya esta cumplida por lo que no es posible cambiar el objetivo");
                 	return;
                 }
                 if (bol[1]) {
-                    System.err.println("FELICIDADES HAS CUMPLIDO TU META " + meta.getNombre().toUpperCase());
+                    System.out.println("FELICIDADES HAS CUMPLIDO TU META " + meta.getNombre().toUpperCase());
                     System.out.println("Escoge un Bolsillo al cual enviar el dinero para que lo puedas usar (" + String.format("%.2f",meta.getSaldo()) + " " + meta.getDivisa() + "): ");
                     Utils.listarBolsillos(usuario);
                     int option = Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1;
@@ -606,7 +606,7 @@ public class Main {
         if (puntaje > 5) {
             AceptadoPrestamoLP(dineroSolicitado, tiempo * 12, divisa);
         } else {
-            System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
+            System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
         }
     }
 
@@ -676,10 +676,10 @@ public class Main {
                 usuario.nuevoPrestamo(prestamo, usuario.getBolsillos().get(bolsillo));
                 System.out.println("PRESTAMO APROBADO...");
             } else {
-                System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
+                System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
             }
         } else {
-            System.err.println("PRESTAMO RECHAZADO/CANCELADO...");
+            System.out.println("PRESTAMO RECHAZADO/CANCELADO...");
         }
     }
 
@@ -694,7 +694,7 @@ public class Main {
         boolean bol;
         switch (option) {
             case 1:
-                System.out.println("Seleccione una meta");//TODO: Preguntar
+                System.out.println("Seleccione un prestamo");
                 bol = Utils.listarPrestamos(usuario);
                 if(!bol) {return;}
                 abonable = usuario.getPrestamos().get(Validador.validarEntradaInt(usuario.getPrestamos().size(), true, 1, true) - 1);
@@ -723,7 +723,7 @@ public class Main {
                     System.out.println("TRM usada de: "+ String.format("%.2f",movimiento.getValorDestino()/movimiento.getValorOrigen()));
                     bol2 = meta.metaCumplida();
                     if (bol2) {
-                        System.err.println("FELICIDADES HAS CUMPLIDO TU META " + meta.getNombre().toUpperCase());
+                        System.out.println("FELICIDADES HAS CUMPLIDO TU META " + meta.getNombre().toUpperCase());
                         System.out.println("Escoge un Bolsillo al cual enviar el dinero para que lo puedas usar (" + String.format("%.2f",meta.getSaldo()) + " " + meta.getDivisa() + "): ");
                         Utils.listarBolsillos(usuario);
                         int opt = Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1;
@@ -748,11 +748,11 @@ public class Main {
                             System.out.println("Quedaste con un saldo a favor de: " + (prestamo.getValorPagado() - prestamo.getValorInicial()));
                             System.out.println("Este se enviara a tu Bolsillo DEFAULT");
                         }
-                        System.err.println("FELICIDADES PAGASTE TU PRESTAMO");
+                        System.out.println("FELICIDADES PAGASTE TU PRESTAMO");
                     }
                 }
             }else {
-            	System.err.println("Abono Fallido");
+            	System.out.println("Abono Fallido");
             }
         }else {
         	System.out.println("La cuenta no existe o no contiene dinero");
