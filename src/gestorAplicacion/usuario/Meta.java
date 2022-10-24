@@ -1,9 +1,8 @@
 package gestorAplicacion.usuario;
 
-import gestorAplicacion.economia.Abonable;
-import gestorAplicacion.economia.Contable;
-import gestorAplicacion.economia.Divisa;
-import gestorAplicacion.economia.Salida;
+import gestorAplicacion.administrador.Utils;
+import gestorAplicacion.administrador.Validador;
+import gestorAplicacion.economia.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -59,8 +58,25 @@ public class Meta implements Serializable, Abonable, Contable {
 
 	public void setObjetivo(double objetivo) {
 		this.objetivo = objetivo;
+		this.metaCumplida();
 	}
-
+	private void metaCumplida(){
+		if(this.saldo>= this.objetivo ){
+			System.err.println("FELICIDADES HAS CUMPLIDO TU META "+ this.nombre.toUpperCase());
+			System.out.println("Escoge un Bolsillo al cual enviar el dinero para que lo puedas usar ("+this.saldo+" "+this.divisa+"): ");
+			this.usuario.listarBolsillos();
+			int option = Validador.validarEntradaInt(this.usuario.getBolsillos().size(), true, 1, true) -1;
+			Bolsillo bolsillo = this.usuario.getBolsillos().get(option);
+			double[] nuevoSaldo = this.divisa.ConvertToDivisa(this.saldo,bolsillo.getDivisa());
+			this.saldo = 0;
+			this.cumplida = true;
+			this.fechaCumplimiento = LocalDate.now();
+			Ingreso ingreso = new Ingreso(nuevoSaldo[0], LocalDate.now(), true,null, null,bolsillo,this.divisa,bolsillo.getDivisa());
+			usuario.nuevoIngreso(ingreso);
+			System.out.println("Nuevo saldo en el bolsillo de: "+ nuevoSaldo[0]+ " "+ bolsillo.getDivisa());
+			System.out.println("TRM usada de: "+ nuevoSaldo[1]);
+		}
+	}
 	public Divisa getDivisa() {
 		return divisa;
 	}
@@ -102,7 +118,9 @@ public class Meta implements Serializable, Abonable, Contable {
 	}
 
 	@Override
-	public Salida abonar(double monto) {
+	public Salida abonar(double monto, Cuenta origen) {
+		this.saldo += monto;
+		metaCumplida();
 		return null;
 	}
 }

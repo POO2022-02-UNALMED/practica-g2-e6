@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-    	Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
+        Usuario usuario3 = new Usuario("3", "Oswaldo Andres Pena Rojas", "oPena@unal.edu.co", LocalDate.now(), "segura3");
         Usuario usuario2 = new Usuario("2", "David Esteban Martin Acosta", "dMartin@unal.edu.co", LocalDate.now(), "segura2");
         Usuario usuario1 = new Usuario("1", "Jaime Alberto Guzman Luna", "jGuzman@unal.edu.co", LocalDate.now(), "segura1");
         DataBank.nuevoUsuario(usuario3);
@@ -45,8 +45,8 @@ public class Main {
             System.out.println("4. Enviar y sacar dinero de su cuenta");
             System.out.println("5. Agregar bolsillo a su cuenta");
             System.out.println("6. Agregar colchón a su cuenta");
-            System.out.println("7. Agregar Meta a su cuenta");//TODO
-            System.out.println("8. Modificar Colchón/Bolsillo/Meta");//TODO: parte De la meta
+            System.out.println("7. Agregar Meta a su cuenta");
+            System.out.println("8. Modificar Colchón/Bolsillo/Meta");
             System.out.println("9. Solicitar Préstamo");
             System.out.println("10. Abonar a un préstamo o Meta");//TODO
             System.out.println("11. Logout");
@@ -241,7 +241,7 @@ public class Main {
             case 2:
                 System.out.println("Seleccione a quien le desea enviar el dinero");
                 Utils.listarUsuarios();
-                destino = DataBank.getUsuarios().get(Validador.validarEntradaInt(DataBank.getUsuarios().size(), true, 1, true)-1).getBolsillos().get(0);
+                destino = DataBank.getUsuarios().get(Validador.validarEntradaInt(DataBank.getUsuarios().size(), true, 1, true) - 1).getBolsillos().get(0);
                 break;
             case 3:
                 return;
@@ -313,6 +313,7 @@ public class Main {
         System.out.println("Colchon " + nombre + " AGREGADO CON EXITO");
 
     }
+
     //OPCION 7
     private static void agregarMeta() {
         int divisa;
@@ -325,10 +326,12 @@ public class Main {
         System.out.println("Escriba el nombre que desea asignarle a la meta: ");
         nombre = Validador.validarEntradaTexto(true);
         System.out.println("ingrese el valor objetivo que desea asignarle a la meta (recuerde que no podra sacar el dinero de una meta hasta alcanzar el objetivo): ");
-        objetivo = validarEntradaDouble(Double.MAX_VALUE,true, 0, true);
-        Meta meta = new Meta(usuario, nombre, LocalDate.now(),objetivo, Divisa.values()[divisa]);
+        objetivo = validarEntradaDouble(Double.MAX_VALUE, true, 0, true);
+        Meta meta = new Meta(usuario, nombre, LocalDate.now(), objetivo, Divisa.values()[divisa]);
         usuario.nuevaMeta(meta);
+        System.out.println("Meta Agregada Con Exito");
     }
+
     //OPCION 8
     //Menú para la eleccion de modificacion, sea bolsillo o colchon, luego se envia la eleccion a la funcion modificar
     static void opcionModificar() {
@@ -400,12 +403,9 @@ public class Main {
                 System.err.println("Nuevo saldo: " + nuevoSaldo[0]);
                 break;
             case 3:
-                break;
+                return;
         }
-
-        if (opcion != 3) {
-            System.out.println("MODIFICACION REALIZADA CON EXITO");
-        }
+        System.out.println("MODIFICACION REALIZADA CON EXITO");
     }
 
     //Menú para modificar nombre, divisa o fecha minima de retiro de un colchon
@@ -444,29 +444,83 @@ public class Main {
                 int limite = 0;
                 int total = 0;
                 switch (opcion) {
-                    case 1 -> limite = 31;
-                    case 2 -> limite = 12;
-                    case 3 -> limite = 10;
+                    case 1:
+                        limite = 31;
+                        break;
+                    case 2:
+                        limite = 12;
+                        break;
+                    case 3:
+                        limite = 10;
+                        break;
+                    case 4:
+                        return;
                 }
-                if (limite != 0) {
-                    System.out.println("Ingrese la cantidad que desa aumentar (entre 1 y " + limite + ")");
-                    total = Validador.validarEntradaInt(limite, true, 1, true);
-                }
-                switch (opcion) {
-                    case 1 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusDays(total));
-                    case 2 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusMonths(total));
-                    case 3 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusYears(total));
+                System.out.println("Ingrese la cantidad que desa modificar (entre 1 y " + limite + ")");
+                total = Validador.validarEntradaInt(limite, true, 1, true);
+
+                System.out.println("¿Aumentar o reducir?");
+                System.out.println("1. Aumentar");
+                System.out.println("2. reducir");
+                System.out.println("3. volver al inicio");
+                int opcion2 = Validador.validarEntradaInt(3, true, 1, true);
+                if (opcion2 == 3) {
+                    return;
+                } else if (opcion2 == 2) {
+                    switch (opcion) {
+                        case 1 -> colchon.setFechaRetiro(colchon.getFechaRetiro().minusDays(total));
+                        case 2 -> colchon.setFechaRetiro(colchon.getFechaRetiro().minusMonths(total));
+                        case 3 -> colchon.setFechaRetiro(colchon.getFechaRetiro().minusYears(total));
+                    }
+                } else {
+                    switch (opcion) {
+                        case 1 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusDays(total));
+                        case 2 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusMonths(total));
+                        case 3 -> colchon.setFechaRetiro(colchon.getFechaRetiro().plusYears(total));
+                    }
                 }
             }
+            case 4 -> {
+                return;
+            }
         }
-        if (opcion != 4) {
-            System.out.println("MODIFICACION REALIZADA CON EXITO");
-        }
+        System.out.println("MODIFICACION REALIZADA CON EXITO");
     }
 
     //TODO
     static void modificar(Meta meta) {
+        int opcion, divisa;
+        System.out.println("¿Que desea modificar?");
+        System.out.println("1. Nombre");
+        System.out.println("2. Divisa");
+        System.out.println("3. Nuevo objetivo");
+        System.out.println("4. Volver al inicio");
+        opcion = validarEntradaInt(4, true, 1, true);
 
+        switch (opcion) {
+            case 1:
+                System.out.println("Nuevo nombre:");
+                String nombre = Validador.validarEntradaTexto(true);
+                meta.setNombre(nombre);
+                break;
+            case 2:
+                System.out.println("Nueva divisa:");
+                Utils.listarDivisas();
+                divisa = validarEntradaInt(Divisa.values().length, true, 1, true) - 1;
+                double[] nuevoSaldo = meta.getDivisa().ConvertToDivisa(meta.getSaldo(), Divisa.values()[divisa]);
+                meta.setDivisa(Divisa.values()[divisa]);
+                meta.setSaldo(nuevoSaldo[0]);
+                System.err.println("Tasa de cambio: " + nuevoSaldo[1]);
+                System.err.println("Nuevo saldo: " + nuevoSaldo[0]);
+                break;
+            case 3:
+                System.out.println("Nuevo Objetivo (en " + meta.getDivisa() + "): ");
+                meta.setObjetivo(Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false));
+                break;
+            case 4:
+                return;
+        }
+        System.out.println("MODIFICACION REALIZADA CON EXITO");
     }
 
     //OPCIÓN 9

@@ -1,5 +1,7 @@
 package gestorAplicacion.economia;
 
+import gestorAplicacion.usuario.Cuenta;
+
 import java.time.LocalDate;
 
 public class PrestamoFugaz extends Prestamo {
@@ -31,7 +33,7 @@ public class PrestamoFugaz extends Prestamo {
     }
 
     @Override
-    public Salida abonar(double monto) {
+    public Salida abonar(double monto, Cuenta origen) {
         return null;
     }
 }
