@@ -659,8 +659,8 @@ public class Main {
             double montoPrestamo2 = Divisa.COP.ConvertToDivisa(Math.min(ingresoTotPesos * 0.4, 2000000), divisa)[0];//o el 40% de los ingresos realizados desde que sea inferior a 2 millones
 
             System.out.println("¿Qué cantidad desea prestar?");
-            System.out.println("1. " + montoPrestamo1);
-            System.out.println("2. " + montoPrestamo2);
+            System.out.println("1. " + String.format("%.2f",montoPrestamo1));
+            System.out.println("2. " + String.format("%.2f",montoPrestamo2));
             System.out.println("3. Volver al inicio");
             opcion = Validador.validarEntradaInt(3, true, 1, true);
 
