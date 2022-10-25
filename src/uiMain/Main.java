@@ -97,7 +97,7 @@ public class Main {
                 System.out.println("Dinero total: ");
                 int j = 0;
                 for (double i : dineroTot) {
-                    System.out.println(Divisa.values()[j] + ": " + i);
+                    System.out.println(Divisa.values()[j] + ": " + String.format("%.2f",i));
                     j++;
                 }
                 System.out.println("--------------------------------------------------------------------------");
@@ -145,7 +145,7 @@ public class Main {
         cantidad = Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
         Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
         usuario.nuevoIngreso(ingreso);
-        System.out.println("Su nuevo saldo es de " + cuenta.getSaldo() + " " + cuenta.getDivisa());
+        System.out.println("Su nuevo saldo es de " + String.format("%.2f",cuenta.getSaldo()) + " " + cuenta.getDivisa());
     }
 
     //Opcion3
@@ -185,9 +185,9 @@ public class Main {
                     return;
                 }
                 destino.depositar(monto2[0]);
-                System.out.println("Movimiento exitosos con una trm de: " + monto2[1]);
-                System.out.println("Nuevo saldo en el origen de: " + origen.getSaldo());
-                System.out.println("Nuevo saldo en el destino de: " + destino.getSaldo());
+                System.out.println("Movimiento exitosos con una trm de: " + String.format("%.2f",monto2[1]));
+                System.out.println("Nuevo saldo en el origen de: " + String.format("%.2f",origen.getSaldo()));
+                System.out.println("Nuevo saldo en el destino de: " + String.format("%.2f",destino.getSaldo()));
             }else {
             	System.out.println("La cuenta no existe o no contiene dinero");
             }
@@ -253,7 +253,7 @@ public class Main {
         }
         Cuenta origen = seleccionarCuentaDeOrigen(destino);
         if (origen != null && origen.getSaldo()>0) {
-            System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + origen.getSaldo() + ")");
+            System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + String.format("%.2f",origen.getSaldo()) + ")");
             double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
             Salida salida;
             boolean retirado = false;
@@ -281,7 +281,7 @@ public class Main {
                 }
             }
             if (retirado) {
-                System.out.println("Nuevo saldo en " + origen.getNombre() + " es: " + origen.getSaldo());
+                System.out.println("Nuevo saldo en " + origen.getNombre() + " es: " + String.format("%.2f",origen.getSaldo()));
             }
         }else {
         	System.out.println("La cuenta no existe o no contiene dinero");
@@ -412,8 +412,8 @@ public class Main {
                 double[] nuevoSaldo = bolsillo.getDivisa().ConvertToDivisa(bolsillo.getSaldo(), Divisa.values()[divisa]);
                 bolsillo.setDivisa(Divisa.values()[divisa]);
                 bolsillo.setSaldo(nuevoSaldo[0]);
-                System.err.println("Tasa de cambio: " + nuevoSaldo[1]);
-                System.err.println("Nuevo saldo: " + nuevoSaldo[0]);
+                System.err.println("Tasa de cambio: " + String.format("%.2f",nuevoSaldo[1]));
+                System.err.println("Nuevo saldo: " + String.format("%.2f",nuevoSaldo[0]));
                 break;
             case 3:
                 return;
@@ -444,8 +444,8 @@ public class Main {
                 double[] nuevoSaldo = colchon.getDivisa().ConvertToDivisa(colchon.getSaldo(), Divisa.values()[divisa]);
                 colchon.setDivisa(Divisa.values()[divisa]);
                 colchon.setSaldo(nuevoSaldo[0]);
-                System.out.println("Tasa de cambio: " + nuevoSaldo[1]);
-                System.out.println("El nuevo saldo es: " + nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: " + String.format("%.2f",nuevoSaldo[1]));
+                System.out.println("El nuevo saldo es: " + String.format("%.2f",nuevoSaldo[0]));
             }
             case 3 -> {
                 System.out.println("¿Cuanto lo desea modificar?");
@@ -523,8 +523,8 @@ public class Main {
                 double[] nuevoSaldo = meta.getDivisa().ConvertToDivisa(meta.getSaldo(), Divisa.values()[divisa]);
                 meta.setDivisa(Divisa.values()[divisa]);
                 meta.setSaldo(nuevoSaldo[0]);
-                System.out.println("Tasa de cambio: " + nuevoSaldo[1]);
-                System.out.println("Nuevo saldo: " + nuevoSaldo[0]);
+                System.out.println("Tasa de cambio: " + String.format("%.2f",nuevoSaldo[1]));
+                System.out.println("Nuevo saldo: " + String.format("%.2f",nuevoSaldo[0]));
                 break;
             case 3:
                 System.out.println("Nuevo Objetivo (en " + meta.getDivisa() + "): ");
@@ -713,7 +713,7 @@ public class Main {
         Utils.listarBolsillos(usuario);
         Bolsillo bolsillo = usuario.getBolsillos().get(Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1);
         if(bolsillo.getSaldo()>0) {
-        	System.out.println("Ingrese la cantidad que va a abonar (entre 0 y " + bolsillo.getSaldo() + " " + bolsillo.getDivisa() + "):");
+        	System.out.println("Ingrese la cantidad que va a abonar (entre 0 y " + String.format("%.2f",bolsillo.getSaldo()) + " " + bolsillo.getDivisa() + "):");
             double monto = Validador.validarEntradaDouble(bolsillo.getSaldo(), true, 0, false);
             Object resp = abonable.abonar(monto, bolsillo);
             boolean bol2;

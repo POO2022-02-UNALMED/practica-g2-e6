@@ -17,7 +17,7 @@ public abstract class Validador {
         do {
             try {
                 if (repeted) {
-                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO,\n" +
+                    System.out.println("PORFAVOR INGRESE UN DATO VALIDO,\n" +
                             "RECUERDE USAR ',' EN CASO DE TENER DECIMALES \n" +
                             "y que el valor este entre el "+ opcMin+" y el "+ opcMax);
                 }
@@ -47,7 +47,7 @@ public abstract class Validador {
         do {
             try {
                 if (repeted) {
-                    System.err.println("PORFAVOR INGRESE UN DATO VALIDO");
+                    System.out.println("PORFAVOR INGRESE UN DATO VALIDO");
                 }
                 opcUsuario =entrada.next() + entrada.nextLine();
                 if(!allowSpaces){
