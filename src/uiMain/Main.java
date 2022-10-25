@@ -18,7 +18,7 @@ public class Main {
     //Se implementa login para la facilidad de prueba del profesor y los monitores, se listan los usuarios agregados anteriormente
     static Usuario login() {
         System.out.println("---- LOGIN ----");
-        System.out.println("¿Que usuario eres?");
+        System.out.println("¿Qué usuario eres?");
         Utils.listarUsuarios();
         return DataBank.getUsuarios().get(validarEntradaInt(DataBank.getUsuarios().size(), true, 0, false) - 1);
     }
@@ -39,7 +39,7 @@ public class Main {
         do {
             System.out.println("---- SISTEMA GESTOR DE DINERO ----");
             System.out.println("|| USUARIO: " + usuario.getNombre() + " ||");
-            System.out.println("¿Que operación desea realizar?");
+            System.out.println("¿Qué operación desea realizar?");
             System.out.println("1. Ver saldos disponibles en la cuenta");
             System.out.println("2. Ingresar dinero a su cuenta");
             System.out.println("3. Mover dinero en su cuenta");
@@ -79,7 +79,7 @@ public class Main {
     //Menú de cuentas disponibles y sus respectivos saldos del usuario seleccionado en el login()
     static void saldosDisponibles() {
         int option;
-        System.out.println("¿Que cuentas desea visualizar?");
+        System.out.println("¿Qué cuentas desea visualizar?");
         System.out.println("1. Bolsillos");
         System.out.println("2. Colchones");
         System.out.println("3. Metas");
@@ -142,7 +142,7 @@ public class Main {
         Utils.listarBancos();
         opcBanco = validarEntradaInt(Banco.values().length, true, 1, true) - 1;
         System.out.println("Digite la cantidad que desea ingresar en " + cuenta.getDivisa() + " (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
-        cantidad = Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
+        cantidad = Validador.validarEntradaDouble(10000000, true, 0, false);
         Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
         usuario.nuevoIngreso(ingreso);
         System.out.println("Su nuevo saldo es de " + String.format("%.2f",cuenta.getSaldo()) + " " + cuenta.getDivisa());
@@ -176,7 +176,7 @@ public class Main {
             destino = list.get(opc);
             origen = seleccionarCuentaDeOrigen(destino);
             if (origen != null && origen.getSaldo()>0) {
-                System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + origen.getSaldo() + ")");
+                System.out.println("Ingrese la cantidad a transferir (en " + origen.getDivisa() + ")(entre 0 y " + String.format("%.2f",origen.getSaldo()) + ")");
                 double monto = Validador.validarEntradaDouble(origen.getSaldo(), true, 0, false);
                 double[] monto2 = origen.getDivisa().ConvertToDivisa(monto, destino.getDivisa());
                 boolean retirado = origen.retirar(monto);
@@ -313,10 +313,10 @@ public class Main {
         Utils.listarDivisas();
         divisa = validarEntradaInt(Divisa.values().length, true, 1, true) - 1;
 
-        System.out.println("Escriba el nombre que desea asignarle al colchon: ");
+        System.out.println("Escriba el nombre que desea asignarle al colchón: ");
         nombre = Validador.validarEntradaTexto(true);
 
-        System.out.println("Elija la fecha en que desea liberar el colchon: ");
+        System.out.println("Elija la fecha en que desea liberar el colchón: ");
         for (int i = 1; i <= 12; i++) {
             System.out.println(i + ". " + LocalDate.now().plusMonths(i));
         }
@@ -346,10 +346,10 @@ public class Main {
     }
 
     //OPCION 8
-    //Menú para la eleccion de modificacion, sea bolsillo o colchon, luego se envia la eleccion a la funcion modificar
+    //Menú para la eleccion de modificacion, sea bolsillo o colchón, luego se envia la eleccion a la funcion modificar
     static void opcionModificar() {
         int opcion, opc;
-        System.out.println("¿Que desea modificar?");
+        System.out.println("¿Qué desea modificar?");
         System.out.println("1. Bolsillo");
         System.out.println("2. Colchon");
         System.out.println("3. Meta");
@@ -393,7 +393,7 @@ public class Main {
     //Menú para modificar nombre o divisa de un bolsillo
     static void modificar(Bolsillo bolsillo) {
         int opcion, divisa;
-        System.out.println("¿Que desea modificar?");
+        System.out.println("¿Qué desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
         System.out.println("3. Volver al inicio");
@@ -448,8 +448,8 @@ public class Main {
                 System.out.println("El nuevo saldo es: " + String.format("%.2f",nuevoSaldo[0]));
             }
             case 3 -> {
-                System.out.println("¿Cuanto lo desea modificar?");
-                System.out.println("1. Dias");
+                System.out.println("¿Cuánto lo desea modificar?");
+                System.out.println("1. Días");
                 System.out.println("2. Meses");
                 System.out.println("3. Años");
                 System.out.println("4. Volver al inicio");
@@ -503,7 +503,7 @@ public class Main {
     static void modificar(Meta meta) {
         int opcion, divisa;
         boolean[] bol; 
-        System.out.println("¿Que desea modificar?");
+        System.out.println("¿Qué desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
         System.out.println("3. Nuevo objetivo");
@@ -559,7 +559,7 @@ public class Main {
         Utils.listarDivisas();
         int divisa = Validador.validarEntradaInt(Divisa.values().length, true, 1, true) - 1;
         int opcion;
-        System.out.println("¿Que tipo de prestamo desea solicitar?");
+        System.out.println("¿Qué tipo de prestamo desea solicitar?");
         System.out.println("1. Prestamo fugaz");
         System.out.println("2. Prestamo a largo plazo");
         System.out.println("3. Volver al inicio");
@@ -583,21 +583,21 @@ public class Main {
         double ingresoMensual, dineroSolicitado;
 
         System.out.println("---- Criterios para validar el credito ----");
-        System.out.println("¿Cuantos hijos tiene?: ");
-        hijos = Validador.validarEntradaInt(Integer.MAX_VALUE, true, 1, true);
+        System.out.println("¿Cuántos hijos tiene?: ");
+        hijos = Validador.validarEntradaInt(Integer.MAX_VALUE, true, 0, true);
 
         System.out.println("Digite su ingreso mensual en " + divisa + " (utilice ',' para el símbolo decimal):");
         ingresoMensual = Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
 
-        System.out.println("¿Cuanto dinero desea solicitar para realizar el prestamo? " + divisa + "(utilice ',' para el símbolo decimal) ");
+        System.out.println("¿Cuánto dinero desea solicitar para realizar el prestamo? " + divisa + "(utilice ',' para el símbolo decimal) ");
         dineroSolicitado = Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
 
-        System.out.println("¿Cuantos Años tiene usted?");
+        System.out.println("¿Cuántos Años tiene usted?");
         edad = Validador.validarEntradaInt(120, true, 18, true);
 
         double puntaje = 0;
         if (80 - edad >= 1) {
-            System.out.println("¿A cuantos Años desea solicitar el prestamo?");
+            System.out.println("¿A cuántos Años desea solicitar el prestamo?");
             tiempo = Validador.validarEntradaInt(80 - edad, true, 1, true);
             if (dineroSolicitado / (tiempo * 12) < ingresoMensual * 0.5) {
                 puntaje = -hijos + divisa.ConvertToDivisa(ingresoMensual, Divisa.USD)[0] / 200 + tiempo - divisa.ConvertToDivisa(dineroSolicitado, Divisa.USD)[0] / (tiempo * 12) / 1000;
@@ -625,16 +625,16 @@ public class Main {
         System.out.println("2. No");
         opc = Validador.validarEntradaInt(2, true, 1, true);
         if (opc == 1) {
-            System.out.println("Escoja el Elemento que dejara Como garantia");
+            System.out.println("Escoja el Elemento que dejara Como garantía");
             Utils.listarGarantias();
             opcGarantia = Validador.validarEntradaInt(Garantia.values().length, true, 1, true) - 1;
         }
-        System.out.println("Escoja el bolsillo al que se le enviara el dinero");
+        System.out.println("Escoja el bolsillo al que se le enviará el dinero");
         Utils.listarBolsillos(usuario);
         int bolsillo = Validador.validarEntradaInt(usuario.getBolsillos().size(), true, 1, true) - 1;
         PrestamoLargoPlazo prestamo;
         if (opcGarantia < 0) {
-            prestamo = new PrestamoLargoPlazo(usuario, dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia);
+			prestamo = new PrestamoLargoPlazo(usuario, dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia);
         } else {
             prestamo = new PrestamoLargoPlazo(usuario, dineroSolicitado, tiempo, LocalDate.now(), divisa, referencia, Garantia.values()[opcGarantia]);
         }
@@ -658,7 +658,7 @@ public class Main {
             double montoPrestamo1 = Divisa.COP.ConvertToDivisa(Math.min(ingresoTotPesos * 0.1, 1000000), divisa)[0];//el 10% de los ingresos realizados desde que sea inferior a 1 millon
             double montoPrestamo2 = Divisa.COP.ConvertToDivisa(Math.min(ingresoTotPesos * 0.4, 2000000), divisa)[0];//o el 40% de los ingresos realizados desde que sea inferior a 2 millones
 
-            System.out.println("¿Que cantidad desea prestar?");
+            System.out.println("¿Qué cantidad desea prestar?");
             System.out.println("1. " + montoPrestamo1);
             System.out.println("2. " + montoPrestamo2);
             System.out.println("3. Volver al inicio");
