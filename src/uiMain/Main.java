@@ -141,7 +141,7 @@ public class Main {
         System.out.println("Elija el banco por medio del cual quiere hacer el ingreso");
         Utils.listarBancos();
         opcBanco = validarEntradaInt(Banco.values().length, true, 1, true) - 1;
-        System.out.println("Ingrese la cantidad que desea ingresar en " + cuenta.getDivisa() + " (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
+        System.out.println("Digite la cantidad que desea ingresar en " + cuenta.getDivisa() + " (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
         cantidad = Validador.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
         Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), Banco.values()[opcBanco], cuenta, cuenta.getDivisa());
         usuario.nuevoIngreso(ingreso);
@@ -240,7 +240,7 @@ public class Main {
         System.out.println("¿Desea hacer un envio o retiro?");
         System.out.println("1. Retiro");
         System.out.println("2. Envio");
-        System.out.println("3. volver al menu");
+        System.out.println("3. Volver al menu");
         option = Validador.validarEntradaInt(3, true, 1, true);
         switch (option) {
             case 2:
@@ -338,7 +338,7 @@ public class Main {
 
         System.out.println("Escriba el nombre que desea asignarle a la meta: ");
         nombre = Validador.validarEntradaTexto(true);
-        System.out.println("ingrese el valor objetivo que desea asignarle a la meta (recuerde que no podra sacar el dinero de una meta hasta alcanzar el objetivo): ");
+        System.out.println("Ingrese el valor objetivo que desea asignarle a la meta (recuerde que no podra sacar el dinero de una meta hasta alcanzar el objetivo): ");
         objetivo = validarEntradaDouble(Double.MAX_VALUE, true, 0, true);
         Meta meta = new Meta(usuario, nombre, LocalDate.now(), objetivo, Divisa.values()[divisa]);
         usuario.nuevaMeta(meta);
@@ -424,7 +424,7 @@ public class Main {
     //Menú para modificar nombre, divisa o fecha minima de retiro de un colchon
     static void modificar(Colchon colchon) {
         int opcion, divisa;
-        System.out.println("¿Que desea modificar?");
+        System.out.println("¿Qué desea modificar?");
         System.out.println("1. Nombre");
         System.out.println("2. Divisa");
         System.out.println("3. Cambiar fecha");
@@ -449,9 +449,9 @@ public class Main {
             }
             case 3 -> {
                 System.out.println("¿Cuanto lo desea modificar?");
-                System.out.println("1. dias");
-                System.out.println("2. meses");
-                System.out.println("3. años");
+                System.out.println("1. Dias");
+                System.out.println("2. Meses");
+                System.out.println("3. Años");
                 System.out.println("4. Volver al inicio");
                 opcion = validarEntradaInt(4, true, 1, true);
                 int limite = 0;
@@ -474,8 +474,8 @@ public class Main {
 
                 System.out.println("¿Aumentar o reducir?");
                 System.out.println("1. Aumentar");
-                System.out.println("2. reducir");
-                System.out.println("3. volver al inicio");
+                System.out.println("2. Reducir");
+                System.out.println("3. Volver al inicio");
                 int opcion2 = Validador.validarEntradaInt(3, true, 1, true);
                 if (opcion2 == 3) {
                     return;
