@@ -45,9 +45,9 @@ public class PrestamoLargoPlazo extends Prestamo {
 	protected void setTEA(double monto, Garantia garantia) {
 		double acumulado = 0;
 		if (monto < Divisa.COP.ConvertToDivisa(5000000, this.getDivisa())[0]) {
-			acumulado += 34.49 - 30;
+			acumulado += super.baseTEAAlto - 30;
 		} else {
-			acumulado += 30.69 - 30;
+			acumulado += super.baseTEABajo - 30;
 		}
 		if (garantia != null) {
 			switch (garantia) {
