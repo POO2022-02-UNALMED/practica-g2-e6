@@ -11,7 +11,7 @@ class VentanaInicio(Tk):
         # Parámetros de la ventana de inicio
         self.title('Sistema Gestor de Dinero')
         self.option_add("*tearOff",  False)
-        self.geometry("1400x720")
+        self.geometry("1366x768")
         self.resizable(False,False)
 
         # Barra de menú
@@ -20,13 +20,7 @@ class VentanaInicio(Tk):
         inicio.add_command(label = "Descripcion", command = lambda: self.desplegarDescripcion())
         inicio.add_command(label = "Salir", command = lambda: self.destroy())
         self._barraMenu.add_cascade(label = "Inicio", menu = inicio)
-        self.config(menu = self._barraMenu)
-
-        archivo = Menu(self._barraMenu)
-        archivo.add_command(label="Aplicacion", command=lambda: infoApp())
-        archivo.add_command(label="Salir y guardar", command=lambda: cerrarGuardar())
-        self._barraMenu.add_cascade(label="Archivo", menu=archivo)
-        
+        self.config(menu = self._barraMenu)       
 
         self._p1 = P1(self)
         self._p2 = P2(self) 
@@ -37,7 +31,7 @@ class VentanaInicio(Tk):
     # Función desplegar descripción de la aplicaciíon 
     def desplegarDescripcion(self):
         self._p1._descripcion.pack(pady=(10,0))
-        self.geometry("1420x840")
+        self.geometry("1366x768")
 
 class P1(Frame):
     def __init__(self, ventana):
@@ -49,14 +43,22 @@ class P1(Frame):
         self._p4_1 = Frame(self)
         self._p4_2 = Frame(self)
 
-        textoSaludo = f"Bienvenid@ al Sistema de Gestor de Dinero\n"
+        textoSaludo = f"Bienvenido(a) al Sistema de Gestor de Dinero\n"
 
         self._saludo = Label(self._p3, text = textoSaludo, font = ("Arial Rounded MT Bold", 16), fg = "#131D60", bg= "#AEDEF5")
         self._saludo.pack()
 
-        textoDescripcion = f"El Sistema de Gestor de Dinero es una aplicación que permite al usuario realizar multiples\n" \
-                           f"..." \
-                           f"..." 
+        textoDescripcion = f"El Sistema de Gestor de Dinero es una aplicación que permite al usuario realizar multiples tareas como:\n" \
+                           f"1. Ver saldos disponibles en la cuenta.\n" \
+                           f"2. Ingresar dinero a su cuenta.\n" \
+                           f"3. Mover dinero en su cuenta.\n" \
+                           f"4. Enviar y sacar dinero de su cuenta.\n" \
+                           f"5. Agregar bolsillo a su cuenta.\n" \
+                           f"6. Agregar colchon a su cuenta.\n" \
+                           f"7. Agregar meta a su cuenta.\n" \
+                           f"8. Modificar Colchon\Bolsillo\Meta.\n" \
+                           f"9. Solicitar Prestamo.\n" \
+                           f"10. Abonar a un prestamo o meta.\n" \
                            
         self._descripcion = Label(self._p3, text = textoDescripcion, width = 100, justify = "left", font=("Verdana", 8))
 

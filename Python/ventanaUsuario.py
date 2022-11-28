@@ -24,7 +24,7 @@ class VentanaUsuario(Tk):
 
         self.title('Sistema Gestor de Dinero')
         self.option_add("*tearOff",  False)
-        self.geometry("1400x720")
+        self.geometry("1366x768")
         self.resizable(False,False)
 
         # Barra de menú
