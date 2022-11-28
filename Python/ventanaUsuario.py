@@ -336,3 +336,351 @@ class VentanaUsuario(Tk):
         FFIngresarColchones.pack()
 
         VentanaUsuario.framesEnPantalla.append(frameIngresarColchones)
+
+        #Boton para Mover dinero a Bolsillos
+        def botonMoverBolsillos():
+
+            try:
+                verificarVacio(FFMoverBolsillos)
+                cantidad = FFMoverBolsillos.getValue("Cantidad a transferir")
+   
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameMoverBolsillos = Frame(self)
+        nombreMoverBolsillos = Label(frameMoverBolsillos, text="Ingresar dinero a un colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descMoverBolsillos = Label(frameMoverBolsillos, text="Seleccionar el colchon al que desea ingresar el dinero", font=("Arial Rounded MT Bold", 14))
+        FFMoverBolsillos = FieldFrame(frameMoverBolsillos, None, ["Elegir a que bolsillo desea mover su dinero", "De donde sale el dinero", "Escoger uno de los disponibles", "Cantidad a transferir"], None, None)
+        FFMoverBolsillos.crearBotones(botonMoverBolsillos)
+
+        outputMoverBolsillos = Text(frameMoverBolsillos, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputMoverBolsillos)
+
+        nombreMoverBolsillos.pack()
+        descMoverBolsillos.pack()
+        FFMoverBolsillos.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameMoverBolsillos)
+
+        #Boton para Mover dinero a Colchones
+        def botonMoverColchones():
+
+            try:
+                verificarVacio(FFMoverColchones)
+                cantidad = FFMoverColchones.getValue("Cantidad a transferir")
+   
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameMoverColchones = Frame(self)
+        nombreMoverColchones = Label(frameMoverColchones, text="Ingresar dinero a un colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descMoverColchones = Label(frameMoverColchones, text="Seleccionar el colchon al que desea ingresar el dinero", font=("Arial Rounded MT Bold", 14))
+        FFMoverColchones = FieldFrame(frameMoverColchones, None, ["Elegir a que colchon desea mover su dinero", "De donde sale el dinero", "Escoger uno de los disponibles", "Cantidad a transferir"], None, None)
+        FFMoverColchones.crearBotones(botonMoverColchones)
+
+        outputMoverColchones = Text(frameMoverColchones, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputMoverColchones)
+
+        nombreMoverColchones.pack()
+        descMoverColchones.pack()
+        FFMoverColchones.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameMoverColchones)
+
+        #Boton para Mover dinero a Colchones
+        def botonRetiro():
+
+            try:
+                verificarVacio(FFRetiro)
+                cantidad = FFRetiro.getValue("Cantidad a transferir")
+   
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameRetiro = Frame(self)
+        nombreRetiro = Label(frameRetiro, text="Retirar dinero", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descRetiro = Label(frameRetiro, text="Ingrese los siguientes datos para proceder al retiro de su dinero: ", font=("Arial Rounded MT Bold", 14))
+        FFRetiro = FieldFrame(frameRetiro, None, ["De donde sale el dinero", "Escoger uno de los disponibles", "Cantidad a transferir", "Seleccionar banco"], None, None)
+        FFRetiro.crearBotones(botonRetiro)
+
+        outputRetiro = Text(frameRetiro, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputRetiro)
+
+        nombreRetiro.pack()
+        descRetiro.pack()
+        FFRetiro.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameRetiro)
+
+        #Boton para Mover dinero a Colchones
+        def botonEnvio():
+
+            try:
+                verificarVacio(FFEnvio)
+                cantidad = FFEnvio.getValue("Cantidad a transferir")
+   
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameEnvio = Frame(self)
+        nombreEnvio = Label(frameEnvio, text="Enviar dinero", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descEnvio = Label(frameEnvio, text="Para enviar dinero desde su cuenta ingrese los siguientes datos: ", font=("Arial Rounded MT Bold", 14))
+        FFEnvio = FieldFrame(frameEnvio, None, ["Seleccionar a quien le desea enviar su dinero","De donde sale el dinero", "Escoger uno de los disponibles", "Cantidad a transferir"], None, None)
+        FFEnvio.crearBotones(botonEnvio)
+
+        outputEnvio = Text(frameEnvio, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputEnvio)
+
+        nombreEnvio.pack()
+        descEnvio.pack()
+        FFEnvio.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameEnvio)
+
+        #Boton Agregar Bolsillo
+        def botonAgregarBolsillo():
+
+            try:
+                verificarVacio(FFAgregarBolsillo)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameAgregarBolsillo = Frame(self)
+        nombreAgregarBolsillo = Label(frameAgregarBolsillo, text="Agregar Bolsillo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descAgregarBolsillo = Label(frameAgregarBolsillo, text="Rellene los siguientes datos para agregar un bolsillo a su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFAgregarBolsillo = FieldFrame(frameAgregarBolsillo, None, ["Elegir Divisa","Nombre del nuevo Bolsillo"], None, None)
+        FFAgregarBolsillo.crearBotones(botonAgregarBolsillo)
+
+        outputAgregarBolsillo = Text(frameAgregarBolsillo, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputAgregarBolsillo)
+
+        nombreAgregarBolsillo.pack()
+        descAgregarBolsillo.pack()
+        FFAgregarBolsillo.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameAgregarBolsillo)
+
+        #Boton Agregar Colchon
+        def botonAgregarColchon():
+
+            try:
+                verificarVacio(FFAgregarColchon)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameAgregarColchon = Frame(self)
+        nombreAgregarColchon = Label(frameAgregarColchon, text="Agregar Colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descAgregarColchon = Label(frameAgregarColchon, text="Rellene los siguientes datos para agregar un colchon a su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFAgregarColchon = FieldFrame(frameAgregarColchon, None, ["Elegir Divisa","Nombre del nuevo Colchon", "Fecha de liberacion del colchon"], None, None)
+        FFAgregarColchon.crearBotones(botonAgregarColchon)
+
+        outputAgregarColchon = Text(frameAgregarColchon, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputAgregarColchon)
+
+        nombreAgregarColchon.pack()
+        descAgregarColchon.pack()
+        FFAgregarColchon.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameAgregarColchon)
+
+        #Boton Agregar Meta
+        def botonAgregarMeta():
+
+            try:
+                verificarVacio(FFAgregarMeta)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameAgregarMeta = Frame(self)
+        nombreAgregarMeta = Label(frameAgregarMeta, text="Agregar Meta", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descAgregarMeta = Label(frameAgregarMeta, text="Rellene los siguientes datos para agregar una nueva meta a su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFAgregarMeta = FieldFrame(frameAgregarMeta, None, ["Elegir Divisa","Nombre de la nueva Meta", "Valor Objetivo de la meta"], None, None)
+        FFAgregarMeta.crearBotones(botonAgregarMeta)
+
+        outputAgregarMeta = Text(frameAgregarMeta, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputAgregarMeta)
+
+        nombreAgregarMeta.pack()
+        descAgregarMeta.pack()
+        FFAgregarMeta.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameAgregarMeta)
+
+        #Boton para Modificar Bolsillo
+        def botonModificarBolsillo():
+
+            try:
+                verificarVacio(FFModificarBolsillo)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameModificarBolsillo = Frame(self)
+        nombreModificarBolsillo = Label(frameModificarBolsillo, text="Modificar Bolsillo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descModificarBolsillo = Label(frameModificarBolsillo, text="Rellene los siguientes datos para modificar un bolsillo en su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFModificarBolsillo = FieldFrame(frameModificarBolsillo, None, ["Seleccionar Bolsillo a modificar","¿Qué desea modificar?", "Nueva edición"], None, None)
+        FFModificarBolsillo.crearBotones(botonModificarBolsillo)
+
+        outputModificarBolsillo = Text(frameModificarBolsillo, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputModificarBolsillo)
+
+        nombreModificarBolsillo.pack()
+        descModificarBolsillo.pack()
+        FFModificarBolsillo.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameModificarBolsillo)
+
+        #Boton para Modificar Colchon
+        def botonModificarColchon():
+
+            try:
+                verificarVacio(FFModificarColchon)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameModificarColchon = Frame(self)
+        nombreModificarColchon = Label(frameModificarColchon, text="Modificar Colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descModificarColchon = Label(frameModificarColchon, text="Rellene los siguientes datos para modificar un colchon en su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFModificarColchon = FieldFrame(frameModificarColchon, None, ["Seleccionar Colchon a modificar","¿Qué desea modificar?", "Nueva edición"], None, None) #Condicional para las opciones de eleccion
+        FFModificarColchon.crearBotones(botonModificarColchon)
+
+        outputModificarColchon = Text(frameModificarColchon, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputModificarColchon)
+
+        nombreModificarColchon.pack()
+        descModificarColchon.pack()
+        FFModificarColchon.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameModificarColchon)
+
+        #Boton para Modificar Meta
+        def botonModificarMeta():
+
+            try:
+                verificarVacio(FFModificarMeta)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameModificarMeta = Frame(self)
+        nombreModificarMeta = Label(frameModificarMeta, text="Modificar Meta", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descModificarMeta = Label(frameModificarMeta, text="Rellene los siguientes datos para modificar un colchon en su cuenta: ", font=("Arial Rounded MT Bold", 14))
+        FFModificarMeta = FieldFrame(frameModificarMeta, None, ["Seleccionar Meta a modificar","¿Qué desea modificar?", "Nueva edición"], None, None) 
+        FFModificarMeta.crearBotones(botonModificarMeta)
+
+        outputModificarMeta = Text(frameModificarMeta, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputModificarMeta)
+
+        nombreModificarMeta.pack()
+        descModificarMeta.pack()
+        FFModificarMeta.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameModificarMeta)
+
+        #Boton solicitar un Prestamo Fugaz
+        def botonSolicitarFugaz():
+
+            try:
+                verificarVacio(FFSolicitarFugaz)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameSolicitarFugaz = Frame(self)
+        nombreSolicitarFugaz = Label(frameSolicitarFugaz, text="Solicitar un Prestamo Fugaz", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descSolicitarFugaz = Label(frameSolicitarFugaz, text="Rellene los siguientes datos para solicitar un prestamo fugaz: ", font=("Arial Rounded MT Bold", 14))
+        FFSolicitarFugaz = FieldFrame(frameSolicitarFugaz, None, ["¿Que cantidad desea prestar?","Seleccione un Bolsillo disponible al que se le enviara el dinero"], None, None) 
+        FFSolicitarFugaz.crearBotones(botonSolicitarFugaz)
+
+        outputSolicitarFugaz = Text(frameSolicitarFugaz, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputSolicitarFugaz)
+
+        nombreSolicitarFugaz.pack()
+        descSolicitarFugaz.pack()
+        FFSolicitarFugaz.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameSolicitarFugaz)
+
+        #Boton solicitar un Prestamo Largo
+        def botonSolicitarLargo():
+
+            try:
+                verificarVacio(FFSolicitarLargo)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameSolicitarLargo = Frame(self)
+        nombreSolicitarLargo = Label(frameSolicitarLargo, text="Solicitar un Prestamo a Largo Plazo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descSolicitarLargo = Label(frameSolicitarLargo, text="Rellene los siguientes datos para solicitar un prestamo a largo plazo: ", font=("Arial Rounded MT Bold", 14))
+        FFSolicitarLargo = FieldFrame(frameSolicitarLargo, None, ["¿Cuantos hijos tiene?","Digite su ingreso mensual","¿Cuanto dinero desea solicitar para realizar el prestamo?","¿Cuantos años tiene usted?","¿A cuantos años desea solicitar el prestamo?","Escriba el nombre de una referencia","Escriba el numero telefonico de la referencia","¿Desea dar alguna garantia para reducir la tasa de interes?","Escoja el elemento que dejara como garantia","Escoja el bolsillo al que se le envia el dinero"], None, None) 
+        FFSolicitarLargo.crearBotones(botonSolicitarLargo)
+
+        outputSolicitarLargo = Text(frameSolicitarLargo, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputSolicitarLargo)
+
+        nombreSolicitarLargo.pack()
+        descSolicitarLargo.pack()
+        FFSolicitarLargo.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameSolicitarLargo)
+
+        #Boton abonar a un prestamo
+        def botonAbonarPrestamo():
+
+            try:
+                verificarVacio(FFAbonarPrestamo)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameAbonarPrestamo = Frame(self)
+        nombreAbonarPrestamo = Label(frameAbonarPrestamo, text="Abonar a un Prestamo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descAbonarPrestamo = Label(frameAbonarPrestamo, text="Rellene los siguientes datos para abonar a un prestamo: ", font=("Arial Rounded MT Bold", 14))
+        FFAbonarPrestamo = FieldFrame(frameAbonarPrestamo, None, ["Seleccione el bolsillo desde el que va a abonar","Ingrese la cantidad que va a abonar"], None, None) 
+        FFAbonarPrestamo.crearBotones(botonAbonarPrestamo)
+
+        outputAbonarPrestamo = Text(frameAbonarPrestamo, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputAbonarPrestamo)
+
+        nombreAbonarPrestamo.pack()
+        descAbonarPrestamo.pack()
+        FFAbonarPrestamo.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameAbonarPrestamo)
+
+        #Boton abonar a una meta
+        def botonAbonarMetas():
+
+            try:
+                verificarVacio(FFAbonarMetas)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameAbonarMetas = Frame(self)
+        nombreAbonarMetas = Label(frameAbonarMetas, text="Abonar a una Meta", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descAbonarMetas = Label(frameAbonarMetas, text="Rellene los siguientes datos para abonar a una meta: ", font=("Arial Rounded MT Bold", 14))
+        FFAbonarMetas = FieldFrame(frameAbonarMetas, None, ["Seleccione una meta","Seleccione el bolsillo desde el que va a abonar", "Ingrese la cantidad que va a abonar"], None, None) 
+        FFAbonarMetas.crearBotones(botonAbonarMetas)
+
+        outputAbonarMetas = Text(frameAbonarMetas, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputAbonarMetas)
+
+        nombreAbonarMetas.pack()
+        descAbonarMetas.pack()
+        FFAbonarMetas.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameAbonarMetas)
