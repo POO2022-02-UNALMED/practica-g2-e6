@@ -150,7 +150,7 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(framePantallaInicio)
         cambiarVista(framePantallaInicio)
 
-
+        #Boton para ver el saldo disponible en Bolsillos
         def botonVerBolsillos():
 
             try:
@@ -161,21 +161,178 @@ class VentanaUsuario(Tk):
    
                 verificarNumero(disponible)
                 verificarLongitud(nombre, 3, "Nombre del bolsillo")
-                verificarLongitud(divisa, 5, "Divisa")
+                verificarLongitud(divisa, 3, "Divisa")
 
             except ErrorAplicacion as e:
                 PopUp(str(e))
 
-        #Hacer get para obtener el nombre del usuario como sus bolsillo, en casilla que no sean aditebles
+        #Hacer get para obtener el nombre del usuario como sus bolsillo, casillas que no sean editables, solo para observar
         frameVerBolsillos = Frame(self)
-        nombreVerBolsillos = Label(frameVerBolsillos, text="Saldo en Bolsillos", font=("Verdana", 16), fg = "#245efd")
-        descVerBolsillos = Label(frameVerBolsillos, text="Su saldo disponible en su bolsillo es de:", font=("Verdana", 12))
+        nombreVerBolsillos = Label(frameVerBolsillos, text="Saldo en Bolsillos", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descVerBolsillos = Label(frameVerBolsillos, text="Su saldo disponible en su bolsillo es de:", font=("Arial Rounded MT Bold", 14))
         FFVerBolsillos = FieldFrame(frameVerBolsillos, None, ["Nombre del bolsillo", "Disponible", "Divisa"], None, None, None)
         FFVerBolsillos.crearBotones(botonVerBolsillos)
 
-        outputVerBolsillos = Text(frameVerBolsillos, height=100, font=("Verdana", 10))
+        outputVerBolsillos = Text(frameVerBolsillos, height=100, font=("Arial Rounded MT Bold", 10))
         VentanaUsuario.framesEnPantalla.append(outputVerBolsillos)
 
         nombreVerBolsillos.pack()
         descVerBolsillos.pack()
         FFVerBolsillos.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameVerBolsillos)
+
+        #Boton para ver el saldo disponible en Colchones
+        def botonVerColchones():
+
+            try:
+                verificarVacio(FFVerColchones)
+                nombre = FFVerColchones.getValue("Nombre del colchon")
+                disponible = FFVerColchones.getValue("Disponible")
+                #fechaRetiro = FFVerColchones.getValue("Fecha de retiro")
+                divisa = FFVerColchones.getValue("Divisa")
+   
+                verificarNumero(disponible)
+                verificarLongitud(nombre, 3, "Nombre del bolsillo")
+                verificarLongitud(divisa, 3, "Divisa")
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        #Hacer get para obtener el nombre del usuario como sus colchones, casillas que no sean editables, solo para observar
+        frameVerColchones = Frame(self)
+        nombreVerColchones = Label(frameVerColchones, text="Saldo en Colchones", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descVerColchones = Label(frameVerColchones, text="Su saldo disponible en su colchon es de:", font=("Arial Rounded MT Bold", 14))
+        FFVerColchones = FieldFrame(frameVerColchones, None, ["Nombre del colchon", "Disponible","Fecha de retiro", "Divisa"], None, None, None)
+        FFVerColchones.crearBotones(botonVerColchones)
+
+        outputVerColchones = Text(frameVerColchones, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputVerColchones)
+
+        nombreVerColchones.pack()
+        descVerColchones.pack()
+        FFVerColchones.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameVerColchones)
+
+        #Boton para ver el saldo disponible en Metas
+        def botonVerMetas():
+
+            try:
+                verificarVacio(FFVerMetas)
+                nombre = FFVerMetas.getValue("Nombre de la meta")
+                disponible = FFVerMetas.getValue("Disponible")
+                divisa = FFVerMetas.getValue("Divisa")
+   
+                verificarNumero(disponible)
+                verificarLongitud(nombre, 3, "Nombre de la Meta")
+                verificarLongitud(divisa, 3, "Divisa")
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameVerMetas = Frame(self)
+        nombreVerMetas = Label(frameVerMetas, text="Saldo en Metas", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descVerMetas = Label(frameVerMetas, text="Su saldo disponible en su meta es de:", font=("Arial Rounded MT Bold", 14))
+        FFVerMetas = FieldFrame(frameVerMetas, None, ["Nombre de la meta", "Cumplido","Disponible", "Divisa", "Cantidad objetivo"], None, None, None)
+        FFVerMetas.crearBotones(botonVerMetas)
+
+        outputVerMetas = Text(frameVerMetas, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputVerMetas)
+
+        nombreVerMetas.pack()
+        descVerMetas.pack()
+        FFVerMetas.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameVerMetas)
+
+        #Boton para ver el saldo disponible en el Dinero Total
+        def botonVerDineroTotal():
+
+            try:
+                verificarVacio(FFVerDineroTotal)
+                disponible = FFVerDineroTotal.getValue("Disponible")
+                divisa = FFVerDineroTotal.getValue("Divisa")
+   
+                verificarNumero(disponible)
+                verificarLongitud(divisa, 3, "Divisa")
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameVerDineroTotal = Frame(self)
+        nombreVerDineroTotal = Label(frameVerDineroTotal, text="Saldo Dinero Total", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descVerDineroTotal = Label(frameVerDineroTotal, text="Su dinero total es de:", font=("Arial Rounded MT Bold", 14))
+        FFVerDineroTotal = FieldFrame(frameVerDineroTotal, None, ["Divisa", "Disponible"], None, None)
+        FFVerDineroTotal.crearBotones(botonVerDineroTotal)
+
+        outputVerDineroTotal = Text(frameVerDineroTotal, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputVerDineroTotal)
+
+        nombreVerDineroTotal.pack()
+        descVerDineroTotal.pack()
+        FFVerDineroTotal.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameVerDineroTotal)
+
+        #Boton para Ingresar dinero a bolsillos
+        def botonIngresarBolsillos():
+
+            try:
+                verificarVacio(FFIngresarBolsillos)
+                escogerBolsillo = FFIngresarBolsillos.getValue("Escoger Bolsillo")
+                escogerBanco = FFIngresarBolsillos.getValue("Escoger banco")
+                cantidad = FFIngresarBolsillos.getValue("Ingresar cantidad")
+   
+                verificarLongitud(escogerBanco, 3, "Escoger banco")
+                verificarLongitud(escogerBolsillo, 3, "Escoger Bolsillo")
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameIngresarBolsillos = Frame(self)
+        nombreIngresarBolsillos = Label(frameIngresarBolsillos, text="Ingresar dinero a un bolsillo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descIngresarBolsillos = Label(frameIngresarBolsillos, text="Seleccionar el bolsillo al que desea ingresar el dinero", font=("Arial Rounded MT Bold", 14))
+        FFIngresarBolsillos = FieldFrame(frameIngresarBolsillos, None, ["Escoger Bolsillo", "Escoger banco", "Ingresar cantidad"], None, None)
+        FFIngresarBolsillos.crearBotones(botonIngresarBolsillos)
+
+        outputIngresarBolsillos = Text(frameIngresarBolsillos, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputIngresarBolsillos)
+
+        nombreIngresarBolsillos.pack()
+        descIngresarBolsillos.pack()
+        FFIngresarBolsillos.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameIngresarBolsillos)
+
+        #Boton para Ingresar dinero a sus Colchones
+        def botonIngresarColchones():
+
+            try:
+                verificarVacio(FFIngresarColchones)
+                escogerColchon = FFIngresarColchones.getValue("Escoger colchon")
+                escogerBanco = FFIngresarColchones.getValue("Escoger banco")
+                cantidad = FFIngresarColchones.getValue("Ingresar cantidad")
+   
+                verificarLongitud(escogerBanco, 3, "Escoger banco")
+                verificarLongitud(escogerColchon, 3, "Escoger Bolsillo")
+                verificarNumero(cantidad)
+
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
+        frameIngresarColchones = Frame(self)
+        nombreIngresarColchones = Label(frameIngresarColchones, text="Ingresar dinero a un colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
+        descIngresarColchones = Label(frameIngresarColchones, text="Seleccionar el colchon al que desea ingresar el dinero", font=("Arial Rounded MT Bold", 14))
+        FFIngresarColchones = FieldFrame(frameIngresarColchones, None, ["Escoger colchon", "Escoger banco", "Ingresar cantidad"], None, None)
+        FFIngresarColchones.crearBotones(botonIngresarColchones)
+
+        outputIngresarColchones = Text(frameIngresarColchones, height=100, font=("Arial Rounded MT Bold", 10))
+        VentanaUsuario.framesEnPantalla.append(outputIngresarColchones)
+
+        nombreIngresarColchones.pack()
+        descIngresarColchones.pack()
+        FFIngresarColchones.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameIngresarColchones)
