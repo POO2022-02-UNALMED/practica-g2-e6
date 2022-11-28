@@ -4,6 +4,15 @@ import os
 import tkinter
 from ventanas.fieldFrame import FieldFrame
 
+from excepciones.errorAplicacion import ErrorAplicacion
+from excepciones.excepcionExistente import ExcepcionExistente
+from excepciones.excepcionLista import ExcepcionLista
+from excepciones.excepcionLongitud import ExcepcionLongitud
+from excepciones.excepcionNumerica import ExcepcionNumerica
+from excepciones.excepcionVacio import ExcepcionVacio
+
+from ventanas.popUp import PopUp
+
 
 class VentanaUsuario(Tk):
 
@@ -146,15 +155,14 @@ class VentanaUsuario(Tk):
         def botonVerBolsillos():
 
             try:
-                verificarVacio(FFCrearProducto)
-                nombre = FFCrearProducto.getValue("Nombre del bolsillo")
-                disponible = FFCrearProducto.getValue("Disponible")
-                divisa = FFCrearProducto.getValue("Divisa")
+                verificarVacio(FFVerBolsillos)
+                nombre = FFVerBolsillos.getValue("Nombre del bolsillo")
+                disponible = FFVerBolsillos.getValue("Disponible")
+                divisa = FFVerBolsillos.getValue("Divisa")
    
-                verificarNumero(precio)
-                verificarNumero(cantidad)
-                verificarLongitud(nombre, 3, "Nombre")
-                verificarLongitud(descripcion, 20, "Descripcion")
+                verificarNumero(disponible)
+                verificarLongitud(nombre, 3, "Nombre del bolsillo")
+                verificarLongitud(divisa, 5, "Divisa")
 
             except ErrorAplicacion as e:
                 PopUp(str(e))
