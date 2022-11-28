@@ -1,6 +1,8 @@
 from tkinter import *
 import pathlib
 import os
+from ventanaUsuario import VentanaUsuario
+import ventanaUsuario
 
 class VentanaInicio(Tk):
     def __init__(self):
@@ -19,6 +21,12 @@ class VentanaInicio(Tk):
         inicio.add_command(label = "Salir", command = lambda: self.destroy())
         self._barraMenu.add_cascade(label = "Inicio", menu = inicio)
         self.config(menu = self._barraMenu)
+
+        archivo = Menu(self._barraMenu)
+        archivo.add_command(label="Aplicacion", command=lambda: infoApp())
+        archivo.add_command(label="Salir y guardar", command=lambda: cerrarGuardar())
+        self._barraMenu.add_cascade(label="Archivo", menu=archivo)
+        
 
         self._p1 = P1(self)
         self._p2 = P2(self) 
@@ -67,7 +75,7 @@ class P1(Frame):
         self._imagen.pack()
 
         # Boton de acceso a la aplicacion abajo en P4
-        self._boton = Button(self._p4_2, text = "Acceder a la aplicacion", font = ("Arial Rounded MT Bold", 16), fg = "white", bg = "#245efd", command = lambda: self.accederApp(None, None))
+        self._boton = Button(self._p4_2, text = "Acceder a la aplicacion", font = ("Arial Rounded MT Bold", 16), fg = "white", bg = "#245efd", command = lambda: self.accederApp())
         self._boton.pack()
 
         # Colocar todos los elementos en pantalla
@@ -85,6 +93,11 @@ class P1(Frame):
         self._imagen.configure(image = self._imagenes[self._imagenActual])
         self._imagen.image = self._imagenes[self._imagenActual]
 
+    # Acceder a la aplicacion al darle click al boton de P4
+    def accederApp(self):
+        self._ventana.destroy()
+        ventanaUsuario = VentanaUsuario()
+        
 
 # Frame P2 - Hoja de vida de los integrantes
 class P2(Frame):
