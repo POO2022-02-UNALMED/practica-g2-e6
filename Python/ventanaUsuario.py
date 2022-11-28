@@ -6,7 +6,6 @@ from ventanas.fieldFrame import FieldFrame
 
 from excepciones.errorAplicacion import ErrorAplicacion
 from excepciones.excepcionExistente import ExcepcionExistente
-from excepciones.excepcionLista import ExcepcionLista
 from excepciones.excepcionLongitud import ExcepcionLongitud
 from excepciones.excepcionNumerica import ExcepcionNumerica
 from excepciones.excepcionVacio import ExcepcionVacio
