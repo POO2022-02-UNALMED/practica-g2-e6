@@ -18,13 +18,15 @@ public abstract class Prestamo implements Serializable, Abonable<double[]> {
     protected double valorInicial;
     protected double valorPagado;
     protected int tiempo;            //meses diferidos
-    private LocalDate fechaInicio;
+    private final LocalDate fechaInicio;
     private LocalDate fechaFinal;
     private Divisa divisa;
     private boolean cumplida;
     private double interesesPendientes;
     private LocalDate ultimaFechaPago;
     protected double TEA;
+    protected final double baseTEAAlto = 34.49;  //bases para calcular los intereses dependiendo de las clases hijas
+    protected final double baseTEABajo = 30.69;
 
     public Prestamo(Usuario usuario, double valorInicial, int tiempo, LocalDate fechaInicio, LocalDate fechaFinal, Divisa divisa) {
         setUsuario(usuario);
@@ -32,7 +34,7 @@ public abstract class Prestamo implements Serializable, Abonable<double[]> {
         valorPagado = 0;
         setDivisa(divisa);
         setTiempo(tiempo);
-        setFechaInicio(fechaInicio);
+        this.fechaInicio = fechaInicio;
         setUltimaFechaPago(fechaInicio);
         setFechaPago(fechaFinal);
         setCumplida(false);
@@ -97,10 +99,6 @@ public abstract class Prestamo implements Serializable, Abonable<double[]> {
 
     public LocalDate getFechaInicio() {
         return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
     }
 
     public LocalDate getFechaPago() {

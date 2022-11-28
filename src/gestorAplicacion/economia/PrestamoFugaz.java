@@ -16,9 +16,9 @@ public class PrestamoFugaz extends Prestamo {
     @Override
     protected void setTEA(double monto) {
         if (monto < Divisa.COP.ConvertToDivisa(1000000, this.getDivisa())[0]) {
-            super.TEA = 34.49;
+            super.TEA = super.baseTEAAlto;
         } else {
-            super.TEA = 30.69;
+            super.TEA = super.baseTEABajo;
         }
     }
 
