@@ -1,4 +1,4 @@
-﻿from gestorAplicacion.usuario import Cuenta
+﻿from gestorAplicacion.usuario.Cuenta import Cuenta
 
 
 class Bolsillo(Cuenta):

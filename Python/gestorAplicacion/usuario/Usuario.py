@@ -1,5 +1,4 @@
-﻿from gestorAplicacion.economia import Divisa
-from gestorAplicacion.usuario import Bolsillo
+﻿from gestorAplicacion.usuario.Bolsillo import Bolsillo
 
 class Usuario:
 
@@ -17,7 +16,7 @@ class Usuario:
         self._salidas = []
         self._prestamos = []
         self._metas = []
-        self._bolsillos.append(Bolsillo(self, Divisa.COP, "DEFAULT"))
+        self._bolsillos.append(Bolsillo(self, "COP", "DEFAULT"))
 
     def getCedula(self):
         return self._cedula
@@ -114,19 +113,4 @@ class Usuario:
         self._prestamos.append(prestamo)
         bolsillo.depositar(prestamo.getDivisa().ConvertToDivisa(prestamo.getValorInicial(), bolsillo.getDivisa())[0])
 
-    #Se realiza una separacion del dinero del usuario por divisas guardada en bolsillos, colchones y metas
-    def getDineroTotal(self):
-        total = [0 for _ in range(len([e.name for e in Divisa]))]
-        contables = []
-        contables.extend(self.getBolsillos())
-        contables.extend(self.getColchones())
-        contables.extend(self.getMetas())
-        for i in contables:
-            j = 0
-            while j < len([e.name for e in Divisa]):
-                if i.getDivisa() is [e.name for e in Divisa][j]:
-                    total[j] += i.getSaldo()
-                    break   
-                j += 1
-        return total
 

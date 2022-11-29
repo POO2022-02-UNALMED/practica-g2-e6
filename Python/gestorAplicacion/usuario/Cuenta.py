@@ -1,6 +1,4 @@
-﻿from gestorAplicacion.economia import Contable
-
-class Cuenta(Contable):
+﻿class Cuenta:
 
     numeroCuenta = 0
 

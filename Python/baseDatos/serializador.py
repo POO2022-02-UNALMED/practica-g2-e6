@@ -5,7 +5,7 @@ class Serializador:
         self.args = args
 
     def serializar(self):
-        picklefile = open("src/tmp/usuarios.pkl", "wb")
+        picklefile = open("C:\\Users\\danii\\Documents\\GitHub\\practica-g2-e6\\Python\\baseDatos\\src\\tmp\\usuarios.pkl", "wb")
         for arg in self.args:
             pickle.dump(arg, picklefile)
         picklefile.close()
