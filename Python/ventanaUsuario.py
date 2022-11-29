@@ -4,7 +4,7 @@ import os
 import tkinter
 from ventanas.fieldFrame import FieldFrame
 from tkinter import ttk
-
+from gestorAplicacion.usuario.Usuario import Bolsillo
 from excepciones.errorAplicacion import ErrorAplicacion
 from excepciones.excepcionExistente import ExcepcionExistente
 from excepciones.excepcionLongitud import ExcepcionLongitud
@@ -455,6 +455,8 @@ class VentanaUsuario(Tk):
 
             try:
                 verificarVacio(FFAgregarBolsillo)
+                bolsillo = Bolsillo(self._usuario,"divisa","nombre")
+                self._usuario.nuevoBolsillo(bolsillo)
 
             except ErrorAplicacion as e:
                 PopUp(str(e))
