@@ -5,8 +5,10 @@ from ventanaUsuario import VentanaUsuario
 import ventanaUsuario
 
 class VentanaInicio(Tk):
-    def __init__(self):
+    def __init__(self, usuario):
         super().__init__()
+        
+        self._usuario = usuario
 
         # Parámetros de la ventana de inicio
         self.title('Sistema Gestor de Dinero')
@@ -22,7 +24,7 @@ class VentanaInicio(Tk):
         self._barraMenu.add_cascade(label = "Inicio", menu = inicio)
         self.config(menu = self._barraMenu)       
 
-        self._p1 = P1(self)
+        self._p1 = P1(self, self._usuario)
         self._p2 = P2(self) 
 
         self._p1.grid(row = 0, column = 0, padx=(10,10))
@@ -34,10 +36,11 @@ class VentanaInicio(Tk):
         self.geometry("1366x768")
 
 class P1(Frame):
-    def __init__(self, ventana):
+    def __init__(self, ventana, usuario):
         super().__init__(ventana)
         self._ventana = ventana
-
+        self._usuario = usuario
+        
         # Definicion de Frames
         self._p3 = Frame(self)
         self._p4_1 = Frame(self)
@@ -98,7 +101,7 @@ class P1(Frame):
     # Acceder a la aplicacion al darle click al boton de P4
     def accederApp(self):
         self._ventana.destroy()
-        ventanaUsuario = VentanaUsuario()
+        ventanaUsuario = VentanaUsuario(self._usuario)
         
 
 # Frame P2 - Hoja de vida de los integrantes

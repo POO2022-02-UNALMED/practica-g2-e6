@@ -18,9 +18,9 @@ class VentanaUsuario(Tk):
 
     framesEnPantalla=[]
 
-    def __init__(self):
+    def __init__(self, usuario):
         super().__init__()
-
+        self._usuario = usuario
         # Parámetros de la ventana de usuario
 
         self.title('Sistema Gestor de Dinero')

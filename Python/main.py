@@ -6,9 +6,13 @@ from datetime import date, time, datetime
 from baseDatos.serializador import Serializador
 from baseDatos.deserializador import Deserializador
 
+#Se deserializa el usuario administrador
+deserializar = Deserializador()
+deserializar.deserializar()
+usuario = deserializar.getArgs()
 
 # Ventana de inicio
-ventana =  VentanaInicio()
+ventana =  VentanaInicio(usuario)
 
 # Ejecuta la ventana
 ventana.mainloop()
@@ -19,9 +23,7 @@ ventana.mainloop()
 #serializar.serializar()
 
 
-deserializar = Deserializador()
-deserializar.deserializar()
-usuario = deserializar.getArgs()
+
 
 
 
