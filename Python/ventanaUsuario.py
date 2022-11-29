@@ -14,6 +14,7 @@ from baseDatos.serializador import Serializador
 from ventanas.popUp import PopUp
 
 from gestorAplicacion.usuario.Bolsillo import Bolsillo
+from gestorAplicacion.usuario.Colchon import Colchon
 
 class VentanaUsuario(Tk):
 
@@ -497,7 +498,17 @@ class VentanaUsuario(Tk):
         def botonAgregarColchon():
 
             try:
-                verificarVacio(FFAgregarColchon)
+                divisa = FFAgregarColchon.getValue("Elegir Divisa")
+                nombreBolsillo = FFAgregarColchon.getValue("Nombre del nuevo Colchon")
+                fechaLiberar = FFAgregarColchon.getValue("Fecha de liberacion del colchon")
+
+                colchon = Colchon(self._usuario, divisa, nombreBolsillo, fechaLiberar)
+
+                self._usuario.nuevoColchon(colchon)
+
+                
+                resultadoAgregarColchon = "Colchon agregado con exito"
+                mostrarOutput(resultadoAgregarColchon, outputAgregarColchon)
 
                 
 

@@ -10,9 +10,9 @@ from baseDatos.deserializador import Deserializador
 deserializar = Deserializador()
 deserializar.deserializar()
 usuario = deserializar.getArgs()
-
-for i in range (0,len(usuario.getBolsillos())):
-    print(usuario.getBolsillos()[i].getNombre())
+print(len(usuario.getColchones()))
+for i in range (0,len(usuario.getColchones())):
+    print(usuario.getColchones()[i].getNombre())
 
 # Ventana de inicio
 ventana =  VentanaInicio(usuario)
