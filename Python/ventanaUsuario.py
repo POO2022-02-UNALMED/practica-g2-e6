@@ -10,7 +10,7 @@ from excepciones.excepcionExistente import ExcepcionExistente
 from excepciones.excepcionLongitud import ExcepcionLongitud
 from excepciones.excepcionNumerica import ExcepcionNumerica
 from excepciones.excepcionVacio import ExcepcionVacio
-
+from baseDatos.serializador import Serializador
 from ventanas.popUp import PopUp
 
 from gestorAplicacion.usuario.Bolsillo import Bolsillo
@@ -144,7 +144,11 @@ class VentanaUsuario(Tk):
             devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
             devs.pack(fill=tkinter.Y, expand=True)
 
-        #
+        #serializar el usuario
+        def cerrarGuardar():
+            serializar = Serializador(self._usuario)
+            serializar.serializar()
+            self.destroy()
 
         #Pantalla de inicio
 

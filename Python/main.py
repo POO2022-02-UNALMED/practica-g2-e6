@@ -11,6 +11,9 @@ deserializar = Deserializador()
 deserializar.deserializar()
 usuario = deserializar.getArgs()
 
+for i in range (0,len(usuario.getBolsillos())):
+    print(usuario.getBolsillos()[i].getNombre())
+
 # Ventana de inicio
 ventana =  VentanaInicio(usuario)
 
