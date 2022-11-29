@@ -13,6 +13,7 @@ from excepciones.excepcionVacio import ExcepcionVacio
 
 from ventanas.popUp import PopUp
 
+from gestorAplicacion.usuario.Bolsillo import Bolsillo
 
 class VentanaUsuario(Tk):
 
@@ -142,6 +143,8 @@ class VentanaUsuario(Tk):
 
             devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
             devs.pack(fill=tkinter.Y, expand=True)
+
+        #
 
         #Pantalla de inicio
 
@@ -454,9 +457,18 @@ class VentanaUsuario(Tk):
         def botonAgregarBolsillo():
 
             try:
-                verificarVacio(FFAgregarBolsillo)
-                bolsillo = Bolsillo(self._usuario,"divisa","nombre")
+
+                divisa = FFAgregarBolsillo.getValue("Elegir Divisa")
+                nombreBolsillo = FFAgregarBolsillo.getValue("Nombre del nuevo Bolsillo")
+            
+                bolsillo= Bolsillo(self._usuario, divisa, nombreBolsillo)
+
                 self._usuario.nuevoBolsillo(bolsillo)
+
+                
+                resultadoAgregarBolsillo = "Bolsillo agregado con exito"
+                mostrarOutput(resultadoAgregarBolsillo, outputAgregarBolsillo)
+                
 
             except ErrorAplicacion as e:
                 PopUp(str(e))
@@ -483,10 +495,13 @@ class VentanaUsuario(Tk):
             try:
                 verificarVacio(FFAgregarColchon)
 
+                
+
+
+
             except ErrorAplicacion as e:
                 PopUp(str(e))
-        
-        
+
         frameAgregarColchon = Frame(self)
         nombreAgregarColchon = Label(frameAgregarColchon, text="Agregar Colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
         descAgregarColchon = Label(frameAgregarColchon, text="Rellene los siguientes datos para agregar un colchon a su cuenta: ", font=("Arial Rounded MT Bold", 14))
@@ -495,7 +510,6 @@ class VentanaUsuario(Tk):
 
         outputAgregarColchon = Text(frameAgregarColchon, height=100, font=("Arial Rounded MT Bold", 10))
         VentanaUsuario.framesEnPantalla.append(outputAgregarColchon)
-        
 
         nombreAgregarColchon.pack()
         descAgregarColchon.pack()
@@ -694,3 +708,5 @@ class VentanaUsuario(Tk):
         FFAbonarMetas.pack()
 
         VentanaUsuario.framesEnPantalla.append(frameAbonarMetas)
+
+        
