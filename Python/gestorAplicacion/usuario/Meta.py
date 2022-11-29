@@ -1,5 +1,5 @@
-﻿from gestorAplicacion.economia import *
-
+﻿from gestorAplicacion.economia import Abonable, Contable, Salida, Ingreso
+from datetime import date, time, datetime
 
 class Meta(Abonable, Contable):
 
@@ -78,7 +78,7 @@ class Meta(Abonable, Contable):
     def abonar(self, monto, origen):
         if not self._cumplida:
             monto2 = origen.getDivisa().ConvertToDivisa(monto,self._divisa)
-            salida = Salida(monto2[0],monto, java.time.LocalDate.now(), origen, None, origen.getDivisa(), self._divisa)
+            salida = Salida(monto2[0],monto, date.today(), origen, None, origen.getDivisa(), self._divisa)
             retirado = self._usuario.nuevaSalida(salida)
             if not retirado:
                 return None
@@ -90,7 +90,7 @@ class Meta(Abonable, Contable):
         nuevoSaldo = self.getDivisa().ConvertToDivisa(self._saldo, cuenta.getDivisa())
         self._saldo = 0
         self._cumplida = True
-        self._fechaCumplimiento = java.time.LocalDate.now()
-        ingreso = Ingreso(nuevoSaldo[0], self._saldo, java.time.LocalDate.now(), True, None, None, cuenta, self._divisa, cuenta.getDivisa())
+        self._fechaCumplimiento = date.today()
+        ingreso = Ingreso(nuevoSaldo[0], self._saldo, date.today(), True, None, None, cuenta, self._divisa, cuenta.getDivisa())
         self._usuario.nuevoIngreso(ingreso)
         return ingreso

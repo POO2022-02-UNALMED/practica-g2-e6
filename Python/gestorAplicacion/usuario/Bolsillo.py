@@ -1,4 +1,4 @@
-﻿from gestorAplicacion.economia import Divisa
+﻿from gestorAplicacion.usuario import Cuenta
 
 
 class Bolsillo(Cuenta):

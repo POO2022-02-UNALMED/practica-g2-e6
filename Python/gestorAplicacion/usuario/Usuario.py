@@ -1,16 +1,15 @@
-﻿from gestorAplicacion.economia import *
-
+﻿from gestorAplicacion.economia import Divisa
+from gestorAplicacion.usuario import Bolsillo
 
 class Usuario:
 
     def __init__(self, cedula, nombre, email, fechaIngreso, clave):
-        #instance fields found by Java to Python Converter:
         #Datos necesarios para la identificación del usuario
-        self._cedula = None
-        self._nombre = None
-        self._email = None
-        self._fechaIngreso = None
-        self._clave = None
+        self._cedula = cedula
+        self._nombre = nombre
+        self._email = email
+        self._fechaIngreso = fechaIngreso
+        self._clave = clave
         #Atributos necesarios para la interacción del usuario con el sistema
         self._bolsillos = []
         self._colchones = []
@@ -18,12 +17,6 @@ class Usuario:
         self._salidas = []
         self._prestamos = []
         self._metas = []
-
-        self.setCedula(cedula)
-        self.setNombre(nombre)
-        self.setEmail(email)
-        self.setFechaIngreso(fechaIngreso)
-        self.setClave(clave)
         self._bolsillos.append(Bolsillo(self, Divisa.COP, "DEFAULT"))
 
     def getCedula(self):
@@ -133,9 +126,7 @@ class Usuario:
             while j < len([e.name for e in Divisa]):
                 if i.getDivisa() is [e.name for e in Divisa][j]:
                     total[j] += i.getSaldo()
-                    break #*
-                    #     *
-                    #     
+                    break   
                 j += 1
         return total
 

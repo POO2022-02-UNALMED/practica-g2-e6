@@ -1,20 +1,16 @@
 ﻿from gestorAplicacion.economia import Contable
-from gestorAplicacion.economia import Divisa
 
+class Cuenta(Contable):
 
-class Cuenta(gestorAplicacion.economia.Contable):
+    numeroCuenta = 0
 
     def __init__(self, usuario, divisa, nombre):
-        self._numeroCuenta = 0
-        self._usuario = None
+        self._numeroCuenta = Cuenta.numeroCuenta
+        self._usuario = usuario
         self._saldo = 0
-        self._divisa = 0
-        self._nombre = None
-
-        self._saldo = 0
-        self.setUsuario(usuario)
-        self.setDivisa(divisa)
-        self.setNombre(nombre)
+        self._divisa = divisa
+        self._nombre = nombre
+        Cuenta.numeroCuenta += 1
 
     def getNombre(self):
         return self._nombre
