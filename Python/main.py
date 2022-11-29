@@ -13,16 +13,15 @@ ventana =  VentanaInicio()
 # Ejecuta la ventana
 ventana.mainloop()
 
+#Creación del usuario administrador
+#usuario = Usuario("1","Administrador","administrador@unal.edu.co",date.today(),"12345")
+#serializar = Serializador(usuario)
+#serializar.serializar()
+
+
 deserializar = Deserializador()
 deserializar.deserializar()
-usuarios = deserializar.getArgs()
+usuario = deserializar.getArgs()
 
 
 
-#usuario1 = Usuario("12","Andres","andres@unal.edu.co",date.today(),"123")
-#usuario2 = Usuario("34","Santiago","santiago@unal.edu.co",date.today(),"321")
-
-#usuarios = [usuario1, usuario2]
-
-#serializar = Serializador(usuarios)
-#serializar.serializar()
