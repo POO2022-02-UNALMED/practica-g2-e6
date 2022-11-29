@@ -483,7 +483,8 @@ class VentanaUsuario(Tk):
 
             except ErrorAplicacion as e:
                 PopUp(str(e))
-
+        
+        
         frameAgregarColchon = Frame(self)
         nombreAgregarColchon = Label(frameAgregarColchon, text="Agregar Colchon", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
         descAgregarColchon = Label(frameAgregarColchon, text="Rellene los siguientes datos para agregar un colchon a su cuenta: ", font=("Arial Rounded MT Bold", 14))
@@ -492,6 +493,7 @@ class VentanaUsuario(Tk):
 
         outputAgregarColchon = Text(frameAgregarColchon, height=100, font=("Arial Rounded MT Bold", 10))
         VentanaUsuario.framesEnPantalla.append(outputAgregarColchon)
+        
 
         nombreAgregarColchon.pack()
         descAgregarColchon.pack()
