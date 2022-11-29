@@ -1,18 +1,11 @@
 ﻿class Movimiento:
 
     def __init__(self, valorDestino, valorOrigen, fechaCreacion, interno, bancoOrigen):
-        #instance fields found by Java to Python Converter:
-        self._valorDestino = 0
-        self._valorOrigen = 0
-        self._fechaCreacion = None
-        self._interno = False
-        self._bancoOrigen = 0
-
-        self.setValorDestino(valorDestino)
-        self.setValorOrigen(valorOrigen)
-        self.setFechaCreacion(fechaCreacion)
-        self.setInterno(interno)
-        self.setBanco(bancoOrigen)
+        self._valorDestino = valorDestino
+        self._valorOrigen = valorOrigen
+        self._fechaCreacion = fechaCreacion
+        self._interno = interno
+        self._banco = bancoOrigen
 
     def getValorDestino(self):
         return self._valorDestino

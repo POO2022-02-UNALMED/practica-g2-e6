@@ -1,4 +1,5 @@
-﻿from gestorAplicacion.economia import Divisa
+﻿from gestorAplicacion.usuario import Cuenta
+from datetime import date, time, datetime
 
 class Colchon(Cuenta):
 
@@ -11,7 +12,7 @@ class Colchon(Cuenta):
         self.setFechaRetiro(fechaRetiro)
 
     def retirar(self, monto):
-        if self._fechaRetiro.isBefore(java.time.LocalDate.now()):
+        if self._fechaRetiro.isBefore(date.today()):
             return super().retirar(monto)
         return False
 

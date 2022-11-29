@@ -142,7 +142,7 @@ class P2(Frame):
 
     # Carga imagen en formato png
     def cargarHVImagen(self, hv_num, numero):
-        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'practica-g2-e6\\Python\multimedia\IMG{0}{1}.png'.format(hv_num, numero))
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'practica-g2-e6\\Python\\multimedia\\IMG{0}{1}.png'.format(hv_num, numero))
         photo = PhotoImage(file = path)
         self._labels[numero].configure(image = photo)
         self._labels[numero].image = photo 
@@ -153,7 +153,7 @@ class P2(Frame):
         self._text.grid(row = 1, column = 0)
         self._text.bind('<Button-1>', self.proximo)
 
-        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'practica-g2-e6\\Python\multimedia\TXT{0}4.txt'.format(numero))
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'practica-g2-e6\\Python\\multimedia\\TXT{0}4.txt'.format(numero))
 
         with open(path, "r+") as hv_text:
             self._text.insert(INSERT, hv_text.read())

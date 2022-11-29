@@ -1,16 +1,14 @@
-﻿from gestorAplicacion.economia import *
-
+﻿from gestorAplicacion.usuario.Bolsillo import Bolsillo
 
 class Usuario:
 
     def __init__(self, cedula, nombre, email, fechaIngreso, clave):
-        #instance fields found by Java to Python Converter:
         #Datos necesarios para la identificación del usuario
-        self._cedula = None
-        self._nombre = None
-        self._email = None
-        self._fechaIngreso = None
-        self._clave = None
+        self._cedula = cedula
+        self._nombre = nombre
+        self._email = email
+        self._fechaIngreso = fechaIngreso
+        self._clave = clave
         #Atributos necesarios para la interacción del usuario con el sistema
         self._bolsillos = []
         self._colchones = []
@@ -18,13 +16,7 @@ class Usuario:
         self._salidas = []
         self._prestamos = []
         self._metas = []
-
-        self.setCedula(cedula)
-        self.setNombre(nombre)
-        self.setEmail(email)
-        self.setFechaIngreso(fechaIngreso)
-        self.setClave(clave)
-        self._bolsillos.append(Bolsillo(self, Divisa.COP, "DEFAULT"))
+        self._bolsillos.append(Bolsillo(self, "COP", "DEFAULT"))
 
     def getCedula(self):
         return self._cedula
@@ -121,21 +113,4 @@ class Usuario:
         self._prestamos.append(prestamo)
         bolsillo.depositar(prestamo.getDivisa().ConvertToDivisa(prestamo.getValorInicial(), bolsillo.getDivisa())[0])
 
-    #Se realiza una separacion del dinero del usuario por divisas guardada en bolsillos, colchones y metas
-    def getDineroTotal(self):
-        total = [0 for _ in range(len([e.name for e in Divisa]))]
-        contables = []
-        contables.extend(self.getBolsillos())
-        contables.extend(self.getColchones())
-        contables.extend(self.getMetas())
-        for i in contables:
-            j = 0
-            while j < len([e.name for e in Divisa]):
-                if i.getDivisa() is [e.name for e in Divisa][j]:
-                    total[j] += i.getSaldo()
-                    break #*
-                    #     *
-                    #     
-                j += 1
-        return total
 
