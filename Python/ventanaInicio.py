@@ -130,14 +130,14 @@ class P2(Frame):
 
     # Función para mostrar la siguiente hoja de vida
     def proximo(self, _):
-        if self._next_hv < 3:
+        if self._next_hv < 4:
             self._next_hv = self._next_hv + 1
         else:
             self._next_hv = 0
 
         self._photos = [None, None, None, None]
         self.cargarHVTexto(self._next_hv)
-        for i in range(0, 4):
+        for i in range(0, 5):
             self.cargarHVImagen(self._next_hv, i)
 
     # Carga imagen en formato png

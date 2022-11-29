@@ -3,6 +3,7 @@ import pathlib
 import os
 import tkinter
 from ventanas.fieldFrame import FieldFrame
+from tkinter import ttk
 
 from excepciones.errorAplicacion import ErrorAplicacion
 from excepciones.excepcionExistente import ExcepcionExistente
@@ -133,7 +134,11 @@ class VentanaUsuario(Tk):
             ventanaDevs.title("Sistemas Gestor de Dinero - Acerca de")
 
             textoInfo = f"Desarrolladores:\n" \
-                        f"• Nombre Integrantes\n" \
+                        f"• Juan Daniel Villa Mejia\n" \
+                        f"• Juan Camilo Montoya Mejia\n" \
+                        f"• Carlos Sebastián Zamora Rosero\n" \
+                        f"• Juan David Cortes Amador\n" \
+                        f"• Andrés Felipe Parra Naranjo\n" \
 
             devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
             devs.pack(fill=tkinter.Y, expand=True)
@@ -458,6 +463,7 @@ class VentanaUsuario(Tk):
         nombreAgregarBolsillo = Label(frameAgregarBolsillo, text="Agregar Bolsillo", font=("Arial Rounded MT Bold", 18), fg = "#245efd")
         descAgregarBolsillo = Label(frameAgregarBolsillo, text="Rellene los siguientes datos para agregar un bolsillo a su cuenta: ", font=("Arial Rounded MT Bold", 14))
         FFAgregarBolsillo = FieldFrame(frameAgregarBolsillo, None, ["Elegir Divisa","Nombre del nuevo Bolsillo"], None, None)
+
         FFAgregarBolsillo.crearBotones(botonAgregarBolsillo)
 
         outputAgregarBolsillo = Text(frameAgregarBolsillo, height=100, font=("Arial Rounded MT Bold", 10))
