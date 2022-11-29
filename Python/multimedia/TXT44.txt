@@ -1,2 +1,4 @@
 Andres Felipe Parra Naranjo
-Hola!, mi nombre es Andres, tengo 22 anos , naci y vivo en Medellin. Estudie mi primaria y bachillerato en un colegio del barrio Castilla. Me gusta mucho el futbol, los videojuegos y los datos :) .
+Hola!, mi nombre es Andres, tengo 22 anos , naci y vivo en Medellin. Estudie mi primaria 
+y bachillerato en un colegio del barrio Castilla. Me gusta mucho el futbol, los videojuegos 
+y los datos :) .
